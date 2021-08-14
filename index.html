@@ -72,11 +72,12 @@
     <h1 class="display-4 text-center m-3 p-3">Register</h1>
     <div class="row">
         <div class="col-6 offset-3">
-            <input type="text" placeholder="First Name" class="form-control mb-3">
-            <input type="text" placeholder="Last Name" class="form-control mb-3">
-            <input type="email" placeholder="Email" class="form-control mb-3">
-            <input type="password" placeholder="Password" class="form-control mb-3">
-            <button class="btn btn-primary form-control mb-3" type="submit">Submit</button>
+            <input type="text" placeholder="First Name" name="firstName" class="form-control mb-3">
+            <input type="text" placeholder="Last Name" name="lastName" class="form-control mb-3">
+            <input type="email" placeholder="Email" name="email" class="form-control mb-3">
+            <input type="password" placeholder="Password" name="password" class="form-control mb-3">
+            <input type="password" placeholder="Password Confirm" name="passwordConfirm" class="form-control mb-3">
+            <button id="submitBtn" class="btn btn-primary form-control mb-3" type="submit">Submit</button>
             <p class="text-center mb-3">Already registered? <a class="loginLink" href="">Log In</a></p>
         </div>
     </div>
@@ -86,6 +87,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+<script src="js/DB.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

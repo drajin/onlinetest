@@ -32,6 +32,34 @@ function RegisterLoginForm() {
 }
 
 
-
 let RegisterLogin = new RegisterLoginForm();
 RegisterLogin.init();
+
+
+DB.getAll().then((data)=>{
+    console.log(data);
+},(error)=>{
+    console.log(error);
+});
+
+let inputFirstName = document.querySelector('[name="firstName"]');
+let inputLastName = document.querySelector('[name="lastName"]');
+let inputEmail = document.querySelector('[name="email"]');
+let inputPassword = document.querySelector('[name="password"]');
+let inputPasswordConfirm = document.querySelector('[name="passwordConfirm"]');
+
+let submitBtn = document.querySelector('#submitBtn');
+
+submitBtn.addEventListener('click', registerNewUser);
+
+function registerNewUser() {
+    // validation
+    let newUser = {
+        first_name : inputFirstName.value,
+        last_name : inputLastName.value,
+        email : inputEmail.value,
+        password :inputPassword.value,
+        password_confirm : inputPasswordConfirm.value,
+    };
+    DB.save(newUser);
+}
