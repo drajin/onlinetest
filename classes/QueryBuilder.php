@@ -38,6 +38,11 @@ class QueryBuilder {
         $query->execute([$id]);
     }
 
+    public function login($data)
+    {
+        var_dump($data);
+    }
+
 
     public function register($data)
     {
