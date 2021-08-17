@@ -1,3 +1,19 @@
+//select inputs
+let firstNameInput = document.querySelector('[name="firstName"]');
+let lastNameInput = document.querySelector('[name="lastName"]');
+let emailRegisterInput = document.querySelector('#emailRegister');
+let passwordRegisterInput = document.querySelector('#passwordRegister');
+let passwordConfirmInput = document.querySelector('[name="passwordConfirm"]');
+
+
+
+
+
+
+
+
+let submitRegisterBtn = document.querySelector('#submitRegister');
+let submitLoginBtn = document.querySelector('#submitLogin');
 
 
 
@@ -53,26 +69,20 @@ DB.getAll().then((data)=>{
 
 
 
-//select inputs
-let firstNameInput = document.querySelector('[name="firstName"]');
-let lastNameInput = document.querySelector('[name="lastName"]');
-let emailInput = document.querySelector('[name="email"]');
-let passwordInput = document.querySelector('[name="password"]');
-let passwordConfirmInput = document.querySelector('[name="passwordConfirm"]');
 
-let submitRegisterBtn = document.querySelector('#submitRegister');
-let submitLoginBtn = document.querySelector('#submitLogin');
 
 submitRegisterBtn.addEventListener('click', registerNewUser);
-submitLoginBtn.addEventListener('click', logIn);
+submitLoginBtn.addEventListener('click', loginUser);
+
+let validateForm = new ValidateForm();
 
 function registerNewUser() {
     if(!validateRegisterForm()) {
         let newUser = {
             first_name : firstNameInput.value,
             last_name : lastNameInput.value,
-            email : emailInput.value,
-            password :passwordInput.value,
+            email : emailRegisterInput.value,
+            password :passwordRegisterInput.value,
             password_confirm : passwordConfirmInput.value,
         };
         DB.register(newUser).then((response) => {
@@ -85,71 +95,90 @@ function registerNewUser() {
 
     }
 
-function logIn() {
+function loginUser() {
         //validation
-    if(!validateLoginForm()) {
-        console.log(emailInput.value);
-        let loginData = {
-            email : emailInput.value,
-            password :passwordInput.value,
-        };
-        DB.login(loginData).then((response) => {
-            showView.welcome();
-        },(error)=>{
-            console.log(error);
-        })
-    }
+    validateForm.login()
+    // if(!validateForm.login()) {
+    //     let loginData = {
+    //         email : emailInput.value,
+    //         password :passwordInput.value,
+    //     };
+    //     DB.login(loginData).then((response) => {
+    //         showView.welcome();
+    //     },(error)=>{
+    //         console.log(error);
+    //     })
+    // }
 
 
 }
 
-function validateLoginForm() {
-    const emailValue = emailInput.value.trim();
-    const passwordValue = passwordInput.value.trim();
-    let  hasError = false;
+function ValidateForm() {
 
-    if(emailValue === '') {
-        setError(emailInput, 'Email can\'t be blank');
-        hasError = true;
-    } else if (!isEmail(emailValue)) {
-        setError(emailInput, 'This is not a valid email address');
-        hasError = true;
-    } else {
-        setSuccess(emailInput);
-    }
+    this.hasError = false;
 
-    if(passwordValue === '') {
-        setError(passwordInput, 'Password can\'t be blank');
-        hasError = true;
-    } else {
-        setSuccess(passwordInput);
-    }
+    this.login = function() {
+        this.checkEmail();
+        this.checkPassword();
+        return this.hasError;
+    };
 
-    function isEmail(email) {
+    this.checkEmail = function() {
+        this.emailLoginInput = document.querySelector('#emailLogin');
+        this.passwordLoginInput = document.querySelector('#passwordLogin');
+
+        this.emailValue = this.emailLoginInput.value.trim(); //ovde ne uvati
+        this.passwordValue = this.passwordLoginInput.value.trim();
+        if(this.emailValue === '') {
+            this.setError(this.emailLoginInput, 'Email can\'t be blank');
+            this.hasError = true;
+        } else if (!this.isEmail(this.emailValue)) {
+            this.setError(this.emailLoginInput, 'This is not a valid email address');
+            this.hasError = true;
+        } else {
+            this.setSuccess(this.emailLoginInput);
+        }
+    };
+
+
+    this.checkPassword = function() {
+        if(this.passwordValue === '') {
+            this.setError(this.passwordLoginInput, 'Password can\'t be blank');
+            this.hasError = true;
+        } else {
+            this.setSuccess(this.passwordLoginInput);
+        }
+    };
+
+    this.isEmail = function(email) {
+        alert('poz');
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-    }
+    };
 
     //show error message
-    function setError(input, msg) {
+    this.setError = function (input, msg) {
         input.classList.add("is-invalid");
         input.nextElementSibling.innerText = msg ;
-
-
-    }
+    };
     //show success
-    function setSuccess(input) {
+    this.setSuccess = function(input) {
         input.classList.remove("is-invalid");
         input.classList.add("is-valid");
-    }
-    return hasError;
-}
+    };
+
+
+} //ValidateForm
+
+
+
+
 
 function validateRegisterForm() {
     // get input values and trim to remove the whitespaces
     const firstNameValue = firstNameInput.value.trim();
     const lastNameValue = lastNameInput.value.trim();
-    const emailValue = emailInput.value.trim();
-    const passwordValue = passwordInput.value.trim();
+    const emailValue = emailRegisterInput.value.trim();
+    const passwordValue = passwordRegisterInput.value.trim();
     const passwordConfirmValue = passwordConfirmInput.value.trim();
     let  hasError = false;
 
@@ -169,23 +198,23 @@ function validateRegisterForm() {
     }
 
     if(emailValue === '') {
-        setError(emailInput, 'Email can\'t be blank');
+        setError(emailRegisterInput, 'Email can\'t be blank');
         hasError = true;
     } else if (!isEmail(emailValue)) {
-        setError(emailInput, 'This is not a valid email address');
+        setError(emailRegisterInput, 'This is not a valid email address');
         hasError = true;
     } else {
-        setSuccess(emailInput);
+        setSuccess(emailRegisterInput);
     }
 
     if(passwordValue === '') {
-        setError(passwordInput, 'Password can\'t be blank');
+        setError(passwordRegisterInput, 'Password can\'t be blank');
         hasError = true;
     } else if(passwordValue.length < 6){
-        setError(passwordInput, 'Your password must be at least 6 characters long.');
+        setError(passwordRegisterInput, 'Your password must be at least 6 characters long.');
         hasError = true;
     } else {
-        setSuccess(passwordInput);
+        setSuccess(passwordRegisterInput);
     }
 
     if(passwordConfirmValue === '') {
