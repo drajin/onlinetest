@@ -4,16 +4,17 @@
 
     $json = file_get_contents('php://input');
     $data = json_decode($json);
-    echo $query->login($data);
+
+    echo $query->login_or_post($data);
 
 
 
-//    $db->query('INSERT INTO posts (user_id, title, body) VALUES (:user_id, :title, :body)');
-//    $db->bind('user_id', $_SESSION['user_id']);
-//    $db->bind(':title', $this->title);
-//    $db->bind(':body', $this->body);
-//
-//
+    //var_dump($data);
+
+   //echo $query->register($data);
+   //echo $query->login($data); // ovo je za login
+
+
 //    if(Application::$app->db->execute()) {
 //        return true;
 //    } else {

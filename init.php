@@ -13,8 +13,11 @@ require 'classes/Connection.php';
 require 'classes/QueryBuilder.php';
 require 'classes/Database.php';
 
+
 $db = Connection::connect($config['database']);
 $query = new QueryBuilder($db);
+
+require 'helpers.php';
 
 //Database class
 //$db = new Database($config['database']);
