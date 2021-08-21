@@ -64,34 +64,29 @@ class QueryBuilder {
             }
         }
 
+        public function findUserByEmail($email) {
+
+            $sql = $this->db->prepare("SELECT * FROM users WHERE email=?");
+            $sql->bindParam(':email', $email);
+            $sql->execute([$email]);
+            return $sql->fetch(PDO::FETCH_ASSOC);
+
+        }
+
         public function login($data)
         {
-            //$checkPass = password_verify($data->password, $password); //returns true or false
-            $sql = $this->db->prepare("SELECT * FROM users WHERE email=?");
-            $sql->bindParam(':email', $data->email);
-            $sql->execute([$data->email]);
+            $row = $this->findUserByEmail($data->email);
 
-            $row = $sql->fetch(PDO::FETCH_OBJ);
-
+            if(!$row) {
+                return false;
+            }
             $hashedPassword = $row->password;
 
-            if (password_verify($hashedPassword, $data->password)) {
-                return 'hoce';
+            if(password_verify($data->password,$hashedPassword)){
+                return true;
             } else {
-                return 'nece';
+                return false;
             }
-            //$password = $result->fetsh_assoc()['password'];
-
-            //dd($password);
-            //$singleUser = Application::$app->db->single();
-
-//            $hashedPassword = $singleUser->password;
-//            if(password_verify($password, $hashedPassword)) {
-//                return $singleUser;
-//            } else {
-//                return false;
-//            }
-
 
         }
 
@@ -103,6 +98,8 @@ class QueryBuilder {
                 return $this->login($data);
             }
         }
+
+
 
 
 

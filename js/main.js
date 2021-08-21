@@ -95,6 +95,7 @@ function registerNewUser(e) {
     passwordConfirmValue = passwordConfirmInput.value.trim();
 
         if(validateForm.register()) {
+            console.log(validateForm.register);
             let newUser = {
                 first_name : firstNameValue,
                 last_name : lastNameValue,
@@ -104,7 +105,6 @@ function registerNewUser(e) {
             };
             registerForm.reset();
             loginForm.reset();
-            console.log(newUser);
             DB.register(newUser).then((response) => {
                 showView.login();
                 showAlert('alert-success', 'You are now registered, please login.');
@@ -132,7 +132,14 @@ function loginUser(e) {
         registerForm.reset();
         loginForm.reset();
         DB.login(loginData).then((response) => {
-            showView.welcome();
+            //console.log(response);
+            if(response) {
+                showView.welcome();
+            } else {
+                showAlert('alert-danger', 'Incorrect Email and Password Combination.');
+            }
+
+
         },(error)=>{
             console.log(error);
         })
@@ -156,6 +163,7 @@ function ValidateForm() {
         this.checkFirstName();
         this.checkLastName();
         this.checkEmail();
+        this.emailExists();
         this.checkPassword();
         this.checkPasswordConfirm();
         return this.hasNoError;
@@ -165,7 +173,7 @@ function ValidateForm() {
 
         if(firstNameValue === '') {
             this.setError(firstNameInput, 'First Name can\'t be blank');
-            this.hasNoError = false;
+
         } else {
             this.setSuccess(firstNameInput);
         }
@@ -174,7 +182,7 @@ function ValidateForm() {
     this.checkLastName = function() {
         if(lastNameValue === '') {
             this.setError(lastNameInput, 'Last Name can\'t be blank');
-            this.hasNoError = false;
+
         } else {
             this.setSuccess(lastNameInput);
         }
@@ -183,21 +191,33 @@ function ValidateForm() {
 
     this.checkEmail = function() {
         if(emailValue === '') {
-            this.setError(emailInput, 'Email can\'t be blank');
-            this.hasNoError = false;
-        } else if (!this.isEmail(emailValue)) {
-            this.setError(emailInput, 'This is not a valid email address');
-            this.hasNoError = false;
-        } else {
+            this.setError(emailInput, 'Email can\'t be blank.');
+
+        }
+        else if (!this.isEmail(emailValue)) {
+            this.setError(emailInput, 'This is not a valid email address.');
+
+        }
+        else {
             this.setSuccess(emailInput);
         }
+    };
+
+    this.emailExists = function() {
+            DB.checkEmail(emailValue).then((user)=>{
+                if(emailValue === user.email) {
+                    this.setError(emailInput, 'Email address is already registered.');
+                } 
+            },(err)=>{
+                return ('error');
+            })
     };
 
 
     this.checkPassword = function() {
         if(passwordValue === '') {
-            this.setError(passwordInput, 'Password can\'t be blank');
-            this.hasNoError = false;
+            this.setError(passwordInput, 'Password can\'t be blank.');
+
         } else {
             this.setSuccess(passwordInput);
         }
@@ -205,11 +225,11 @@ function ValidateForm() {
 
     this.checkPasswordConfirm = function() {
         if(passwordConfirmValue === '') {
-            this.setError(passwordConfirmInput, 'Password Confirm can\'t be blank');
-            this.hasNoError = false;
+            this.setError(passwordConfirmInput, 'Password Confirm can\'t be blank.');
+
         } else if(passwordValue !== passwordConfirmValue){
-            this.setError(passwordConfirmInput, 'Passwords doesen\'t match.');
-            this.hasNoError = false;
+            this.setError(passwordConfirmInput, 'Passwords doesn\'t match.');
+
         } else {
             this.setSuccess(passwordConfirmInput);
         }
@@ -220,8 +240,10 @@ function ValidateForm() {
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
     };
 
+
     //show error message
     this.setError = function (input, msg) {
+        this.hasNoError = false;
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         input.nextElementSibling.innerText = msg ;
