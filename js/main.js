@@ -95,7 +95,7 @@ function registerNewUser(e) {
     passwordConfirmValue = passwordConfirmInput.value.trim();
 
         if(validateForm.register()) {
-            console.log(validateForm.register);
+            //console.log(validateForm.register);
             let newUser = {
                 first_name : firstNameValue,
                 last_name : lastNameValue,
@@ -150,6 +150,8 @@ function loginUser(e) {
 
 function ValidateForm() {
 
+    this.uniqeEmail = '';
+    let unii = '';
 
     this.login = function() {
         this.hasNoError = true;
@@ -163,17 +165,16 @@ function ValidateForm() {
         this.checkFirstName();
         this.checkLastName();
         this.checkEmail();
-        this.emailExists();
         this.checkPassword();
         this.checkPasswordConfirm();
         return this.hasNoError;
     };
 
+
     this.checkFirstName = function() {
 
         if(firstNameValue === '') {
             this.setError(firstNameInput, 'First Name can\'t be blank');
-
         } else {
             this.setSuccess(firstNameInput);
         }
@@ -182,7 +183,6 @@ function ValidateForm() {
     this.checkLastName = function() {
         if(lastNameValue === '') {
             this.setError(lastNameInput, 'Last Name can\'t be blank');
-
         } else {
             this.setSuccess(lastNameInput);
         }
@@ -190,34 +190,38 @@ function ValidateForm() {
 
 
     this.checkEmail = function() {
+        //console.log(this.emailUnique()); returns undefined
         if(emailValue === '') {
             this.setError(emailInput, 'Email can\'t be blank.');
-
         }
         else if (!this.isEmail(emailValue)) {
             this.setError(emailInput, 'This is not a valid email address.');
-
         }
+
+        // else if (this.emailUnique()) {
+        //     this.setError(emailInput, 'Email address is already registered.');
+        // }
         else {
             this.setSuccess(emailInput);
         }
-    };
 
-    this.emailExists = function() {
-            DB.checkEmail(emailValue).then((user)=>{
-                if(emailValue === user.email) {
-                    this.setError(emailInput, 'Email address is already registered.');
-                } 
-            },(err)=>{
-                return ('error');
-            })
-    };
+
+    }// end fun
+
+    // this.emailExists = function() {
+    //         DB.checkEmail(emailValue).then((user)=>{
+    //             if(emailValue === user.email) {
+    //                 this.setError(emailInput, 'Email address is already registered.');
+    //             }
+    //         },(err)=>{
+    //            //
+    //         })
+    // };
 
 
     this.checkPassword = function() {
         if(passwordValue === '') {
             this.setError(passwordInput, 'Password can\'t be blank.');
-
         } else {
             this.setSuccess(passwordInput);
         }
@@ -226,14 +230,33 @@ function ValidateForm() {
     this.checkPasswordConfirm = function() {
         if(passwordConfirmValue === '') {
             this.setError(passwordConfirmInput, 'Password Confirm can\'t be blank.');
-
         } else if(passwordValue !== passwordConfirmValue){
             this.setError(passwordConfirmInput, 'Passwords doesn\'t match.');
-
         } else {
             this.setSuccess(passwordConfirmInput);
         }
     };
+
+    this.emailUnique = function() {
+        let xml = new XMLHttpRequest();
+        xml.open('POST', 'check_data.php');
+        xml.onreadystatechange = () => {
+            if(xml.readyState == 4 && xml.status == 200) {
+                //xml.responseText
+                //resolve(xml.responseText);
+
+                let user = (JSON.parse(xml.responseText));
+                let hej = 'hej';
+                return hej;
+                //return emailValue === user.email;
+
+            }
+        };
+        xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
+        xml.send(JSON.stringify(emailValue));
+    }
+
+
 
 
     this.isEmail = function(email) {
