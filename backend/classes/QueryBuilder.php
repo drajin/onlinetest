@@ -1,13 +1,16 @@
 <?php
 
+include 'Session.php';
 
 class QueryBuilder {
 
     private $db;
+    private $session;
 
-    public function __construct($db)
+    public function __construct($db, $session)
     {
         $this->db = $db;
+        $this->session = $session;
     }
 
     public function select_all($table)
@@ -15,7 +18,7 @@ class QueryBuilder {
         $sql = "SELECT * FROM {$table}";
         $query = $this->db->prepare($sql);
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        return $query->fetchAll(PDO::FETCH_OBJ);
 
     }
 
@@ -69,29 +72,30 @@ class QueryBuilder {
             $sql = $this->db->prepare("SELECT * FROM users WHERE email=?");
             $sql->bindParam(':email', $email);
             $sql->execute([$email]);
-            return $sql->fetch(PDO::FETCH_ASSOC);
+            return $sql->fetch(PDO::FETCH_OBJ);
 
         }
 
         public function login($data)
         {
-            $row = $this->findUserByEmail($data->email);
-
-            if(!$row) {
+            // checks if user exists
+            $user = $this->findUserByEmail($data->email); //returns in assoc array
+            if(!$user) {
                 return false;
             }
-            $hashedPassword = $row->password;
 
+            $hashedPassword = $user['password'];
+            // checks if passwords are the same
             if(password_verify($data->password,$hashedPassword)){
-                return true;
+                return $this->session->login($user);
             } else {
                 return false;
             }
 
         }
 
-        public function login_or_post($data) {
-            $count = count(get_object_vars($data));
+        public function login_or_register($data) {
+            $count = count(get_object_vars($data)); //checks on number of properties
             if($count > 2) {
                 return $this->register($data);
             } else {

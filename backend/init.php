@@ -7,15 +7,17 @@ define('PASSWORD', '');
 
 
 
-$config = require('config.php');
+$config = require('config/config.php');
 
 require 'classes/Connection.php';
 require 'classes/QueryBuilder.php';
-require 'classes/Database.php';
 
 
 $db = Connection::connect($config['database']);
-$query = new QueryBuilder($db);
+$session = new Session();
+$query = new QueryBuilder($db, $session);
+
+
 
 require 'helpers.php';
 

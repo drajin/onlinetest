@@ -12,10 +12,40 @@ class DB {
                     //console.log(JSON.parse(xml.responseText));
                 }
             };
-            xml.open('GET','get_data.php');
+            xml.open('GET','backend/get_data.php');
             xml.send();
         })
 
+    }
+
+    static getAllQuestions() {
+        return new Promise((resolve, reject)=>{
+            let xml = new XMLHttpRequest();
+            xml.onreadystatechange = () => {
+                if(xml.readyState == 4 && xml.status == 200) {
+                    //xml.responseText
+                    //resolve(JSON.parse(xml.responseText));
+                    resolve(JSON.parse(xml.responseText));
+                }
+            };
+            xml.open('GET','backend/get_all_questions.php', true);
+            xml.send();
+        })
+
+    }
+
+    static getSession() {
+        return new Promise((resolve, reject)=>{
+            let xml = new XMLHttpRequest();
+            xml.onreadystatechange = () => {
+                if(xml.readyState == 4 && xml.status == 200) {
+                    resolve(xml.responseText);
+
+                }
+            };
+            xml.open('GET','backend/get_session.php');
+            xml.send();
+        })
     }
 
     static register(newUser) {
@@ -27,7 +57,7 @@ class DB {
                     resolve(xml.responseText); //returns success or error
                 }
             };
-            xml.open('POST','save_data.php');
+            xml.open('POST','backend/login_register.php');
             xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
             xml.send(JSON.stringify(newUser));
         })
@@ -40,47 +70,33 @@ class DB {
             xml.onreadystatechange = () => {
                 if(xml.readyState === 4 && xml.status === 200) {
                     //console.log(xml.responseText);
-                    resolve(JSON.parse(xml.responseText)); //returns success or error
+                    resolve(xml.responseText); //true success or false
                 }
             };
-            xml.open('POST','save_data.php');
+            xml.open('POST','backend/login_register.php');
             xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
             xml.send(JSON.stringify(existingUser));
         })
 
     }
-    //TODO
-    // static checkEmail(email) {
-    //     return new Promise((resolve, reject)=>{
-    //         let xml = new XMLHttpRequest();
-    //         xml.onreadystatechange = () => {
-    //             if(xml.readyState == 4 && xml.status == 200) {
-    //                 //xml.responseText
-    //                 //resolve(xml.responseText);
-    //                resolve(JSON.parse(xml.responseText));
-    //                //console.log(xml.responseText);
-    //             }
-    //         };
-    //         xml.open('POST','check_data.php');
-    //         xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
-    //         xml.send(JSON.stringify(email));
-    //     })
-    // }
+
 
     static checkEmail(email) {
-        let xml = new XMLHttpRequest();
-        xml.open('POST', 'check_data.php');
-        xml.onreadystatechange = () => {
-            if(xml.readyState == 4 && xml.status == 200) {
-                //xml.responseText
-                //resolve(xml.responseText);
-                resolve(JSON.parse(xml.responseText));
-                //console.log(xml.responseText);
-            }
-        };
-        xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
-        xml.send(JSON.stringify(email));
-
+        return new Promise((resolve, reject)=>{
+            let xml = new XMLHttpRequest();
+            xml.onreadystatechange = () => {
+                if(xml.readyState == 4 && xml.status == 200) {
+                    //xml.responseText
+                    //resolve(xml.responseText);
+                   resolve(JSON.parse(xml.responseText));
+                   //console.log(xml.responseText);
+                }
+            };
+            xml.open('POST','backend/check_data.php');
+            xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
+            xml.send(JSON.stringify(email));
+        })
     }
+
 
 }

@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light ">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html">Online Test</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,96 +21,153 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>-->
+<!--                </li>-->
             </ul>
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-                <a href="#" class="btn btn-outline-primary loginLink">Login</a>
-                <a href="#" class="btn btn-outline-info registerLink registerBtn">Register</a>
+                <a href="#" class="btn btn-secondary registerLink registerBtn ms-2">Register</a>
+                <a href="#" class="btn btn-secondary loginLink ms-2">Login</a>
             </form>
         </div>
     </div>
 </nav>
 
 <div class="container">
+    <section>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="alerts"></div>
+            </div>
+        </div>
+    </section>
 
-<!--login form-->
-<div id="loginView">
-    <h1 class="display-4 text-center m-3 p-3">Log In</h1>
-    <div class="row">
-        <div class="col-6 offset-3">
-            <form id="login">
-                <div class="alertPlaceholder"></div>
-                <input id="emailLogin" type="email" placeholder="Email" name="email" class="form-control">
-                <div class="invalid-feedback"></div>
-                <br>
-                <input id="passwordLogin" type="password" placeholder="Password" name="password" class="form-control">
-                <div class="invalid-feedback"></div>
-                <br>
-                <button id="submitLogin" class="btn btn-primary form-control mb-3" type="submit">Submit</button>
-            </form>
-            <p class="text-center mb-3">Don't have an account yet? <a class="registerLink" href="#">Register</a>
+
+    <!--login form-->
+    <div id="loginView">
+        <h1 class="display-4 text-center m-3 p-3">Log In</h1>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <form id="login">
+                    <input id="emailLogin" type="email" placeholder="Email" name="email" class="form-control">
+                    <div class="invalid-feedback"></div>
+                    <br>
+                    <input id="passwordLogin" type="password" placeholder="Password" name="password" class="form-control">
+                    <div class="invalid-feedback"></div>
+                    <br>
+                    <button id="submitLogin" class="btn btn-outline-secondary form-control mb-3" type="submit">Submit</button>
+                </form>
+                <p class="text-center mb-3">Don't have an account yet? <a class="registerLink" href="#">Register</a>
+            </div>
         </div>
     </div>
-</div>
 
-<!--Register form-->
-<div id="registerView">
-    <h1 class="display-4 text-center m-3 p-3">Register</h1>
-    <div class="row">
-        <div class="col-6 offset-3">
-            <form id="register">
-                <input type="text" placeholder="First Name" name="firstName" class="form-control">
-                <div class="invalid-feedback"></div>
-                <br>
-                <input type="text" placeholder="Last Name" name="lastName" class="form-control">
-                <div class="invalid-feedback"></div>
-                <br>
-                <input id="emailRegister" type="email" placeholder="Email" name="email" class="form-control">
-                <div class="invalid-feedback"></div>
-                <br>
-                <input id="passwordRegister" type="password" placeholder="Password" name="password" class="form-control">
-                <div class="invalid-feedback"></div>
-                <br>
-                <input type="password" placeholder="Password Confirm" name="passwordConfirm" class="form-control">
-                <div class="invalid-feedback"></div>
-                <br>
-                <button id="submitRegister" class="btn btn-primary form-control" type="submit">Submit</button>
-            </form>
-                <p class="text-center mb-3">Already registered? <a class="loginLink" href="">Log In</a></p>
+    <!--Register form-->
+    <div id="registerView">
+        <h1 class="display-4 text-center m-3 p-3">Register</h1>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <form id="register">
+                    <input type="text" placeholder="First Name" name="firstName" class="form-control">
+                    <div class="invalid-feedback"></div>
+                    <br>
+                    <input type="text" placeholder="Last Name" name="lastName" class="form-control">
+                    <div class="invalid-feedback"></div>
+                    <br>
+                    <input id="emailRegister" type="email" placeholder="Email" name="email" class="form-control">
+                    <div class="invalid-feedback"></div>
+                    <br>
+                    <input id="passwordRegister" type="password" placeholder="Password" name="password" class="form-control">
+                    <div class="invalid-feedback"></div>
+                    <br>
+                    <input type="password" placeholder="Password Confirm" name="passwordConfirm" class="form-control">
+                    <div class="invalid-feedback"></div>
+                    <br>
+                    <button id="submitRegister" class="btn btn-outline-secondary form-control" type="submit">Submit</button>
+                </form>
+                    <p class="text-center mb-3">Already registered? <a class="loginLink" href="">Log In</a></p>
+            </div>
         </div>
     </div>
-</div>
-<!--Welcome view    -->
-<div id="welcomeView">
-    <h1 class="display-4 text-center m-3 p-3">Welcome</h1>
-    <div class="row">
-        <h2>Start Test</h2>
+    <!--Welcome view    -->
+    <div id="welcomeView">
+        <h1 class="display-4 text-center m-3 p-3">Welcome</h1>
+        <div class="row">
+            <h2>Start Test</h2>
+        </div>
     </div>
-</div>
+    <!--Quiz view    -->
+    <div id="quizView">
+<!--        <div class="wrap" id="q1">-->
+<!--                    &lt;!&ndash;        question&ndash;&gt;-->
+<!--            <div class="h4 font-weight-bold"> 1. Who is the Prime Minister of India?</div>-->
+<!--            <div class="pt-4">-->
+<!--                    &lt;!&ndash;                answers&ndash;&gt;-->
+<!--                <form>-->
+<!--                    <label class="options">Rahul Gandhi-->
+<!--                        <input type="radio" name="radio"> <span class="checkmark"></span>-->
+<!--                    </label>-->
+<!--                    <label class="options">Indira Gandhi-->
+<!--                        <input type="radio" name="radio"> <span class="checkmark"></span>-->
+<!--                    </label>-->
+<!--                        <label class="options">Narendra Modi <input type="radio" name="radio" id="rd1" checked> <span class="checkmark"></span></label>-->
+<!--                    <label class="options">Ram Nath Kovind-->
+<!--                        <input type="radio" name="radio"> <span class="checkmark"></span>-->
+<!--                    </label>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="d-flex justify-content-end pt-2">-->
+<!--                <button class="btn btn-primary" id="next1">Next <span class="fas fa-arrow-right"></span> </button>-->
+<!--            </div>-->
+<!--        </div>-->
 
+<!--        <div class="wrap" id="q2">-->
+<!--            <div class="h4 font-weight-bold"> 2. IPV4 stand's for?</div>-->
+<!--            <div class="pt-4">-->
+<!--                <form>-->
+<!--                    <label class="options">Internet Protocol-->
+<!--                        <input type="radio" name="radio"> <span class="checkmark"></span>-->
+<!--                    </label>-->
+<!--                    <label class="options">Intranet Protocol-->
+<!--                        <input type="radio" name="radio" checked> <span class="checkmark"></span>-->
+<!--                    </label>-->
+<!--                    <label class="options">internet Protocol-->
+<!--                        <input type="radio" name="radio" id="rd2"> <span class="checkmark"></span>-->
+<!--                    </label> <label class="options">None of the above-->
+<!--                        <input type="radio" name="radio"> <span class="checkmark"></span>-->
+<!--                    </label>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--                <div class="d-flex justify-content-end pt-2">-->
+<!--                    <button class="btn btn-primary mx-3" id="back1"> <span class="fas fa-arrow-left pr-1"></span>Previous </button>-->
+<!--                    <button class="btn btn-primary" id="next2">Next <span class="fas fa-arrow-right"></span> </button>-->
+<!--                </div>-->
+<!--        </div>-->
 
-</div>
+<!--        <div class="wrap" id="q3">-->
+<!--            <div class="h4 font-weight-bold"> 3. What is the full form of CSS?</div>-->
+<!--               <div class="pt-4">                             &lt;!&ndash;                                                                                                                                                                                                                                                                                                 ovde  &ndash;&gt;-->
+<!--                    <form>-->
+<!--                       <label class="options">Clarity Style Sheets-->
+<!--                           <input type="radio" name="radio"> <span class="checkmark"></span>-->
+<!--                       </label>-->
+<!--                       <label class="options">Cascading Style Sheets-->
+<!--                           <input type="radio" name="radio"> <span class="checkmark"></span>-->
+<!--                       </label> <label class="options">Confirm Style sheets-->
+<!--                       <input type="radio" name="radio" id="rd3" checked> <span class="checkmark"></span>-->
+<!--                   </label> <label class="options">Canvas Style Sheets-->
+<!--                       <input type="radio" name="radio"> <span class="checkmark"></span>-->
+<!--                   </label>-->
+<!--                   </form>-->
+<!--               </div>-->
+<!--            <div class="d-flex justify-content-end pt-2"> <button class="btn btn-primary mx-3" id="back2"> <span class="fas fa-arrow-left pr-2"></span>Previous </button> <button class="btn btn-primary" id="next3">Submit </button> </div>-->
+<!--        </div>-->
+    </div>
+
+</div> <!--container-->
+<script>
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 <script src="js/DB.js"></script>

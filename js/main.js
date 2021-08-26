@@ -25,7 +25,10 @@ let registerForm = document.getElementById("register");
 submitRegisterBtn.addEventListener('click', registerNewUser);
 submitLoginBtn.addEventListener('click', loginUser);
 
+let isLoggedInUser;
 
+//tmp
+quizView = document.querySelector('#quizView');
 
 function ShowView() {
     //select links
@@ -49,36 +52,53 @@ function ShowView() {
     this.login = function() {
         this.registerView.style.display = 'none';
         this.loginView.style.display = 'block';
+        this.welcomeView.style.display = 'none';
     };
     //show register view
     this.register = function() {
         this.registerView.style.display = 'block';
         this.loginView.style.display = 'none';
+        this.welcomeView.style.display = 'none';
     };
 
-    //show welcome view
-    this.welcome = function() {
-        this.welcomeView.style.display = 'block';
-        this.registerView.style.display = 'none';
-        this.loginView.style.display = 'none';
-    }
+    //show welcome view TODO isLoggedIn
+
+
 
 }
 
+let showView = new ShowView();
+showView.init();
+
+function ShowWelcomeView()  {
+    isLoggedIn();
+    setTimeout(function(){
+    if(isLoggedInUser) {
+        showView.welcomeView.style.display = 'block';
+        showView.registerView.style.display = 'none';
+        showView.loginView.style.display = 'none';
+    } else {
+        showView.registerView.style.display = 'none';
+        showView.loginView.style.display = 'block';
+        showView.welcomeView.style.display = 'none';
+        showAlert('alert-danger', 'Log in error, you have to logged in to view this page.');
+
+    }
+         }, 3000);
+}
 
 
 //show views
-let showView = new ShowView();
-showView.init();
+
 //initializes form class
 let validateForm = new ValidateForm();
 
 
-DB.getAll().then((data)=>{
-    console.log(data);
-},(error)=>{
-    console.log(error);
-});
+// DB.getAll().then((data)=>{
+//     console.log(data);
+// },(error)=>{
+//     console.log(error);
+// });
 
 
 function registerNewUser(e) {
@@ -94,26 +114,30 @@ function registerNewUser(e) {
     passwordValue = passwordInput.value.trim();
     passwordConfirmValue = passwordConfirmInput.value.trim();
 
-        if(validateForm.register()) {
-            //console.log(validateForm.register);
-            let newUser = {
-                first_name : firstNameValue,
-                last_name : lastNameValue,
-                email : emailValue,
-                password :passwordValue,
-                password_confirm : passwordConfirmValue,
-            };
-            registerForm.reset();
-            loginForm.reset();
-            DB.register(newUser).then((response) => {
-                showView.login();
-                showAlert('alert-success', 'You are now registered, please login.');
-                },(error)=>{
-                console.log(error);
-            })
-            }
+    validateForm.register()
+
+        // if(validateForm.register()) {
+        //     console.log(validateForm.register());
+        //     let newUser = {
+        //         first_name : firstNameValue,
+        //         last_name : lastNameValue,
+        //         email : emailValue,
+        //         password :passwordValue,
+        //         password_confirm : passwordConfirmValue,
+        //     };
+        //     registerForm.reset();
+        //     loginForm.reset();
+        //     DB.register(newUser).then((response) => {
+        //         showView.login();
+        //         showAlert('alert-success', 'You are now registered, please login.');
+        //         },(error)=>{
+        //         console.log(error);
+        //     })
+        //     }
     }
 
+let emailUniqueValue = false;
+    //Log in user
 function loginUser(e) {
     e.preventDefault();
 
@@ -124,17 +148,19 @@ function loginUser(e) {
     //set input values
     emailValue = emailInput.value.trim();
     passwordValue = passwordInput.value.trim();
+
     if(validateForm.login()) {
+
         let loginData = {
             email : emailInput.value,
             password :passwordInput.value,
         };
         registerForm.reset();
         loginForm.reset();
+        //TODO .....
         DB.login(loginData).then((response) => {
-            //console.log(response);
-            if(response) {
-                showView.welcome();
+            if(response === 'true') {
+                ShowWelcomeView();
             } else {
                 showAlert('alert-danger', 'Incorrect Email and Password Combination.');
             }
@@ -150,9 +176,6 @@ function loginUser(e) {
 
 function ValidateForm() {
 
-    this.uniqeEmail = '';
-    let unii = '';
-
     this.login = function() {
         this.hasNoError = true;
         this.checkEmail();
@@ -164,10 +187,11 @@ function ValidateForm() {
         this.hasNoError = true;
         this.checkFirstName();
         this.checkLastName();
-        this.checkEmail();
+        this.checkEmail(); // undefined
         this.checkPassword();
         this.checkPasswordConfirm();
-        return this.hasNoError;
+        //return this.hasNoError;
+        console.log(emailUniqueValue);
     };
 
 
@@ -190,33 +214,34 @@ function ValidateForm() {
 
 
     this.checkEmail = function() {
-        //console.log(this.emailUnique()); returns undefined
+
         if(emailValue === '') {
-            this.setError(emailInput, 'Email can\'t be blank.');
+            return this.setError(emailInput, 'Email can\'t be blank.');
         }
         else if (!this.isEmail(emailValue)) {
-            this.setError(emailInput, 'This is not a valid email address.');
+            return this.setError(emailInput, 'This is not a valid email address.');
         }
+        emailUnique();
+        setTimeout(() => {
+                if (emailUniqueValue) {
+                    this.setError(emailInput, 'Email address is already registered.');
+                }
+                else {
+                    this.setSuccess(emailInput);
+                }
+        }, 500);
+        // setTimeout(function(){
+        //     if (emailUniqueValue) {
+        //         this.setError(emailInput, 'Email address is already registered.');
+        //     }
+        //     else {
+        //         this.setSuccess(emailInput);
+        //     }
+        // },3000)
 
-        // else if (this.emailUnique()) {
-        //     this.setError(emailInput, 'Email address is already registered.');
-        // }
-        else {
-            this.setSuccess(emailInput);
-        }
 
+    };// end fun
 
-    }// end fun
-
-    // this.emailExists = function() {
-    //         DB.checkEmail(emailValue).then((user)=>{
-    //             if(emailValue === user.email) {
-    //                 this.setError(emailInput, 'Email address is already registered.');
-    //             }
-    //         },(err)=>{
-    //            //
-    //         })
-    // };
 
 
     this.checkPassword = function() {
@@ -237,31 +262,10 @@ function ValidateForm() {
         }
     };
 
-    this.emailUnique = function() {
-        let xml = new XMLHttpRequest();
-        xml.open('POST', 'check_data.php');
-        xml.onreadystatechange = () => {
-            if(xml.readyState == 4 && xml.status == 200) {
-                //xml.responseText
-                //resolve(xml.responseText);
-
-                let user = (JSON.parse(xml.responseText));
-                let hej = 'hej';
-                return hej;
-                //return emailValue === user.email;
-
-            }
-        };
-        xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
-        xml.send(JSON.stringify(emailValue));
-    }
-
-
-
-
     this.isEmail = function(email) {
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
     };
+
 
 
     //show error message
@@ -272,18 +276,31 @@ function ValidateForm() {
         input.nextElementSibling.innerText = msg ;
     };
     //show success
-    this.setSuccess = function(input) {
+    setTimeout( () => this.setSuccess = function(input) {
         input.classList.remove("is-invalid");
         input.classList.add("is-valid");
         input.nextElementSibling.innerText = '' ;
-    };
+    } ,3000 );
 
 
 } //ValidateForm
 
 
+function emailUnique() {
+    DB.checkEmail(emailValue).then((user)=>{
+        if(emailValue === user.email) {
+            emailUniqueValue = true;
+        } else {
+            emailUniqueValue = false;
+        }
+    },(err)=>{
+        //
+    })
+};
+
+
 function showAlert(alertType, msg) {
-    let alertPlaceholder = document.querySelector('.alertPlaceholder');
+    let alertPlaceholder = document.querySelector('.alerts');
     let alert = document.createElement('div');
     alert.className = 'alert ';
     alert.className += alertType;
@@ -296,3 +313,137 @@ function showAlert(alertType, msg) {
 
 
 }
+
+
+
+async function isLoggedIn() {
+
+   DB.getSession().then((response) => {
+       console.log('original', response);
+       isLoggedInUser = response;
+        return isLoggedInUser;
+        // if(response == 'true') {   //TODO  nacin za true / false
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+    },(error)=>{
+        console.log('error');
+    })
+
+}
+
+
+//questions
+
+function createQuestions(data) {
+    let text = ``;
+
+    for(let i=0; i<data.length; i++) {
+        text += `
+                    <div class="wrap" id="q${data[i].id}">
+            <div class="h4 font-weight-bold">${data[i].question_text}</div>
+            <div class="pt-4">
+                    <!--                answers-->
+                <form>
+                    <label class="options">${data[i].answer_1}
+                        <input type="radio" name="radio"> <span class="checkmark"></span>
+                    </label>
+                    <label class="options">${data[i].answer_2}
+                        <input type="radio" name="radio"> <span class="checkmark"></span>
+                    </label>
+                    <label class="options">${data[i].answer_3} 
+                        <input type="radio" name="radio" checked> <span class="checkmark"></span>
+                     </label>
+                    <label class="options">${data[i].answer_4}
+                        <input type="radio" name="radio"> <span class="checkmark"></span>
+                    </label>
+                </form>
+            </div>
+            <div class="d-flex justify-content-end pt-2">
+                <button class="btn btn-primary" id="next${data[i].id}">Next <span class="fas fa-arrow-right"></span> </button>
+            </div>
+        </div>
+        `;
+
+    }
+    quizView.innerHTML = text;
+    setAddEventListeners()
+}
+
+DB.getAllQuestions().then((questions)=>{
+    createQuestions(questions);
+},(err)=>{
+    console.log('err');
+});
+
+function setAddEventListeners() {
+    //next back buttons
+    let q1 = document.getElementById("q1");
+    let q2 = document.getElementById("q2");
+    let q3 = document.getElementById("q3");
+
+//next  buttons
+    let next1 = document.getElementById('next1');
+// let back1 = document.getElementById('back1')
+    let next2 = document.getElementById('next2');
+// let back2 = document.getElementById('back2')
+
+
+
+
+
+        let query = window.matchMedia("(max-width: 767px)");
+        if (query.matches) {
+            next1.onclick = function() {
+                q1.style.left = "-650px";
+                q2.style.left = "15px";
+            };
+            // back1.onclick = function() {
+            //     q1.style.left = "15px";
+            //     q2.style.left = "650px";
+            // }
+            // back2.onclick = function() {
+            //     q2.style.left = "15px";
+            //     q3.style.left = "650px";
+            // }
+            next2.onclick = function() {
+                q2.style.left = "-650px";
+                q3.style.left = "15px";
+            }
+        } else {
+            next1.onclick = function() {
+                console.log('to miki')
+                q1.style.left = "-650px";
+                q2.style.left = "50px";
+            };
+            // back1.onclick = function() {
+            //     q1.style.left = "50px";
+            //     q2.style.left = "650px";
+            // }
+            // back2.onclick = function() {
+            //     q2.style.left = "50px";
+            //     q3.style.left = "650px";
+            // }
+            next2.onclick = function() {
+                q2.style.left = "-650px";
+                q3.style.left = "50px";
+            }
+        }
+
+
+
+
+}
+
+
+
+
+
+function uncheck() {
+    let rad = document.getElementById('rd')
+    rad.removeAttribute('checked')
+}
+
+
+

@@ -1,9 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,400&display=swap');
 
-    #registerView {
+
+
+
+:root {
+    --fontFamily: 'Poppins', sans-serif;
+    --backgroundColor: #f0eed2;
+    --secondaryColor: #9dadbc;
+    --red: #e09b7c;
+    --green: #a1c690;
+    --btnDisabled: #dadbc;
+    --yellowGreen: #b3b679;
+    --black: #000000;
+    --fontSize: 16px;
+    --transition: .3s ease;
+    --text: #444444;
+
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fontFamily);
+    font-size: var(--fontSize);
+    background-color: #f0eed2;
+}
+
+#registerView {
         display: none;
     }
 
-    #welcomeView {
-        display: none;
+#welcomeView {
+    display: none;
+}
+
+.alerts {
+    height: 30px;
+    padding: 30px;
+}
+
+.navbar {
+    background-color: var(--secondaryColor)
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/*quiz*/
+
+#quizView {
+    max-width: 600px;
+    margin: 80px auto 50px;
+    padding: 30px;
+    border-radius: 20px;
+    background: var(--red);
+    position: relative;
+    min-height: 400px;
+    overflow: hidden
+}
+
+#quizView .wrap {
+    width: 500px;
+    position: absolute;
+    /*left: 50px;*/
+    transition: 0.6s
+}
+
+#q2,
+#q3 {
+    left: 650px
+}
+
+.h4 {
+    margin: 0
+}
+
+label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    cursor: pointer
+}
+
+.options {
+    position: relative;
+    padding-left: 30px
+}
+
+.options input {
+    opacity: 0
+}
+
+.checkmark {
+    position: absolute;
+    top: 4px;
+    left: 3px;
+    height: 20px;
+    width: 20px;
+    /*pitanje boje*/
+    background-color: var(--red);
+    border: 2px solid #444;
+    border-radius: 50%
+}
+
+.options input:checked~.checkmark:after {
+    display: block
+}
+
+.options .checkmark:after {
+    content: "";
+    width: 9px;
+    height: 9px;
+    display: block;
+    background: white;
+    position: absolute;
+    top: 51%;
+    left: 51%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark {
+    background: var(--secondaryColor);
+    border: 2px solid var(--black);
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark:after {
+    transform: translate(-50%, -50%) scale(1)
+}
+
+.btn.btn-primary {
+    background-color: var(--green);
+    border: 1px solid var(--black);
+}
+
+.btn {
+    background-color: var(--green);
+    border: 1px solid var(--black);
+    border-radius: 5px
+}
+
+.btn:focus {
+    box-shadow: none
+}
+
+.btn:hover {
+    background-color: var(--red);
+    color: #fff
+}
+
+.fa-arrow-right,
+.fa-arrow-left {
+    transition: 0.2s ease-in all
+}
+
+.btn.btn-primary:hover .fa-arrow-right {
+    transform: translate(8px)
+}
+
+.btn.btn-primary:hover .fa-arrow-left {
+    transform: translate(-8px)
+}
+
+@media(max-width: 767px) {
+    .quizView {
+        margin: 30px 10px;
+        height: 420px
     }
+
+    .quizView .wrap {
+        width: 280px;
+        left: 15px
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+    background-color: inherit
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #590995;
+    -webkit-transition: .4s;
+    transition: .4s
+}
+
+input:checked+.slider {
+    background-color: #000
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3
+}
+
+input:checked+.slider:before {
+    transform: translateX(30px);
+    background-color: #fff
+}
+
+.slider.round {
+    border-radius: 34px
+}
+
+.slider.round:before {
+    border-radius: 50%
+}
 
