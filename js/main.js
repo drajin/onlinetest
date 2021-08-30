@@ -342,10 +342,13 @@ async function isLoggedIn() {
 
 function createQuestions(data) {
     let text = ``;
+    let numQuestions = data.length;
 
-    for(let i=0; i<data.length; i++) {
+
+
+    for(let i=0; i<numQuestions; i++) {
         text += `
-                    <div class="wrap" id="q${data[i].id}">
+                     <div class="wrap" id="q${data[i].id}">
             <div class="h4 font-weight-bold">${data[i].question_text}</div>
             <div class="pt-4">
                     <!--                answers-->
@@ -365,11 +368,11 @@ function createQuestions(data) {
                 </form>
             </div>
             <div class="d-flex justify-content-end pt-2">`;
-        let lastQuestion = data[data.length - 1];
+        let lastQuestion = data[numQuestions - 1];
         if(data[i] === lastQuestion) {
             text += `
-            <button class="btn btn-primary" id="next3">Submit</button>
-                </div>
+            <button class="btn btn-primary" id="submit">Submit</button>
+                    </div>
                 </div>
                     `;
         } else {
@@ -380,67 +383,105 @@ function createQuestions(data) {
         }
 
 
+
     }
+
+
     quizView.innerHTML = text;
 
+    let submit = document.getElementById('submit');
+    let questionIds = [];
+    let buttonIds = [];
+    let sortedWords_Array = questionIds.slice(0);
+
+    submit.addEventListener("click", function(){
+        console.log('submitted');
+    });
+
+    //select all questions and button IDs
+    for(let i=0; i<numQuestions; i++) {
+        questionIds.push('q'+data[i].id);
+        buttonIds.push('next'+data[i].id);
+    }
+
+    //move questions to left starting form question 2
+    function hideQuestions() {
+        let removedElement = questionIds.shift();
+        questionIds.forEach((questionIds)=>{
+            let question = document.getElementById(questionIds);
+            question.style.left = "650px";
+        });
+        questionIds.unshift(removedElement);
+    }
+
+    hideQuestions();
 
 
-        //next back buttons
-        let q1 = document.getElementById("q1");
-        let q2 = document.getElementById("q2");
-        let q3 = document.getElementById("q3");
+    let buttons = [];
+    let questions = [];
 
-//next  buttons
-        let next1 = document.getElementById('next1');
-// let back1 = document.getElementById('back1')
-        let next2 = document.getElementById('next2');
-// let back2 = document.getElementById('back2')
+    //makes buttons array
+    buttonIds.forEach(makeBtnArr);
+    function makeBtnArr(buttonId) {
+        buttons.push(document.getElementById(buttonId));
+    }
 
-
-
+    //makes questions array
+    questionIds.forEach(makeQuestionArr);
+    function makeQuestionArr(questionId) {
+        questions.push(document.getElementById(questionId));
+    }
 
         let query = window.matchMedia("(max-width: 767px)");
         if (query.matches) {
-            next1.onclick = function() {
-                q1.style.left = "-650px";
-                q2.style.left = "15px";
-            };
-            // back1.onclick = function() {
-            //     q1.style.left = "15px";
-            //     q2.style.left = "650px";
-            // }
-            // back2.onclick = function() {
-            //     q2.style.left = "15px";
-            //     q3.style.left = "650px";
-            // }
-            next2.onclick = function() {
-                q2.style.left = "-650px";
-                q3.style.left = "15px";
+            console.log('click');
+            for(let i=0; i<(buttons.length); i++) {
+                buttons[i].onclick = function() {
+                    console.log('click');
+                    // for(i=0; i<questions.length; i++) {
+                    //     questions[i].shift().style.left = "-650px";
+                    //     questions[i].shift().style.left = "15px";
+                    //     i++
+                    // }
+                }
             }
         } else {
-            next1.onclick = function() {
-                q1.style.left = "-650px";
-                q2.style.left = "50px";
-            };
-            // back1.onclick = function() {
-            //     q1.style.left = "50px";
-            //     q2.style.left = "650px";
-            // }
-            // back2.onclick = function() {
-            //     q2.style.left = "50px";
-            //     q3.style.left = "650px";
-            // }
-            next2.onclick = function() {
-                q2.style.left = "-650px";
-                q3.style.left = "50px";
+            let counter = 0;
+            for(let i=0; i<(buttons.length-1); i++) {
+                buttons[i].onclick = function() {
+                    questions[counter].style.left = "-650px";
+                    counter++;
+                    questions[counter].style.left = "50px";
+                    }
             }
-        }
+            }
+    // next1.onclick = function() {
+            //     q1.style.left = "-650px";
+            //     q2.style.left = "15px";
+            // };
+            // next2.onclick = function() {
+            //     q2.style.left = "-650px";
+            //     q3.style.left = "15px";
+            // };
+            // next3.onclick = function() {
+            //     q3.style.left = "-650px";
+            //     q4.style.left = "15px";
+            // };
 
-
-
-
-
-
+       // else {
+        //     next1.onclick = function() {
+        //         q1.style.left = "-650px";
+        //         q2.style.left = "50px";
+        //     };
+        //     next2.onclick = function() {
+        //         q2.style.left = "-650px";
+        //         q3.style.left = "50px";
+        //     }
+        //     next3.onclick = function() {
+        //         q3.style.left = "-650px";
+        //         q4.style.left = "15px";
+        //     };
+        // }
 
 
 
