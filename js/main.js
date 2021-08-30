@@ -72,6 +72,7 @@ showView.init();
 
 function ShowWelcomeView()  {
     isLoggedIn();
+    console.log(isLoggedInUser)
     setTimeout(function(){
     if(isLoggedInUser) {
         showView.welcomeView.style.display = 'block';
@@ -113,28 +114,29 @@ function registerNewUser(e) {
     emailValue = emailInput.value.trim();
     passwordValue = passwordInput.value.trim();
     passwordConfirmValue = passwordConfirmInput.value.trim();
+    validateForm.register();
+}
 
-    validateForm.register()
+function callback() {
+    let newUser = {
+        first_name : firstNameValue,
+        last_name : lastNameValue,
+        email : emailValue,
+        password :passwordValue,
+        password_confirm : passwordConfirmValue,
+    };
+    registerForm.reset();
+    loginForm.reset();
+    DB.register(newUser).then((response) => {
+        showView.login();
+        showAlert('alert-success', 'You are now registered, please login.');
+    },(error)=>{
+        console.log(error);
+    })
+}
 
-        // if(validateForm.register()) {
-        //     console.log(validateForm.register());
-        //     let newUser = {
-        //         first_name : firstNameValue,
-        //         last_name : lastNameValue,
-        //         email : emailValue,
-        //         password :passwordValue,
-        //         password_confirm : passwordConfirmValue,
-        //     };
-        //     registerForm.reset();
-        //     loginForm.reset();
-        //     DB.register(newUser).then((response) => {
-        //         showView.login();
-        //         showAlert('alert-success', 'You are now registered, please login.');
-        //         },(error)=>{
-        //         console.log(error);
-        //     })
-        //     }
-    }
+
+
 
 let emailUniqueValue = false;
     //Log in user
@@ -174,6 +176,8 @@ function loginUser(e) {
 
 }
 
+
+
 function ValidateForm() {
 
     this.login = function() {
@@ -187,11 +191,11 @@ function ValidateForm() {
         this.hasNoError = true;
         this.checkFirstName();
         this.checkLastName();
-        this.checkEmail(); // undefined
+        this.checkEmail();
         this.checkPassword();
         this.checkPasswordConfirm();
-        //return this.hasNoError;
-        console.log(emailUniqueValue);
+        console.log('sta je poslao', this.hasNoError);
+        return this.hasNoError;
     };
 
 
@@ -223,13 +227,14 @@ function ValidateForm() {
         }
         emailUnique();
         setTimeout(() => {
-                if (emailUniqueValue) {
+                if (!emailUniqueValue) {
+                    console.log('ovde setuje error false znaci nije unique ', emailUniqueValue);
                     this.setError(emailInput, 'Email address is already registered.');
                 }
                 else {
                     this.setSuccess(emailInput);
                 }
-        }, 500);
+        }, 1000);
         // setTimeout(function(){
         //     if (emailUniqueValue) {
         //         this.setError(emailInput, 'Email address is already registered.');
@@ -285,18 +290,17 @@ function ValidateForm() {
 
 } //ValidateForm
 
-
 function emailUnique() {
     DB.checkEmail(emailValue).then((user)=>{
         if(emailValue === user.email) {
-            emailUniqueValue = true;
-        } else {
             emailUniqueValue = false;
+        } else {
+            emailUniqueValue = true;
         }
     },(err)=>{
         //
     })
-};
+}
 
 
 function showAlert(alertType, msg) {
@@ -360,35 +364,37 @@ function createQuestions(data) {
                     </label>
                 </form>
             </div>
-            <div class="d-flex justify-content-end pt-2">
-                <button class="btn btn-primary" id="next${data[i].id}">Next <span class="fas fa-arrow-right"></span> </button>
+            <div class="d-flex justify-content-end pt-2">`;
+        let lastQuestion = data[data.length - 1];
+        if(data[i] === lastQuestion) {
+            text += `
+            <button class="btn btn-primary" id="next3">Submit</button>
+                </div>
+                </div>
+                    `;
+        } else {
+            text += `<button class="btn btn-primary" id="next${data[i].id}">Next <span class="fas fa-arrow-right"></span> </button>
             </div>
         </div>
         `;
+        }
+
 
     }
     quizView.innerHTML = text;
-    setAddEventListeners()
-}
 
-DB.getAllQuestions().then((questions)=>{
-    createQuestions(questions);
-},(err)=>{
-    console.log('err');
-});
 
-function setAddEventListeners() {
-    //next back buttons
-    let q1 = document.getElementById("q1");
-    let q2 = document.getElementById("q2");
-    let q3 = document.getElementById("q3");
+
+        //next back buttons
+        let q1 = document.getElementById("q1");
+        let q2 = document.getElementById("q2");
+        let q3 = document.getElementById("q3");
 
 //next  buttons
-    let next1 = document.getElementById('next1');
+        let next1 = document.getElementById('next1');
 // let back1 = document.getElementById('back1')
-    let next2 = document.getElementById('next2');
+        let next2 = document.getElementById('next2');
 // let back2 = document.getElementById('back2')
-
 
 
 
@@ -413,7 +419,6 @@ function setAddEventListeners() {
             }
         } else {
             next1.onclick = function() {
-                console.log('to miki')
                 q1.style.left = "-650px";
                 q2.style.left = "50px";
             };
@@ -434,16 +439,20 @@ function setAddEventListeners() {
 
 
 
-}
 
 
 
 
 
-function uncheck() {
-    let rad = document.getElementById('rd')
-    rad.removeAttribute('checked')
-}
+
+} //end create form
+
+DB.getAllQuestions().then((questions)=>{
+    createQuestions(questions);
+},(err)=>{
+    console.log('err');
+});
+
 
 
 

@@ -88,7 +88,7 @@ class DB {
                 if(xml.readyState == 4 && xml.status == 200) {
                     //xml.responseText
                     //resolve(xml.responseText);
-                   resolve(JSON.parse(xml.responseText));
+                    resolve(JSON.parse(xml.responseText));
                    //console.log(xml.responseText);
                 }
             };
