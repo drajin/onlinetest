@@ -1,14 +1,15 @@
 <?php
 
 
+
     class Admin
     {
 
         public function login() {
             $data = [
-                'username' => '',
+                'email' => '',
                 'password' => '',
-                'usernameError' => '',
+                'emailError' => '',
                 'passwordError' => ''
             ];
 
@@ -18,14 +19,14 @@
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
                 $data = [
-                    'username' => trim($_POST['username']),
+                    'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
-                    'usernameError' => '',
+                    'emailError' => '',
                     'passwordError' => '',
                 ];
-                //Validate username
-                if (empty($data['username'])) {
-                    $data['usernameError'] = 'Please enter a username.';
+                //Validate email
+                if (empty($data['email'])) {
+                    $data['emailError'] = 'Please enter a email.';
                 }
 
                 //Validate password
@@ -34,13 +35,14 @@
                 }
 
                 //Check if all errors are empty
-                if (empty($data['usernameError']) && empty($data['passwordError'])) {
-                    $loggedInUser = $this->userModel->login($data['username'], $data['password']);
+                if (empty($data['emailError']) && empty($data['passwordError'])) {
+                    $loggedInUser = $query->login($data);
+                    return $loggedInUser;
 
                     if ($loggedInUser) {
                         $this->createUserSession($loggedInUser);
                     } else {
-                        $data['passwordError'] = 'Password or username is incorrect. Please try again.';
+                        $data['passwordError'] = 'Password or email is incorrect. Please try again.';
 
                         $this->view('users/login', $data);
                     }
@@ -48,25 +50,25 @@
 
             } else {
                 $data = [
-                    'username' => '',
+                    'email' => '',
                     'password' => '',
-                    'usernameError' => '',
+                    'emailError' => '',
                     'passwordError' => ''
                 ];
             }
-            $this->view('users/login', $data);
+            //$this->view('users/login', $data);
         }
 
         public function createUserSession($user) {
             $_SESSION['user_id'] = $user->id;
-            $_SESSION['username'] = $user->username;
+            $_SESSION['email'] = $user->email;
             $_SESSION['email'] = $user->email;
             header('location:' . URLROOT . '/pages/index');
         }
 
         public function logout() {
             unset($_SESSION['user_id']);
-            unset($_SESSION['username']);
+            unset($_SESSION['email']);
             unset($_SESSION['email']);
             header('location:' . URLROOT . '/users/login');
         }

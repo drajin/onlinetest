@@ -78,6 +78,7 @@ class QueryBuilder {
 
         public function login($data)
         {
+            return 'sve je kul';
             // checks if user exists
             $user = $this->findUserByEmail($data->email); //returns in assoc array
             if(!$user) {

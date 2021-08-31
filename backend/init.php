@@ -9,11 +9,13 @@ $config = require('config/config.php');
 
 require 'classes/Connection.php';
 require 'classes/QueryBuilder.php';
+require 'classes/Admin.php';
 
 
 $db = Connection::connect($config['database']);
 $session = new Session();
 $query = new QueryBuilder($db, $session);
+$admin = new Admin();
 
 
 
