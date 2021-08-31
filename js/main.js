@@ -115,9 +115,7 @@ function registerNewUser(e) {
     passwordValue = passwordInput.value.trim();
     passwordConfirmValue = passwordConfirmInput.value.trim();
     validateForm.register();
-}
 
-function callback() {
     let newUser = {
         first_name : firstNameValue,
         last_name : lastNameValue,
@@ -134,6 +132,7 @@ function callback() {
         console.log(error);
     })
 }
+
 
 
 
@@ -194,7 +193,6 @@ function ValidateForm() {
         this.checkEmail();
         this.checkPassword();
         this.checkPasswordConfirm();
-        console.log('sta je poslao', this.hasNoError);
         return this.hasNoError;
     };
 
@@ -338,161 +336,6 @@ async function isLoggedIn() {
 }
 
 
-//questions
-
-function createQuestions(data) {
-    let text = ``;
-    let numQuestions = data.length;
-
-
-
-    for(let i=0; i<numQuestions; i++) {
-        text += `
-                     <div class="wrap" id="q${data[i].id}">
-            <div class="h4 font-weight-bold">${data[i].question_text}</div>
-            <div class="pt-4">
-                    <!--                answers-->
-                <form>
-                    <label class="options">${data[i].answer_1}
-                        <input type="radio" name="radio"> <span class="checkmark"></span>
-                    </label>
-                    <label class="options">${data[i].answer_2}
-                        <input type="radio" name="radio"> <span class="checkmark"></span>
-                    </label>
-                    <label class="options">${data[i].answer_3} 
-                        <input type="radio" name="radio" checked> <span class="checkmark"></span>
-                     </label>
-                    <label class="options">${data[i].answer_4}
-                        <input type="radio" name="radio"> <span class="checkmark"></span>
-                    </label>
-                </form>
-            </div>
-            <div class="d-flex justify-content-end pt-2">`;
-        let lastQuestion = data[numQuestions - 1];
-        if(data[i] === lastQuestion) {
-            text += `
-            <button class="btn btn-primary" id="submit">Submit</button>
-                    </div>
-                </div>
-                    `;
-        } else {
-            text += `<button class="btn btn-primary" id="next${data[i].id}">Next <span class="fas fa-arrow-right"></span> </button>
-            </div>
-        </div>
-        `;
-        }
-
-
-
-    }
-
-
-    quizView.innerHTML = text;
-
-    let submit = document.getElementById('submit');
-    let questionIds = [];
-    let buttonIds = [];
-    let sortedWords_Array = questionIds.slice(0);
-
-    submit.addEventListener("click", function(){
-        console.log('submitted');
-    });
-
-    //select all questions and button IDs
-    for(let i=0; i<numQuestions; i++) {
-        questionIds.push('q'+data[i].id);
-        buttonIds.push('next'+data[i].id);
-    }
-
-    //move questions to left starting form question 2
-    function hideQuestions() {
-        let removedElement = questionIds.shift();
-        questionIds.forEach((questionIds)=>{
-            let question = document.getElementById(questionIds);
-            question.style.left = "650px";
-        });
-        questionIds.unshift(removedElement);
-    }
-
-    hideQuestions();
-
-
-    let buttons = [];
-    let questions = [];
-
-    //makes buttons array
-    buttonIds.forEach(makeBtnArr);
-    function makeBtnArr(buttonId) {
-        buttons.push(document.getElementById(buttonId));
-    }
-
-    //makes questions array
-    questionIds.forEach(makeQuestionArr);
-    function makeQuestionArr(questionId) {
-        questions.push(document.getElementById(questionId));
-    }
-
-        let query = window.matchMedia("(max-width: 767px)");
-        if (query.matches) {
-            console.log('click');
-            for(let i=0; i<(buttons.length); i++) {
-                buttons[i].onclick = function() {
-                    console.log('click');
-                    // for(i=0; i<questions.length; i++) {
-                    //     questions[i].shift().style.left = "-650px";
-                    //     questions[i].shift().style.left = "15px";
-                    //     i++
-                    // }
-                }
-            }
-        } else {
-            let counter = 0;
-            for(let i=0; i<(buttons.length-1); i++) {
-                buttons[i].onclick = function() {
-                    questions[counter].style.left = "-650px";
-                    counter++;
-                    questions[counter].style.left = "50px";
-                    }
-            }
-            }
-    // next1.onclick = function() {
-            //     q1.style.left = "-650px";
-            //     q2.style.left = "15px";
-            // };
-            // next2.onclick = function() {
-            //     q2.style.left = "-650px";
-            //     q3.style.left = "15px";
-            // };
-            // next3.onclick = function() {
-            //     q3.style.left = "-650px";
-            //     q4.style.left = "15px";
-            // };
-
-       // else {
-        //     next1.onclick = function() {
-        //         q1.style.left = "-650px";
-        //         q2.style.left = "50px";
-        //     };
-        //     next2.onclick = function() {
-        //         q2.style.left = "-650px";
-        //         q3.style.left = "50px";
-        //     }
-        //     next3.onclick = function() {
-        //         q3.style.left = "-650px";
-        //         q4.style.left = "15px";
-        //     };
-        // }
-
-
-
-
-} //end create form
-
-DB.getAllQuestions().then((questions)=>{
-    createQuestions(questions);
-},(err)=>{
-    console.log('err');
-});
 
 
 

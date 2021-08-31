@@ -1,9 +1,7 @@
 <?php
 
-define('HOST', 'localhost');
-define('DBNAME', 'onlinetest');
-define('USER', 'root');
-define('PASSWORD', '');
+define('URLROOT', 'http://localhost/onlinetest');
+
 
 
 
