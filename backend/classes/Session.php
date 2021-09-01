@@ -56,10 +56,32 @@ class Session {
 
     }
 
-    public function message($msg='') {
+
+    function display_session_message() {
+        $msg = $this->message();
+        if(isset($msg) && $msg != '') {
+            $this->clear_message();
+            return $msg;
+        }
+    }
+
+    //to be deleted
+//    public function set_flesh_message($msg, $type) {
+//        $alert = '<div class="alert alert-'.$type.' text-center" role="alert">';
+//        $alert .= $msg;
+//        $alert .= '</div>';
+//        return $alert;
+//    }
+
+//    public function message() {
+//        return 'welcome';
+//    }
+        public function message($msg='', $type='') {
+        $div_alert = '<div class="alert alert-'.$type.' text-center" role="alert">';
+        $div_alert .= $msg;
+        $div_alert .= '</div>';
         if(!empty($msg)){
-            // The this is a set message
-            $_SESSION['message'] = $msg;
+            $_SESSION['message'] = $div_alert;
             return true;
         } else {
             // this is a get message

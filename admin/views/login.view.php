@@ -1,14 +1,14 @@
 
 
-
-        <h1 class="display-4 text-center m-3 p-3">Welcome Admin,</h1>
-        <h3 class="text-center mb-5">please log in</h3>
-
+        <div class="text-dark">
+            <h1 class="display-4 text-center m-3 p-3">Welcome Admin,</h1>
+            <h3 class="text-center mb-5">please log in</h3>
+        </div>
 <!--        alert-->
         <section>
             <div class="row">
                 <div class="col-6 offset-3">
-                    <?php if(isset($login_error_msg)){ echo $login_error_msg;} ?>
+                    <?php echo $session->display_session_message(); ?>
                 </div>
             </div>
         </section>

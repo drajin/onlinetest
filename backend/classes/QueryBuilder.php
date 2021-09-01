@@ -22,21 +22,19 @@ class QueryBuilder {
 
     }
 
-    public function find_by_id($table, $id)
+    public function find_by_id($id, $table)
     {
         $sql = "SELECT * FROM {$table} WHERE id = ?";
         $query = $this->db->prepare($sql);
         $query->execute([$id]);
+        return $query->fetch(PDO::FETCH_OBJ);
 
-        $post_owner = $query->fetch(PDO::FETCH_ASSOC);
-        return $post_owner;
 
     }
 
-    public  function delete($id)
+    public  function delete($id, $table)
     {
-        var_dump($id);
-        $sql = "DELETE FROM posts2 WHERE id = ?";
+        $sql = "DELETE FROM {$table} WHERE id = ?";
         $query = $this->db->prepare($sql);
         $query->execute([$id]);
     }

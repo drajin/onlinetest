@@ -17,7 +17,7 @@ if (empty($admin_data['email_error']) && empty($admin_data['password_error'])
     && !empty($admin_data['email']) && !empty($admin_data['password'])) {
 
     $error_msg = $query->login($admin_data, 'admins');
-    $login_error_msg = $admin->set_error_msg($error_msg);
+    $session->message($error_msg, 'danger');
 
 } else {
     $errors = $admin_data;

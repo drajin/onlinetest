@@ -12,6 +12,7 @@
     --btnDisabled: #dadbc;
     --yellowGreen: #b3b679;
     --black: #000000;
+    --white: #ffffff;
     --fontSize: 16px;
     --transition: .3s ease;
     --text: #444444;
@@ -28,8 +29,11 @@
 body {
     font-family: var(--fontFamily);
     font-size: var(--fontSize);
-    background-color: #f0eed2;
+    background-color: var(--backgroundColor);
+    color: var(--white);
 }
+
+
 
 #registerView {
         display: none;
@@ -44,35 +48,42 @@ body {
     padding: 30px;
 }
 
-/*.navbar {*/
-/*    background-color: var(--secondaryColor)*/
-/*}*/
+.navbar {
+    background-color: var(--secondaryColor)
+}
 
 a {
     text-decoration: none;
     font-weight: bold;
+    color: white;
+}
+
+/*TODO add transition*/
+a:hover {
+    color: var(--secondaryColor);
+
 }
 
 /*admin area*/
-@media (max-width: 991.98px) {
-    .offcanvas-collapse {
-        position: fixed;
-        top: 56px; /* Height of navbar */
-        bottom: 0;
-        left: 100%;
-        width: 100%;
-        padding-right: 1rem;
-        padding-left: 1rem;
-        overflow-y: auto;
-        visibility: hidden;
-        background-color: #343a40;
-        transition: transform .3s ease-in-out, visibility .3s ease-in-out;
-    }
-    .offcanvas-collapse.open {
-        visibility: visible;
-        transform: translateX(-100%);
-    }
-}
+/*@media (max-width: 991.98px) {*/
+/*    .offcanvas-collapse {*/
+/*        position: fixed;*/
+/*        top: 56px; !* Height of navbar *!*/
+/*        bottom: 0;*/
+/*        left: 100%;*/
+/*        width: 100%;*/
+/*        padding-right: 1rem;*/
+/*        padding-left: 1rem;*/
+/*        overflow-y: auto;*/
+/*        visibility: hidden;*/
+/*        background-color: #343a40;*/
+/*        transition: transform .3s ease-in-out, visibility .3s ease-in-out;*/
+/*    }*/
+/*    .offcanvas-collapse.open {*/
+/*        visibility: visible;*/
+/*        transform: translateX(-100%);*/
+/*    }*/
+/*}*/
 
 .nav-scroller {
     position: relative;
@@ -139,7 +150,7 @@ a {
     margin: 0
 }
 
-label {
+#quizView label {
     display: block;
     margin-bottom: 15px;
     font-size: 1.2rem;

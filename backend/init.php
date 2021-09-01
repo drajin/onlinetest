@@ -2,6 +2,7 @@
 
 define('URLROOT', 'http://localhost/onlinetest');
 
+
 define("PRIVATE_PATH", dirname(__FILE__));
 define("INCLUDES_PATH", PRIVATE_PATH . '/../admin/includes');
 
@@ -14,6 +15,7 @@ require 'classes/Connection.php';
 require 'classes/QueryBuilder.php';
 require 'classes/Admin.php';
 
+$test = 'Ok';
 
 $db = Connection::connect($config['database']);
 $session = new Session();

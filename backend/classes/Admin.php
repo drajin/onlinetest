@@ -71,8 +71,8 @@
             }
         }
 
-        public function set_error_msg($msg) {
-            $alert = '<div class="alert alert-danger text-center" role="alert">';
+        public function set_flesh_message($msg, $type) {
+            $alert = '<div class="alert alert-'.$type.' text-center" role="alert">';
             $alert .= $msg;
             $alert .= '</div>';
             return $alert;
