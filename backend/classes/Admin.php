@@ -4,62 +4,81 @@
 
     class Admin
     {
-
-        public function login() {
+        public function validate_login_data() {
             $data = [
                 'email' => '',
                 'password' => '',
-                'emailError' => '',
-                'passwordError' => ''
+                'email_error' => '',
+                'password_error' => ''
             ];
 
             //Check for post
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 //Sanitize post data
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
                 $data = [
                     'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
-                    'emailError' => '',
-                    'passwordError' => '',
+                    'email_error' => '',
+                    'password_error' => '',
                 ];
                 //Validate email
                 if (empty($data['email'])) {
-                    $data['emailError'] = 'Please enter a email.';
+                    $data['email_error'] = 'Please enter an email.';
+                } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                    $data['email_error'] = 'Please enter a valid email address.';
                 }
 
                 //Validate password
                 if (empty($data['password'])) {
-                    $data['passwordError'] = 'Please enter a password.';
+                    $data['password_error'] = 'Please enter a password.';
                 }
 
-                //Check if all errors are empty
-                if (empty($data['emailError']) && empty($data['passwordError'])) {
-                    $loggedInUser = $query->login($data);
-                    return $loggedInUser;
+                //Check if there is no errors
+               // if (empty($data['email_error']) && empty($data['password_error'])) {
+                    //ide log in
+                 //   $loggedInUser = $this->userModel->login($data['email'], $data['password']);
 
-                    if ($loggedInUser) {
-                        $this->createUserSession($loggedInUser);
-                    } else {
-                        $data['passwordError'] = 'Password or email is incorrect. Please try again.';
+                   // if ($loggedInUser) {
+    //                    $this->createUserSession($loggedInUser);
+    //                } else {
+    //                    $data['password_error'] = 'Password or email is incorrect. Please try again.';
+    //
+    //                   return $data;
+    //                }
 
-                        $this->view('users/login', $data);
-                    }
-                }
+               // }
 
             } else {
                 $data = [
                     'email' => '',
                     'password' => '',
-                    'emailError' => '',
-                    'passwordError' => ''
+                    'email_error' => '',
+                    'password_error' => ''
                 ];
             }
-            //$this->view('users/login', $data);
+            return $data;
         }
 
-        public function createUserSession($user) {
+        private function addError($key, $val){
+            $this->errors[$key] = $val;
+        }
+
+        public function display_errors($error)
+        {
+            if(isset($error)) {
+                echo $error;
+            }
+        }
+
+        public function set_error_msg($msg) {
+            $alert = '<div class="alert alert-danger text-center" role="alert">';
+            $alert .= $msg;
+            $alert .= '</div>';
+            return $alert;
+        }
+
+        public function create_user_session($user) {
             $_SESSION['user_id'] = $user->id;
             $_SESSION['email'] = $user->email;
             $_SESSION['email'] = $user->email;
@@ -72,5 +91,4 @@
             unset($_SESSION['email']);
             header('location:' . URLROOT . '/users/login');
         }
-
     }

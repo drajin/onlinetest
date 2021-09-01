@@ -15,12 +15,12 @@ class Session {
     public function login($user) {
         if($user) {
             // prevent session fixation attacks
-            $_SESSION['user_id'] = $user['id'];
-            $this->user_id = $user['id'];
-            $this->email = $_SESSION['email'] = $user['email']; //double assignment to the session and to the property
-            return 'true';
+            $_SESSION['user_id'] = $user->id;
+            $this->user_id = $user->id;
+            $this->email = $_SESSION['email'] = $user->email; //double assignment to the session and to the property
+            redirect_to('index.php');
         } else {
-            return 'false';
+            return 'Error login';
         }
     }
 
@@ -35,7 +35,7 @@ class Session {
         unset($_SESSION['email']);
         unset($this->user_id);
         unset($this->email);
-        return true;
+        return 'true';
     }
 
     private function check_stored_login() {
@@ -43,6 +43,17 @@ class Session {
             $this->user_id = $_SESSION['user_id'];
             $this->email = $_SESSION['email'];
         }
+    }
+
+    //TODO use later
+    function require_login() {
+        if(!$this->is_logged_in()) {
+            redirect_to('index.php');
+        } else {
+            // Do nothing
+        }
+
+
     }
 
     public function message($msg='') {

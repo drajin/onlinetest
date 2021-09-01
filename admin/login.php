@@ -1,8 +1,33 @@
 <?php
 
-include_once 'views/login.view.php';
-
 include_once '../backend/init.php';
 
+if($session->is_logged_in() === 'true') {
+    redirect_to('index.php');
+}
 
-  echo ($admin->login());
+include(INCLUDES_PATH . '/header.php');
+
+$errors = [];
+
+$admin_data = ($admin->validate_login_data());
+
+
+if (empty($admin_data['email_error']) && empty($admin_data['password_error'])
+    && !empty($admin_data['email']) && !empty($admin_data['password'])) {
+
+    $error_msg = $query->login($admin_data, 'admins');
+    $login_error_msg = $admin->set_error_msg($error_msg);
+
+} else {
+    $errors = $admin_data;
+}
+
+//var_dump($session->is_logged_in());
+
+
+
+include_once 'views/login.view.php';
+
+include(INCLUDES_PATH . '/footer.php');
+

@@ -2,6 +2,9 @@
 
 define('URLROOT', 'http://localhost/onlinetest');
 
+define("PRIVATE_PATH", dirname(__FILE__));
+define("INCLUDES_PATH", PRIVATE_PATH . '/../admin/includes');
+
 
 
 

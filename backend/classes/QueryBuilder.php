@@ -67,30 +67,32 @@ class QueryBuilder {
             }
         }
 
-        public function findUserByEmail($email) {
+        public function findUserByEmail($email, $table) {
 
-            $sql = $this->db->prepare("SELECT * FROM users WHERE email=?");
+            $sql = $this->db->prepare("SELECT * FROM ".$table." WHERE email=?");
             $sql->bindParam(':email', $email);
             $sql->execute([$email]);
             return $sql->fetch(PDO::FETCH_OBJ);
 
         }
 
-        public function login($data)
+        public function login($data, $table)
         {
-            return 'sve je kul';
-            // checks if user exists
-            $user = $this->findUserByEmail($data->email); //returns in assoc array
+            if(gettype($data) === 'array') {
+                $data = (object)$data;
+            }
+            // checks if user or admin exists
+            $user = $this->findUserByEmail($data->email, $table);
             if(!$user) {
-                return false;
+                return 'email/password combination is wrong';
             }
 
-            $hashedPassword = $user['password'];
+            $hashedPassword = $user->password;
             // checks if passwords are the same
             if(password_verify($data->password,$hashedPassword)){
                 return $this->session->login($user);
             } else {
-                return false;
+                return 'email/password combination is wrong';
             }
 
         }
@@ -100,7 +102,7 @@ class QueryBuilder {
             if($count > 2) {
                 return $this->register($data);
             } else {
-                return $this->login($data);
+                return $this->login($data, 'users');
             }
         }
 
