@@ -106,7 +106,7 @@ class QueryBuilder {
 
 
         //TODO array or obj
-        public function update_users($user, $id) {
+        public function update_user($user, $id) {
             if(gettype($user) === 'array') {
                 $user = (object)$user;
             }
@@ -116,7 +116,6 @@ class QueryBuilder {
                 $stmt->bindparam(":last_name",$user->last_name);
                 $stmt->bindparam(":email",$user->email);
                 $stmt->bindparam(":id",$id);
-                //var_dump($stmt);
                 $stmt->execute();
                 return true;
         } catch(PDOException $e) {
@@ -134,43 +133,29 @@ class QueryBuilder {
 //            }
         }
 
-//    public function update_users($user) {
-//        if(gettype($user) === 'array') {
-//            $user = (object)$user;
-//        }
-//
-//        try {
-//            $stmt = $this->db->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, updated_at=NOW() WHERE id=:id");
-//            $stmt->bindparam(":first_name",$user->first_name);
-//            $stmt->bindparam(":last_name",$user->last_name);
-//            $stmt->bindparam(":email",$user->email);
-//            $stmt->bindparam(":id",$user->id);
-//            //var_dump($stmt);
-//            $stmt->execute();
-//            return true;
-//        } catch(PDOException $e) {
-//            echo $e->getMessage();
-//            return false;
-//        }
-//    }
 
-
-    public function update($id, $fname, $lname, $email, $contact) {
+    public function update_question($question, $id)
+    {
+        if (gettype($question) === 'array') {
+            $question = (object)$question;
+        }
         try {
-            $stmt = $this->db->prepare("UPDATE tbl_users SET first_name=:fname, last_name=:lname, email_id=:email, contact_no=:contact WHERE id=:id");
-            $stmt->bindparam(":fname",$fname);
-            $stmt->bindparam(":lname",$lname);
-            $stmt->bindparam(":email",$email);
-            $stmt->bindparam(":contact",$contact);
-            $stmt->bindparam(":id",$id);
+            $stmt = $this->db->prepare("UPDATE questions SET question_text=:question_text, answer_1=:answer_1, answer_2=:answer_2, answer_3=:answer_3, answer_4=:answer_4, correct_answer=:correct_answer, points=:points WHERE id=:id");
+            $stmt->bindparam(":question_text", $question->question_text);
+            $stmt->bindparam(":answer_1", $question->answer_1);
+            $stmt->bindparam(":answer_2", $question->answer_2);
+            $stmt->bindparam(":answer_3", $question->answer_3);
+            $stmt->bindparam(":answer_4", $question->answer_4);
+            $stmt->bindparam(":correct_answer", $question->correct_answer);
+            $stmt->bindparam(":points", $question->points);
+            $stmt->bindparam(":id", $id);
             $stmt->execute();
             return true;
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo $e->getMessage();
             return false;
         }
     }
-
 
 
 

@@ -32,9 +32,8 @@
         </div>
     </div>
     <small class="d-block text-end mt-3">
+
         <a href="<?php echo URLROOT ?>" target="_blank">View front Page</a>
     </small>
 </div>
-
-
 

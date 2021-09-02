@@ -2,19 +2,23 @@
 
 include_once '../../backend/init.php';
 
-$users = $query->select_all('users');
-
-include(INCLUDES_PATH . '/header.php');
-include(INCLUDES_PATH . '/navbar.php');
-
 if($session->is_logged_in() === 'false') {
     redirect_to('login.php');
 }
 
-$users = $query->select_all('users');
-var_dump($users);
 
-include 'views/index.view.php';
+$id = $_GET['id'];
+
+$question = $query->find_by_id($id, 'questions');
+if($question === false) {
+    $session->message('Something went wrong.', 'danger');
+    redirect_to(URLROOT . '/admin/users/index.php');
+}
+
+include(INCLUDES_PATH . '/header.php');
+include(INCLUDES_PATH . '/navbar.php');
+
+include 'views/show.view.php';
 
 
 include(INCLUDES_PATH . '/footer.php');

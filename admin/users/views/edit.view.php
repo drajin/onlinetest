@@ -32,16 +32,16 @@
                 <div class="card card-body bg-light">
                     <dl class="dl-horizontal">
                         <dt>Created At:</dt>
-                        <dd><?php echo $user->created_at; ?></dd>
+                        <dd><?php display_time($user->created_at);  ?></dd>
                     </dl>
                     <dl class="dl-horizontal">
                         <dt>Updated At:</dt>
-                        <dd><?php echo $user->updated_at; ?></dd>
+                        <dd><?php display_time($user->updated_at); ?></dd>
                     </dl>
                     <hr>
                     <div class="row">
                         <div class="col-sm-6 mb-2">
-                            <a href="" class="btn btn-block">Edit</a>
+                            <a href="" class="btn btn-block disabled">Edit</a>
                         </div>
                         <div class="col-sm-6">
                             <form method="POST" action="">

@@ -11,14 +11,12 @@ $id = $_GET['id'];
 
 $user = $query->find_by_id($id, 'users');
 if($user === false) {
-    redirect_to(URLROOT . '/admin/login.php');
+    $session->message('Something went wrong.', 'danger');
+    redirect_to(URLROOT . '/admin/questions/index.php');
 }
 
 include(INCLUDES_PATH . '/header.php');
 include(INCLUDES_PATH . '/navbar.php');
-
-
-$users = $query->select_all('users');
 
 include 'views/show.view.php';
 

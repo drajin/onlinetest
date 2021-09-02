@@ -38,8 +38,8 @@
                     <td><?php echo $user->email; ?></td>
                     <td><?php echo $user->score; ?></td>
                     <td><?php echo $user->time; ?></td>
-                    <td><?php echo $user->created_at; ?></td>
-                    <td><?php echo $user->updated_at; ?></td>
+                    <td><?php display_time($user->created_at); ?></td>
+                    <td><?php display_time($user->updated_at); ?></td>
                     <td><a href="show.php?id=<?php echo $user->id; ?>" class="btn  btn-sm">View</a></td>
                     <td><a href="edit.php?id=<?php echo $user->id; ?>" class="btn btn-sm">Edit</a></td>
                     <td>
@@ -55,6 +55,6 @@
             </tbody>
         </table>
         <small class="d-block text-end mt-3">
-            <a href="<?php echo URLROOT ?>">View front Page</a>
+            <a href="<?php echo URLROOT ?>" target="_blank">View front Page</a>
         </small>
     </div>

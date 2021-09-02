@@ -11,9 +11,6 @@ $users = $query->select_all('users');
 include(INCLUDES_PATH . '/header.php');
 include(INCLUDES_PATH . '/navbar.php');
 
-$users = $query->select_all('users');
-
-
 include 'views/index.view.php';
 
 

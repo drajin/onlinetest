@@ -12,11 +12,11 @@
             <div class="card card-body bg-light">
                 <dl class="dl-horizontal">
                     <dt>Created At:</dt>
-                    <dd><?php echo $user->created_at; ?></dd>
+                    <dd><?php display_time($user->created_at); ?></dd>
                 </dl>
                 <dl class="dl-horizontal">
                     <dt>Updated At:</dt>
-                    <dd><?php echo $user->updated_at; ?></dd>
+                    <dd><?php display_time($user->updated_at); ?></dd>
                 </dl>
                 <hr>
                 <div class="row">

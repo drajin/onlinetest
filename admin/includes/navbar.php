@@ -14,7 +14,7 @@
                        href="<?php echo URLROOT ?>/admin/questions/index.php">Quiz questions</a>
                 </li>
             </ul>
-            <a href="<?php echo URLROOT ?>/admin/logout.php" class="btn btn-outline-success" role="button" aria-pressed="true">Logout</a>
+            <a href="<?php echo URLROOT ?>/admin/logout.php" class="btn" role="button" aria-pressed="true">Logout</a>
         </div>
     </div>
 </nav>
