@@ -4,6 +4,10 @@
 
     class Admin
     {
+        //TODO add private property for tables
+        //TODO make validate reusable
+       // private string $table = 'users';
+
         public function validate_login_data() {
             $data = [
                 'email' => '',
@@ -34,20 +38,59 @@
                     $data['password_error'] = 'Please enter a password.';
                 }
 
-                //Check if there is no errors
-               // if (empty($data['email_error']) && empty($data['password_error'])) {
-                    //ide log in
-                 //   $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+            } else {
+                $data = [
+                    'email' => '',
+                    'password' => '',
+                    'email_error' => '',
+                    'password_error' => ''
+                ];
+            }
+            return $data;
+        }
 
-                   // if ($loggedInUser) {
-    //                    $this->createUserSession($loggedInUser);
-    //                } else {
-    //                    $data['password_error'] = 'Password or email is incorrect. Please try again.';
-    //
-    //                   return $data;
-    //                }
+        public function validate_update_user() {
+            $data = [
+                'first_name' => '',
+                'last_name' => '',
+                'email' => '',
+                'first_name_error' => '',
+                'last_name_error' => '',
+                'email_error' => '',
+            ];
 
-               // }
+            //Check for post
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                //Sanitize post data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data = [
+                    'first_name' => trim($_POST['first_name']),
+                    'last_name' => trim($_POST['last_name']),
+                    'email' => trim($_POST['email']),
+                    'first_name_error' => '',
+                    'last_name_error' => '',
+                    'email_error' => '',
+                ];
+
+                //Validate first name
+                if (empty($data['first_name'])) {
+                    $data['first_name_error'] = 'First Name can\'t be blank.';
+                }
+
+                //Validate last name
+                if (empty($data['last_name'])) {
+                    $data['last_name_error'] = 'Last Name can\'t be blank.';
+                }
+
+                //Validate email
+                if (empty($data['email'])) {
+                    $data['email_error'] = 'Email can\'t be blank.';
+                } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                    $data['email_error'] = 'Please enter a valid email address.';
+                }
+
+
 
             } else {
                 $data = [
@@ -60,35 +103,5 @@
             return $data;
         }
 
-        private function addError($key, $val){
-            $this->errors[$key] = $val;
-        }
 
-        public function display_errors($error)
-        {
-            if(isset($error)) {
-                echo $error;
-            }
-        }
-
-        public function set_flesh_message($msg, $type) {
-            $alert = '<div class="alert alert-'.$type.' text-center" role="alert">';
-            $alert .= $msg;
-            $alert .= '</div>';
-            return $alert;
-        }
-
-        public function create_user_session($user) {
-            $_SESSION['user_id'] = $user->id;
-            $_SESSION['email'] = $user->email;
-            $_SESSION['email'] = $user->email;
-            header('location:' . URLROOT . '/pages/index');
-        }
-
-        public function logout() {
-            unset($_SESSION['user_id']);
-            unset($_SESSION['email']);
-            unset($_SESSION['email']);
-            header('location:' . URLROOT . '/users/login');
-        }
     }

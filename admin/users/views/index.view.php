@@ -40,17 +40,6 @@
                     <td><?php echo $user->time; ?></td>
                     <td><?php echo $user->created_at; ?></td>
                     <td><?php echo $user->updated_at; ?></td>
-<!--                    <td><a href="view?id=--><?php //echo $post->postId ?><!--" class="btn btn-secondary">View</a></td>-->
-<!--                    --><?php //if(isset($_SESSION['user_id']) && $post->user_id == $_SESSION['user_id']) : ?>
-<!--                    <td><a href="edit?id=--><?php //echo $post->postId ?><!--" class="btn btn-secondary">Edit</a></td>-->
-<!--                    <td>-->
-<!--                        <form method="post" action="/delete?id=--><?php //echo $post->postId ?><!--" >-->
-<!--                            <input type="hidden" name="_method" value="delete">-->
-<!--                            <div id="operations">-->
-<!--                                <input type="submit" name="commit" class="btn btn-secondary" value="Delete" />-->
-<!--                            </div>-->
-<!--                        </form>-->
-<!--                    </td>-->
                     <td><a href="show.php?id=<?php echo $user->id; ?>" class="btn  btn-sm">View</a></td>
                     <td><a href="edit.php?id=<?php echo $user->id; ?>" class="btn btn-sm">Edit</a></td>
                     <td>

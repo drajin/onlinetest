@@ -47,17 +47,17 @@ class QueryBuilder {
         $updated_at = null;
         $password_hash = password_hash($data->password, PASSWORD_DEFAULT);
 
-        $sql = $this->db->prepare('INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $sql->bindParam(':first_date', $data->first_name);
-        $sql->bindParam(':last_name', $data->last_name);
-        $sql->bindParam(':email', $data->email);
-        $sql->bindParam(':$password', $password_hash);
-        $sql->bindParam(':total_score', $total_score);
-        $sql->bindParam(':time', $time);
-        $sql->bindParam(':created_at', $created_at);
-        $sql->bindParam(':updated_at', $updated_at);
+        $stmt = $this->db->prepare('INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bindParam(':first_date', $data->first_name);
+        $stmt->bindParam(':last_name', $data->last_name);
+        $stmt->bindParam(':email', $data->email);
+        $stmt->bindParam(':$password', $password_hash);
+        $stmt->bindParam(':total_score', $total_score);
+        $stmt->bindParam(':time', $time);
+        $stmt->bindParam(':created_at', $created_at);
+        $stmt->bindParam(':updated_at', $updated_at);
 
-        $result = $sql->execute([NULL, $data->first_name, $data->last_name, $data->email, $password_hash, NULL, NULL, NULL, NULL]);
+        $result = $stmt->execute([NULL, $data->first_name, $data->last_name, $data->email, $password_hash, NULL, NULL, NULL, NULL]);
             if($result) {
                 echo "success";
             } else {
@@ -67,10 +67,10 @@ class QueryBuilder {
 
         public function findUserByEmail($email, $table) {
 
-            $sql = $this->db->prepare("SELECT * FROM ".$table." WHERE email=?");
-            $sql->bindParam(':email', $email);
-            $sql->execute([$email]);
-            return $sql->fetch(PDO::FETCH_OBJ);
+            $stmt = $this->db->prepare("SELECT * FROM ".$table." WHERE email=?");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute([$email]);
+            return $stmt->fetch(PDO::FETCH_OBJ);
 
         }
 
@@ -103,6 +103,73 @@ class QueryBuilder {
                 return $this->login($data, 'users');
             }
         }
+
+
+        //TODO array or obj
+        public function update_users($user, $id) {
+            if(gettype($user) === 'array') {
+                $user = (object)$user;
+            }
+            try {
+                $stmt = $this->db->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, updated_at=NOW() WHERE id=:id");
+                $stmt->bindparam(":first_name",$user->first_name);
+                $stmt->bindparam(":last_name",$user->last_name);
+                $stmt->bindparam(":email",$user->email);
+                $stmt->bindparam(":id",$id);
+                //var_dump($stmt);
+                $stmt->execute();
+                return true;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+//            try {
+//                $stmt = $this->db->prepare("UPDATE users SET first_name=:?, last_name=:?, email=:?, updated_at=NOW() WHERE id=:id");
+//                $stmt->bindParam( 'sssi',$user->first_name, $user->last_name, $user->email, $id);
+//                $stmt->execute();
+//                return true;
+//            } catch(PDOException $e) {
+//                echo $e->getMessage();
+//                return false;
+//            }
+        }
+
+//    public function update_users($user) {
+//        if(gettype($user) === 'array') {
+//            $user = (object)$user;
+//        }
+//
+//        try {
+//            $stmt = $this->db->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, updated_at=NOW() WHERE id=:id");
+//            $stmt->bindparam(":first_name",$user->first_name);
+//            $stmt->bindparam(":last_name",$user->last_name);
+//            $stmt->bindparam(":email",$user->email);
+//            $stmt->bindparam(":id",$user->id);
+//            //var_dump($stmt);
+//            $stmt->execute();
+//            return true;
+//        } catch(PDOException $e) {
+//            echo $e->getMessage();
+//            return false;
+//        }
+//    }
+
+
+    public function update($id, $fname, $lname, $email, $contact) {
+        try {
+            $stmt = $this->db->prepare("UPDATE tbl_users SET first_name=:fname, last_name=:lname, email_id=:email, contact_no=:contact WHERE id=:id");
+            $stmt->bindparam(":fname",$fname);
+            $stmt->bindparam(":lname",$lname);
+            $stmt->bindparam(":email",$email);
+            $stmt->bindparam(":contact",$contact);
+            $stmt->bindparam(":id",$id);
+            $stmt->execute();
+            return true;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 
 
 

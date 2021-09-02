@@ -21,10 +21,10 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-6 mb-2">
-                        <a href="" class="btn btn-block">Edit</a>
+                        <a href="<?php echo URLROOT ?>/admin/users/edit.php?id=<?php echo $user->id; ?>" class="btn btn-block">Edit</a>
                     </div>
                     <div class="col-sm-6">
-                        <form method="POST" action="">
+                        <form method="POST" action="<?php echo URLROOT ?>/admin/users/delete.php?id=<?php echo $user->id; ?>">
                             <input type="hidden" name="_method" value="delete">
                             <div id="operations">
                                 <input type="submit" name="commit" class="btn btn-block" value="Delete" />
