@@ -16,7 +16,7 @@ if($question === false) {
     redirect_to(URLROOT . '/admin/questions/index.php');
 }
 
-$question_data = ($admin->validate_update_question());
+$question_data = ($admin->validate_question());
 
 if (empty($question_data['question_text_error']) && empty($question_data['answer_1_error']) && empty($question_data['answer_2_error'])
     && empty($question_data['answer_3_error']) && empty($question_data['answer_4_error']) && empty($question_data['correct_answer_error']) && empty($question_data['points_error'])

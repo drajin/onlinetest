@@ -104,7 +104,8 @@
         }
 
 
-        public function validate_update_question() {
+        public function validate_question() {
+
             $data = [
                 'question_text' => '',
                 'answer_1' => '',

@@ -3,7 +3,7 @@
 include_once '../backend/init.php';
 
 if($session->is_logged_in() === 'true') {
-    redirect_to('index.php');
+    redirect_to(URLROOT . 'admin/index.php');
 }
 
 include(INCLUDES_PATH . '/header.php');

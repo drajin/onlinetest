@@ -107,6 +107,7 @@ class QueryBuilder {
 
         //TODO array or obj
         public function update_user($user, $id) {
+
             if(gettype($user) === 'array') {
                 $user = (object)$user;
             }
@@ -133,6 +134,28 @@ class QueryBuilder {
 //            }
         }
 
+    public function create_question($question) {
+
+        if (gettype($question) === 'array') {
+            $question = (object)$question;
+        }
+        try {
+            $stmt = $this->db->prepare('INSERT INTO questions VALUES(?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt->bindParam(':question_text', $question->question_text);
+            $stmt->bindParam(':answer_1', $question->answer_1);
+            $stmt->bindParam(':answer_2', $question->answer_2);
+            $stmt->bindParam(':answer_3', $question->answer_3);
+            $stmt->bindParam(':answer_4', $question->answer_4);
+            $stmt->bindParam(':correct_answer', $question->correct_answer);
+            $stmt->bindParam(':points', $question->points);
+
+        return $stmt->execute([NULL, $question->question_text, $question->answer_1, $question->answer_2, $question->answer_3, $question->answer_4, $question->correct_answer, $question->points]);
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 
     public function update_question($question, $id)
     {

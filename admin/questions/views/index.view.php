@@ -53,7 +53,7 @@
             </tbody>
         </table>
         <small class="d-flex justify-content-between mt-3">
-            <a class="btn  btn-sm" href="<?php echo URLROOT ?>">Add a New Question</a>
+            <a class="btn  btn-sm" href="<?php echo URLROOT .'/admin/questions/create.php' ?>">Add a New Question</a>
             <a href="<?php echo URLROOT ?>" target="_blank">View front Page</a>
         </small>
     </div>
