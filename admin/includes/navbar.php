@@ -13,6 +13,11 @@
                     <a class="nav-link <?php if(isset($questions)){ echo 'active';} ?>"
                        href="<?php echo URLROOT ?>/admin/questions/index.php">Quiz questions</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if(isset($results)){ echo 'active';} ?>"
+                       href="#">Results</a>
+<!--                       href="--><?php //echo URLROOT ?><!--/admin/results.php">Results</a>-->
+                </li>
             </ul>
             <a href="<?php echo URLROOT ?>/admin/logout.php" class="btn" role="button" aria-pressed="true">Logout</a>
         </div>

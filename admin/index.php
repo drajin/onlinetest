@@ -1,9 +1,9 @@
 <?php
-
+//TODO .htaccess
 include_once '../backend/init.php';
 
 if($session->is_logged_in() === 'false') {
-    redirect_to(URLROOT . 'admin/login.php');
+    redirect_to(URLROOT . '/admin/login.php');
 }
 
 include(INCLUDES_PATH . '/header.php');

@@ -17,7 +17,6 @@ let submitRegisterBtn = document.querySelector('#submitRegister');
 let submitLoginBtn = document.querySelector('#submitLogin');
 
 //select forms
-
 let loginForm = document.getElementById("login");
 let registerForm = document.getElementById("register");
 
@@ -27,10 +26,9 @@ submitLoginBtn.addEventListener('click', loginUser);
 
 let isLoggedInUser;
 
-//tmp
-quizView = document.querySelector('#quizView');
 
 function ShowView() {
+
     //select links
     this.loginLink = document.querySelectorAll('.loginLink');
     this.registerLink = document.querySelectorAll('.registerLink');
@@ -39,6 +37,7 @@ function ShowView() {
     this.loginView = document.querySelector('#loginView');
     this.registerView = document.querySelector('#registerView');
     this.welcomeView = document.querySelector('#welcomeView');
+    this.quizView = document.querySelector('#quizView');
 
     //add event listeners to links
     this.init = function() {
@@ -53,26 +52,36 @@ function ShowView() {
         this.registerView.style.display = 'none';
         this.loginView.style.display = 'block';
         this.welcomeView.style.display = 'none';
+        this.quizView.style.display = 'none';
+
     };
+
     //show register view
     this.register = function() {
         this.registerView.style.display = 'block';
         this.loginView.style.display = 'none';
         this.welcomeView.style.display = 'none';
+        this.quizView.style.display = 'none';
     };
 
+
+    this.quiz = function() {
+        this.registerView.style.display = 'none';
+        this.loginView.style.display = 'none';
+        this.welcomeView.style.display = 'none';
+        this.quizView.style.display = 'none';
+    }
+
     //show welcome view TODO isLoggedIn
-
-
-
 }
+
 
 let showView = new ShowView();
 showView.init();
 
+
 function ShowWelcomeView()  {
     isLoggedIn();
-    console.log(isLoggedInUser)
     setTimeout(function(){
     if(isLoggedInUser) {
         showView.welcomeView.style.display = 'block';
@@ -95,12 +104,11 @@ function ShowWelcomeView()  {
 let validateForm = new ValidateForm();
 
 
-// DB.getAll().then((data)=>{
+// Database.getAll().then((data)=>{
 //     console.log(data);
 // },(error)=>{
 //     console.log(error);
 // });
-
 
 function registerNewUser(e) {
     e.preventDefault();
@@ -133,11 +141,11 @@ function registerNewUser(e) {
     })
 }
 
-
-
-
-
 let emailUniqueValue = false;
+
+
+
+
     //Log in user
 function loginUser(e) {
     e.preventDefault();
@@ -158,7 +166,6 @@ function loginUser(e) {
         };
         registerForm.reset();
         loginForm.reset();
-        //TODO .....
         DB.login(loginData).then((response) => {
             if(response === 'true') {
                 ShowWelcomeView();
@@ -171,8 +178,6 @@ function loginUser(e) {
             console.log(error);
         })
     }
-
-
 }
 
 
@@ -193,6 +198,7 @@ function ValidateForm() {
         this.checkEmail();
         this.checkPassword();
         this.checkPasswordConfirm();
+        this.emailUnique();
         return this.hasNoError;
     };
 
@@ -223,16 +229,6 @@ function ValidateForm() {
         else if (!this.isEmail(emailValue)) {
             return this.setError(emailInput, 'This is not a valid email address.');
         }
-        emailUnique();
-        setTimeout(() => {
-                if (!emailUniqueValue) {
-                    console.log('ovde setuje error false znaci nije unique ', emailUniqueValue);
-                    this.setError(emailInput, 'Email address is already registered.');
-                }
-                else {
-                    this.setSuccess(emailInput);
-                }
-        }, 1000);
         // setTimeout(function(){
         //     if (emailUniqueValue) {
         //         this.setError(emailInput, 'Email address is already registered.');
@@ -245,6 +241,17 @@ function ValidateForm() {
 
     };// end fun
 
+    this.emailUnique = function() {
+        setTimeout(() => {
+            if (!emailUniqueValue) {
+                console.log('ovde setuje error false znaci nije unique ', emailUniqueValue);
+                this.setError(emailInput, 'Email address is already registered.');
+            }
+            else {
+                this.setSuccess(emailInput);
+            }
+        }, 1000);
+    };
 
 
     this.checkPassword = function() {

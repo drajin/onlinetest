@@ -29,17 +29,21 @@
 body {
     font-family: var(--fontFamily);
     font-size: var(--fontSize);
-    background-color: var(--backgroundColor);
+    /*background-color: var(--backgroundColor);*/
+    /*background-image: linear-gradient(rgba(30, 30, 30, .8), rgba(30, 30, 30, 8)), url(../img/bg.jpg) ;*/
+    background-image: url(../img/bg.jpg) ;
+    background-size: cover;
+    background-position: center top;
     color: var(--white);
 }
 
-
-
-#registerView {
+#welcomeView,
+#registerView,
+#quizView {
         display: none;
     }
 
-#welcomeView {
+ {
     display: none;
 }
 
@@ -57,6 +61,12 @@ a {
     font-weight: bold;
     color: white;
 }
+
+.transparent {
+    background: rgba(0, 0, 0, 0.5);
+
+}
+
 
 /*TODO add transition*/
 a:hover {
@@ -135,7 +145,7 @@ a:hover {
     background: var(--red);
     position: relative;
     min-height: 400px;
-    overflow: hidden
+    overflow: hidden;
 }
 
 #quizView .wrap {

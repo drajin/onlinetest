@@ -16,8 +16,8 @@ if($user === false) {
     redirect_to(URLROOT . '/admin/users/index.php');
 }
 
-
 $user_data = ($admin->validate_update_user());
+
 
 if (empty($user_data['first_name_error']) && empty($user_data['last_name_error']) && empty($user_data['email_error'])
     && !empty($user_data['first_name']) && !empty($user_data['last_name']) && !empty($user_data['email'])) {

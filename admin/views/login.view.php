@@ -1,9 +1,9 @@
+<main class="container">
+<div class="my-3 p-3 transparent rounded shadow-sm">
 
+            <h1 class="display-4 text-center m-3 p-3">Online Test - Admin Area</h1>
+            <h3 class="text-center mb-5">Please Log In</h3>
 
-        <div class="text-dark">
-            <h1 class="display-4 text-center m-3 p-3">Welcome Admin,</h1>
-            <h3 class="text-center mb-5">please log in</h3>
-        </div>
 <!--        alert-->
         <section>
             <div class="row">
@@ -31,4 +31,5 @@
             </div>
         </div>
     </div>
+</div>
 

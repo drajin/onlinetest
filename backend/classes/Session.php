@@ -18,7 +18,7 @@ class Session {
             $_SESSION['user_id'] = $user->id;
             $this->user_id = $user->id;
             $this->email = $_SESSION['email'] = $user->email; //double assignment to the session and to the property
-            redirect_to(URLROOT . 'admin/index.php');
+            redirect_to(URLROOT . '/admin/index.php');
         } else {
             return 'Error login';
         }
@@ -48,7 +48,7 @@ class Session {
     //TODO use later
     function require_login() {
         if(!$this->is_logged_in()) {
-            redirect_to(URLROOT . 'admin/index.php');
+            redirect_to(URLROOT . '/admin/index.php');
         } else {
             // Do nothing
         }

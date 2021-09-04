@@ -12,14 +12,14 @@ define("INCLUDES_PATH", PRIVATE_PATH . '/../admin/includes');
 $config = require('config/config.php');
 
 require 'classes/Connection.php';
-require 'classes/QueryBuilder.php';
+require 'classes/Database.php';
 require 'classes/Admin.php';
 
 $test = 'Ok';
 
 $db = Connection::connect($config['database']);
 $session = new Session();
-$query = new QueryBuilder($db, $session);
+$query = new Database($db, $session);
 $admin = new Admin();
 
 

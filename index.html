@@ -1,20 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!--    base url-->
-<!--    <base href="/onlinetest/">-->
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
     <title>Generic Quiz</title>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main navigation">
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main navigation">-->
+    <nav class="navbar navbar-expand-lg navbar-dark transparent " aria-label="Main navigation">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html">Online Test</a>
         <div class="navbar-collapse offcanvas-collapse me-auto" id="navbarsExampleDefault">
@@ -23,8 +22,8 @@
             </ul>
 
             <a href="#" class="btn btn-secondary registerLink registerBtn" role="button" aria-pressed="true">Register</a>
-            <a href="#" class="btn btn-outline-success loginLink ms-2" role="button" aria-pressed="true">login</a>
-            <a href="#" class="btn btn-outline-success" role="button" aria-pressed="true">Logout</a>
+            <a href="#" class="btn btn-secondary  loginLink ms-2" role="button" aria-pressed="true">login</a>
+            <a href="#" class="btn btn-secondary" role="button" aria-pressed="true">Logout</a>
         </div>
     </div>
 </nav>
@@ -50,17 +49,20 @@
 <!--</nav>-->
 
 <main class="container">
-    <section>
+    <div id="alerts">
         <div class="row">
             <div class="col-6 offset-3">
                 <div class="alerts"></div>
             </div>
         </div>
-    </section>
+    </div>
 
 
-    <!--login form-->
+    <!--Login form-->
+
     <div id="loginView">
+<!--        <div class="my-3 p-3 bg-body rounded shadow-sm">-->
+            <div class="my-3 p-3 transparent rounded shadow-sm">
         <h1 class="display-4 text-center m-3 p-3">Log In</h1>
         <div class="row">
             <div class="col-6 offset-3">
@@ -77,9 +79,11 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!--Register form-->
-    <div id="registerView">
+<!--Register form-->
+<div id="registerView">
+    <div class="my-3 p-3 transparent rounded shadow-sm">
         <h1 class="display-4 text-center m-3 p-3">Register</h1>
         <div class="row">
             <div class="col-6 offset-3">
@@ -99,23 +103,25 @@
                     <input type="password" placeholder="Password Confirm" name="passwordConfirm" class="form-control">
                     <div class="invalid-feedback"></div>
                     <br>
-                    <button id="submitRegister" class="btn btn-outline-secondary form-control" type="submit">Submit</button>
+                    <button id="submitRegister" class="btn form-control" type="submit">Submit</button>
                 </form>
                     <p class="text-center mb-3">Already registered? <a class="loginLink" href="">Log In</a></p>
             </div>
         </div>
     </div>
-    <!--Welcome view    -->
-    <div id="welcomeView">
-        <h1 class="display-4 text-center m-3 p-3">Welcome</h1>
-        <div class="row">
-            <h2>Start Test</h2>
-        </div>
-    </div>
-    <!--Quiz view    -->
-    <div id="quizView">
+</div>
 
+<!--Welcome view    -->
+<div id="welcomeView">
+    <h1 class="display-4 text-center m-3 p-3">Welcome</h1>
+    <div class="row">
+        <h2>Start Test</h2>
     </div>
+</div>
+
+
+<!--Quiz view    -->
+<div id="quizView"></div>
 
 </main> <!--container-->
 <script>
