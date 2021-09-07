@@ -37,11 +37,11 @@ body {
     color: var(--white);
 }
 
-#welcomeView,
-#registerView,
-#quizView {
-        display: none;
-    }
+/*#welcomeView,*/
+/*#registerView,*/
+/*#quizView {*/
+/*        display: none;*/
+/*    }*/
 
  {
     display: none;

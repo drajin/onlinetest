@@ -2,7 +2,7 @@
 //TODO .htaccess
 include_once '../backend/init.php';
 
-if($session->is_logged_in() === 'false') {
+if(!$session->is_logged_in()) {
     redirect_to(URLROOT . '/admin/login.php');
 }
 

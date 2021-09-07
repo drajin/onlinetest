@@ -15,6 +15,8 @@ let passwordConfirmValue;
 //select buttons
 let submitRegisterBtn = document.querySelector('#submitRegister');
 let submitLoginBtn = document.querySelector('#submitLogin');
+let loginBtn = document.querySelector('#loginBtn');
+let registerBtn = document.querySelector('#registerBtn');
 
 //select forms
 let loginForm = document.getElementById("login");
@@ -69,7 +71,7 @@ function ShowView() {
         this.registerView.style.display = 'none';
         this.loginView.style.display = 'none';
         this.welcomeView.style.display = 'none';
-        this.quizView.style.display = 'none';
+        this.quizView.style.display = 'block';
     }
 
     //show welcome view TODO isLoggedIn
@@ -80,22 +82,18 @@ let showView = new ShowView();
 showView.init();
 
 
-function ShowWelcomeView()  {
-    isLoggedIn();
-    setTimeout(function(){
-    if(isLoggedInUser) {
-        showView.welcomeView.style.display = 'block';
-        showView.registerView.style.display = 'none';
-        showView.loginView.style.display = 'none';
-    } else {
-        showView.registerView.style.display = 'none';
-        showView.loginView.style.display = 'block';
-        showView.welcomeView.style.display = 'none';
-        showAlert('alert-danger', 'Log in error, you have to logged in to view this page.');
-
-    }
-         }, 3000);
-}
+// function ShowWelcomeView()  {
+//     isLoggedIn();
+//     setTimeout(function(){
+//     if(isLoggedInUser) {
+//         showView.quiz();
+//     } else {
+//         showView.login();
+//         showAlert('alert-danger', 'Log in error, you have to logged in to view this page.');
+//
+//     }
+//          }, 3000);
+// }
 
 
 //show views
@@ -104,7 +102,7 @@ function ShowWelcomeView()  {
 let validateForm = new ValidateForm();
 
 
-// Database.getAll().then((data)=>{
+// DBQuery.getAll().then((data)=>{
 //     console.log(data);
 // },(error)=>{
 //     console.log(error);
@@ -167,8 +165,12 @@ function loginUser(e) {
         registerForm.reset();
         loginForm.reset();
         DB.login(loginData).then((response) => {
-            if(response === 'true') {
-                ShowWelcomeView();
+            if(response) {
+                showView.quiz();
+                showLogoutBtn();
+                registerBtn.style.display='none';
+
+
             } else {
                 showAlert('alert-danger', 'Incorrect Email and Password Combination.');
             }
@@ -228,23 +230,16 @@ function ValidateForm() {
         }
         else if (!this.isEmail(emailValue)) {
             return this.setError(emailInput, 'This is not a valid email address.');
+        } else {
+            this.setSuccess(emailInput);
         }
-        // setTimeout(function(){
-        //     if (emailUniqueValue) {
-        //         this.setError(emailInput, 'Email address is already registered.');
-        //     }
-        //     else {
-        //         this.setSuccess(emailInput);
-        //     }
-        // },3000)
 
-
-    };// end fun
+    };
 
     this.emailUnique = function() {
         setTimeout(() => {
             if (!emailUniqueValue) {
-                console.log('ovde setuje error false znaci nije unique ', emailUniqueValue);
+                console.log('email not unique ', emailUniqueValue);
                 this.setError(emailInput, 'Email address is already registered.');
             }
             else {
@@ -328,7 +323,7 @@ function showAlert(alertType, msg) {
 async function isLoggedIn() {
 
    DB.getSession().then((response) => {
-       console.log('original', response);
+       console.log('is looged in', response);
        isLoggedInUser = response;
         return isLoggedInUser;
         // if(response == 'true') {   //TODO  nacin za true / false
@@ -341,6 +336,15 @@ async function isLoggedIn() {
     })
 
 }
+
+function showLogoutBtn() {
+    loginBtn.innerHTML = 'Logout';
+    loginBtn.addEventListener('click', ()=>{
+        console.log(loginBtn)
+    });
+}
+
+
 
 
 

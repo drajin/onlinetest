@@ -69,8 +69,8 @@ class DB {
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {
                 if(xml.readyState === 4 && xml.status === 200) {
-                    console.log(xml.responseText);
-                    //resolve(xml.responseText); //true success or false
+                    //console.log(xml.responseText);
+                    resolve(xml.responseText); //true success or false
                 }
             };
             xml.open('POST','backend/login_register.php');

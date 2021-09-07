@@ -18,16 +18,16 @@ class Session {
             $_SESSION['user_id'] = $user->id;
             $this->user_id = $user->id;
             $this->email = $_SESSION['email'] = $user->email; //double assignment to the session and to the property
-            redirect_to(URLROOT . '/admin/index.php');
+            return true;
         } else {
-            return 'Error login';
+            return false;
         }
     }
 
     public function  is_logged_in() {
         if(isset($this->user_id)) {
-            return 'true';
-        } else return 'false';
+            return true;
+        } else return false;
     }
 
     public function logout() {
@@ -46,15 +46,15 @@ class Session {
     }
 
     //TODO use later
-    function require_login() {
-        if(!$this->is_logged_in()) {
-            redirect_to(URLROOT . '/admin/index.php');
-        } else {
-            // Do nothing
-        }
-
-
-    }
+//    function require_login() {
+//        if(!$this->is_logged_in()) {
+//            redirect_to(URLROOT . '/admin/index.php');
+//        } else {
+//            // Do nothing
+//        }
+//
+//
+//    }
 
 
     function display_session_message() {
@@ -73,9 +73,7 @@ class Session {
 //        return $alert;
 //    }
 
-//    public function message() {
-//        return 'welcome';
-//    }
+
         public function message($msg='', $type='') {
         $div_alert = '<div class="alert alert-'.$type.' text-center" role="alert">';
         $div_alert .= $msg;

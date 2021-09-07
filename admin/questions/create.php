@@ -3,7 +3,7 @@
 include_once '../../backend/init.php';
 
 //checks if question is logged in
-if($session->is_logged_in() === 'false') {
+if(!$session->is_logged_in()) {
     redirect_to(URLROOT . '/admin/login.php');
 }
 

@@ -8,7 +8,7 @@
         <section>
             <div class="row">
                 <div class="col-6 offset-3">
-                    <?php echo $session->display_session_message(); ?>
+                    <?php echo ($session->display_session_message()); ?>
                 </div>
             </div>
         </section>
