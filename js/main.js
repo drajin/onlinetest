@@ -1,9 +1,10 @@
 //select inputs
 let firstNameInput = document.querySelector('[name="firstName"]');
 let lastNameInput = document.querySelector('[name="lastName"]');
-let emailInput = document.querySelector('#emailRegister');
-let passwordInput = document.querySelector('#passwordRegister');
+let emailInput = '';
+let passwordInput = '';
 let passwordConfirmInput = document.querySelector('[name="passwordConfirm"]');
+
 
 //select values
 let firstNameValue;
@@ -17,69 +18,24 @@ let submitRegisterBtn = document.querySelector('#submitRegister');
 let submitLoginBtn = document.querySelector('#submitLogin');
 let loginBtn = document.querySelector('#loginBtn');
 let registerBtn = document.querySelector('#registerBtn');
+let startBtn = document.querySelector('.startBtn');
 
 //select forms
 let loginForm = document.getElementById("login");
 let registerForm = document.getElementById("register");
 
+let loader = document.querySelector('#loader');
+
+
 //add events
 submitRegisterBtn.addEventListener('click', registerNewUser);
 submitLoginBtn.addEventListener('click', loginUser);
+startBtn.addEventListener('click', quizStart);
 
 let isLoggedInUser;
 
 
-function ShowView() {
 
-    //select links
-    this.loginLink = document.querySelectorAll('.loginLink');
-    this.registerLink = document.querySelectorAll('.registerLink');
-
-    //select views
-    this.loginView = document.querySelector('#loginView');
-    this.registerView = document.querySelector('#registerView');
-    this.welcomeView = document.querySelector('#welcomeView');
-    this.quizView = document.querySelector('#quizView');
-
-    //add event listeners to links
-    this.init = function() {
-        for(let i=0; i<this.loginLink.length;  i++) {
-            this.loginLink[i].addEventListener('click', this.login.bind(this));
-            this.registerLink[i].addEventListener('click', this.register.bind(this));
-        }
-    };
-
-    //show login view
-    this.login = function() {
-        this.registerView.style.display = 'none';
-        this.loginView.style.display = 'block';
-        this.welcomeView.style.display = 'none';
-        this.quizView.style.display = 'none';
-
-    };
-
-    //show register view
-    this.register = function() {
-        this.registerView.style.display = 'block';
-        this.loginView.style.display = 'none';
-        this.welcomeView.style.display = 'none';
-        this.quizView.style.display = 'none';
-    };
-
-
-    this.quiz = function() {
-        this.registerView.style.display = 'none';
-        this.loginView.style.display = 'none';
-        this.welcomeView.style.display = 'none';
-        this.quizView.style.display = 'block';
-    }
-
-    //show welcome view TODO isLoggedIn
-}
-
-
-let showView = new ShowView();
-showView.init();
 
 
 // function ShowWelcomeView()  {
@@ -100,53 +56,52 @@ showView.init();
 
 //initializes form class
 let validateForm = new ValidateForm();
-
-
-// DBQuery.getAll().then((data)=>{
-//     console.log(data);
-// },(error)=>{
-//     console.log(error);
-// });
-
+// register user
 function registerNewUser(e) {
     e.preventDefault();
     //set input values
     emailInput = document.querySelector('#emailRegister');
     passwordInput = document.querySelector('#passwordRegister');
 
-
     firstNameValue = firstNameInput.value.trim();
     lastNameValue = lastNameInput.value.trim();
     emailValue = emailInput.value.trim();
     passwordValue = passwordInput.value.trim();
     passwordConfirmValue = passwordConfirmInput.value.trim();
-    validateForm.register();
 
-    let newUser = {
-        first_name : firstNameValue,
-        last_name : lastNameValue,
-        email : emailValue,
-        password :passwordValue,
-        password_confirm : passwordConfirmValue,
-    };
-    registerForm.reset();
-    loginForm.reset();
-    DB.register(newUser).then((response) => {
-        showView.login();
-        showAlert('alert-success', 'You are now registered, please login.');
-    },(error)=>{
-        console.log(error);
-    })
+
+    if(validateForm.register()) {
+
+        setTimeout(()=>{
+            let newUser = {
+                first_name : firstNameValue,
+                last_name : lastNameValue,
+                email : emailValue,
+                password :passwordValue,
+                password_confirm : passwordConfirmValue,
+            };
+            loginForm.reset();
+            DB.register(newUser).then((response) => {
+                showView.login();
+                showAlert('alert-success', 'You are now registered, please login.');
+            },(error)=>{
+                console.log(error);
+            })
+        },3000);
+        hideLoader();
+    }
+
+
+
+
 }
 
 let emailUniqueValue = false;
 
-
-
-
     //Log in user
 function loginUser(e) {
     e.preventDefault();
+    registerForm.reset();
 
     //select different email and password input
     emailInput = document.querySelector('#emailLogin');
@@ -157,19 +112,16 @@ function loginUser(e) {
     passwordValue = passwordInput.value.trim();
 
     if(validateForm.login()) {
-
+        console.log('register true mora i ovde', validateForm.login());
         let loginData = {
             email : emailInput.value,
             password :passwordInput.value,
         };
-        registerForm.reset();
-        loginForm.reset();
         DB.login(loginData).then((response) => {
             if(response) {
-                showView.quiz();
+                showView.rules();
                 showLogoutBtn();
                 registerBtn.style.display='none';
-
 
             } else {
                 showAlert('alert-danger', 'Incorrect Email and Password Combination.');
@@ -186,21 +138,22 @@ function loginUser(e) {
 
 function ValidateForm() {
 
+    this.hasNoError = true;
+
     this.login = function() {
-        this.hasNoError = true;
         this.checkEmail();
         this.checkPassword();
         return this.hasNoError;
     };
 
     this.register = function() {
-        this.hasNoError = true;
         this.checkFirstName();
         this.checkLastName();
         this.checkEmail();
         this.checkPassword();
         this.checkPasswordConfirm();
         this.emailUnique();
+        showLoader();
         return this.hasNoError;
     };
 
@@ -222,7 +175,6 @@ function ValidateForm() {
         }
     };
 
-
     this.checkEmail = function() {
 
         if(emailValue === '') {
@@ -237,17 +189,18 @@ function ValidateForm() {
     };
 
     this.emailUnique = function() {
-        setTimeout(() => {
-            if (!emailUniqueValue) {
-                console.log('email not unique ', emailUniqueValue);
-                this.setError(emailInput, 'Email address is already registered.');
-            }
-            else {
-                this.setSuccess(emailInput);
-            }
-        }, 1000);
-    };
+            this.emailUniqueCheck();
+                console.log('email funkcija treba true ne ceka', emailUniqueValue);
+                setTimeout(()=>{
+                    if (!emailUniqueValue) {
+                        this.setError(emailInput, 'Email address is already registered.');
+                    }
+                    else {
+                        this.setSuccess(emailInput);
+                    }
+                },2000)
 
+    };
 
     this.checkPassword = function() {
         if(passwordValue === '') {
@@ -271,7 +224,18 @@ function ValidateForm() {
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
     };
 
-
+    this.emailUniqueCheck = function() {
+        DB.isEmailUnique(emailValue).then((response)=>{
+            console.log('response daje true', response);
+            if(response === 'true') {
+                emailUniqueValue = true;
+            } else {
+                emailUniqueValue = false;
+            }
+        },(err)=>{
+            //
+        })
+    };
 
     //show error message
     this.setError = function (input, msg) {
@@ -290,18 +254,9 @@ function ValidateForm() {
 
 } //ValidateForm
 
-function emailUnique() {
-    DB.checkEmail(emailValue).then((user)=>{
-        if(emailValue === user.email) {
-            emailUniqueValue = false;
-        } else {
-            emailUniqueValue = true;
-        }
-    },(err)=>{
-        //
-    })
+function quizStart() {
+    showView.quiz();
 }
-
 
 function showAlert(alertType, msg) {
     let alertPlaceholder = document.querySelector('.alerts');
@@ -321,12 +276,11 @@ function showAlert(alertType, msg) {
 
 
 async function isLoggedIn() {
-
    DB.getSession().then((response) => {
        console.log('is looged in', response);
        isLoggedInUser = response;
         return isLoggedInUser;
-        // if(response == 'true') {   //TODO  nacin za true / false
+        // if(response == 'true') {   //TODO  true / false
         //     return true;
         // } else {
         //     return false;
@@ -337,12 +291,26 @@ async function isLoggedIn() {
 
 }
 
+
+//TODO logout functionality
 function showLogoutBtn() {
     loginBtn.innerHTML = 'Logout';
     loginBtn.addEventListener('click', ()=>{
         console.log(loginBtn)
     });
 }
+
+
+
+// creates loader image
+function showLoader() {
+    loader.innerHTML = '<img class="loader" src="img/loader.gif" alt="">';
+}
+
+function hideLoader() {
+    loader.innerHTML = '';
+}
+
 
 
 

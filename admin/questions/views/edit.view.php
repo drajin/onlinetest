@@ -56,7 +56,7 @@
             <div class="col-md-4 text-dark">
                 <div class="card card-body bg-light">
                     <a href="" class="btn btn-block disabled">Add more Time</a>
-<!--                    TODO add more time option-->
+<!--                    TODO add more time options-->
 <!--                        <form method="POST" action="/action_page.php">-->
 <!--                            <label for="time">Add more Time:</label>-->
 <!--                            <select name="time" class="form-select" aria-label="Default select example">-->

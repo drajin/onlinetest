@@ -81,15 +81,12 @@ class DB {
     }
 
 
-    static checkEmail(email) {
+    static isEmailUnique(email) {
         return new Promise((resolve, reject)=>{
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {
                 if(xml.readyState == 4 && xml.status == 200) {
-                    //xml.responseText
-                    //resolve(xml.responseText);
-                    resolve(JSON.parse(xml.responseText));
-                   //console.log(xml.responseText);
+                    resolve(xml.responseText);
                 }
             };
             xml.open('POST','backend/check_data.php');

@@ -45,7 +45,7 @@ class Session {
         }
     }
 
-    //TODO use later
+    //TODO use
 //    function require_login() {
 //        if(!$this->is_logged_in()) {
 //            redirect_to(URLROOT . '/admin/index.php');
@@ -64,14 +64,6 @@ class Session {
             return $msg;
         }
     }
-
-    //to be deleted
-//    public function set_flesh_message($msg, $type) {
-//        $alert = '<div class="alert alert-'.$type.' text-center" role="alert">';
-//        $alert .= $msg;
-//        $alert .= '</div>';
-//        return $alert;
-//    }
 
 
         public function message($msg='', $type='') {
