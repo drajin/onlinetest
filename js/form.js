@@ -116,9 +116,6 @@ function createQuestionsForm(dbQuestions) {
 
 
 
-
-
-
     function enableButtons() {
         let buttons = document.querySelectorAll('.next');
         let submit = document.querySelector('#submit');

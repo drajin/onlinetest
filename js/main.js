@@ -55,10 +55,14 @@ let isLoggedInUser;
 //show views
 
 //initializes form class
+
 let validateForm = new ValidateForm();
+
+
 // register user
 function registerNewUser(e) {
     e.preventDefault();
+
     //set input values
     emailInput = document.querySelector('#emailRegister');
     passwordInput = document.querySelector('#passwordRegister');
@@ -69,9 +73,8 @@ function registerNewUser(e) {
     passwordValue = passwordInput.value.trim();
     passwordConfirmValue = passwordConfirmInput.value.trim();
 
-
-    if(validateForm.register()) {
-
+    validateForm.register();
+    if(validateForm.error === false) {
         setTimeout(()=>{
             let newUser = {
                 first_name : firstNameValue,
@@ -86,19 +89,17 @@ function registerNewUser(e) {
                 showAlert('alert-success', 'You are now registered, please login.');
             },(error)=>{
                 console.log(error);
-            })
+            });
         },3000);
-        hideLoader();
+    } else {
+        //
     }
 
-
-
-
+    validateForm.error = false;
 }
 
-let emailUniqueValue = false;
 
-    //Log in user
+//Log in user
 function loginUser(e) {
     e.preventDefault();
     registerForm.reset();
@@ -111,17 +112,17 @@ function loginUser(e) {
     emailValue = emailInput.value.trim();
     passwordValue = passwordInput.value.trim();
 
-    if(validateForm.login()) {
-        console.log('register true mora i ovde', validateForm.login());
+    validateForm.login();
+    if(validateForm.error === false) {
         let loginData = {
             email : emailInput.value,
             password :passwordInput.value,
         };
         DB.login(loginData).then((response) => {
+            console.log(response);
             if(response) {
                 showView.rules();
                 showLogoutBtn();
-                registerBtn.style.display='none';
 
             } else {
                 showAlert('alert-danger', 'Incorrect Email and Password Combination.');
@@ -132,29 +133,26 @@ function loginUser(e) {
             console.log(error);
         })
     }
+    validateForm.error = false;
 }
 
 
 
 function ValidateForm() {
 
-    this.hasNoError = true;
+    this.error = false;
 
     this.login = function() {
-        this.checkEmail();
+        this.checkEmailLogin();
         this.checkPassword();
-        return this.hasNoError;
     };
 
     this.register = function() {
         this.checkFirstName();
         this.checkLastName();
-        this.checkEmail();
+        this.checkEmailReg();
         this.checkPassword();
         this.checkPasswordConfirm();
-        this.emailUnique();
-        showLoader();
-        return this.hasNoError;
     };
 
 
@@ -175,7 +173,27 @@ function ValidateForm() {
         }
     };
 
-    this.checkEmail = function() {
+    this.checkEmailReg = function() {
+
+        if(emailValue === '') {
+            return this.setError(emailInput, 'Email can\'t be blank.');
+        }
+        else if (!this.isEmail(emailValue)) {
+            return this.setError(emailInput, 'This is not a valid email address.');
+        }
+        this.emailUnique().then((response)=>{
+            if(response === 'true') {
+                this.setSuccess(emailInput);
+            } else {
+                this.setError(emailInput, 'Email in use.');
+            }
+        },(err)=>{
+            //
+        });
+
+    };
+
+    this.checkEmailLogin = function() {
 
         if(emailValue === '') {
             return this.setError(emailInput, 'Email can\'t be blank.');
@@ -189,16 +207,18 @@ function ValidateForm() {
     };
 
     this.emailUnique = function() {
-            this.emailUniqueCheck();
-                console.log('email funkcija treba true ne ceka', emailUniqueValue);
-                setTimeout(()=>{
-                    if (!emailUniqueValue) {
-                        this.setError(emailInput, 'Email address is already registered.');
-                    }
-                    else {
-                        this.setSuccess(emailInput);
-                    }
-                },2000)
+        return DB.isEmailUnique(emailValue);
+        // console.log('email Uniqe function', emailUniqueValue);
+        // setTimeout(()=>{
+        //     if (!emailUniqueValue) {
+        //         this.setError(emailInput, 'Email address is already registered.');
+        //     }
+        //     else {
+        //         this.setSuccess(emailInput);
+        //     }
+        //
+        //     hideLoader();
+        // },2000)
 
     };
 
@@ -224,28 +244,28 @@ function ValidateForm() {
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
     };
 
-    this.emailUniqueCheck = function() {
-        DB.isEmailUnique(emailValue).then((response)=>{
-            console.log('response daje true', response);
-            if(response === 'true') {
-                emailUniqueValue = true;
-            } else {
-                emailUniqueValue = false;
-            }
-        },(err)=>{
-            //
-        })
-    };
+    // this.emailUniqueCheck = function() {
+    //     DB.isEmailUnique(emailValue).then((response)=>{
+    //         console.log('if unique true', response);
+    //         if(response === 'true') {
+    //             emailUniqueValue = true;
+    //         } else {
+    //             emailUniqueValue = false;
+    //         }
+    //     },(err)=>{
+    //         //
+    //     })
+    // };
 
     //show error message
     this.setError = function (input, msg) {
-        this.hasNoError = false;
+        this.error = true;
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         input.nextElementSibling.innerText = msg ;
     };
     //show success
-    setTimeout( () => this.setSuccess = function(input) {
+    setTimeout( () =>   this.setSuccess = function(input) {
         input.classList.remove("is-invalid");
         input.classList.add("is-valid");
         input.nextElementSibling.innerText = '' ;
@@ -276,9 +296,8 @@ function showAlert(alertType, msg) {
 
 
 async function isLoggedIn() {
-   DB.getSession().then((response) => {
-       console.log('is looged in', response);
-       isLoggedInUser = response;
+    DB.getSession().then((response) => {
+        isLoggedInUser = response;
         return isLoggedInUser;
         // if(response == 'true') {   //TODO  true / false
         //     return true;
@@ -291,16 +310,28 @@ async function isLoggedIn() {
 
 }
 
-
-//TODO logout functionality
-function showLogoutBtn() {
-    loginBtn.innerHTML = 'Logout';
-    loginBtn.addEventListener('click', ()=>{
-        console.log(loginBtn)
-    });
+async function logOut() {
+    DB.sessionDestroy().then((response) => {
+        if(response) {
+            showLoginBtn();
+            showView.login();
+        }
+    },(error)=>{
+        console.log('error');
+    })
 }
 
+function showLogoutBtn() {
+    loginBtn.innerHTML = 'Logout';
+    loginBtn.addEventListener('click', logOut);
+    registerBtn.style.display='none';
+}
 
+function showLoginBtn() {
+    loginBtn.innerHTML = 'Login';
+    loginBtn.addEventListener('click', loginUser);
+    registerBtn.style.display='block';
+}
 
 // creates loader image
 function showLoader() {

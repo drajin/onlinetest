@@ -37,19 +37,29 @@ function ShowView() {
 
     //rules view
     this.rules = function() {
-        this.registerView.style.display = 'none';
-        this.loginView.style.display = 'none';
-        this.rulesView.style.display = 'block';
-        this.quizView.style.display = 'none';
+        if(isLoggedIn()) {
+            this.registerView.style.display = 'none';
+            this.loginView.style.display = 'none';
+            this.rulesView.style.display = 'block';
+            this.quizView.style.display = 'none';
+        } else {
+            this.login();
+        }
+
     };
 
     //quiz view
     this.quiz = function() {
-        this.registerView.style.display = 'none';
-        this.loginView.style.display = 'none';
-        this.rulesView.style.display = 'none';
-        this.quizView.style.display = 'block';
-    }
+        if(isLoggedIn()) {
+            this.registerView.style.display = 'none';
+            this.loginView.style.display = 'none';
+            this.rulesView.style.display = 'none';
+            this.quizView.style.display = 'block';
+        } else {
+            this.login();
+        }
+
+    };
 
     //show welcome view TODO isLoggedIn
 }

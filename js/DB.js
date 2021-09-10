@@ -80,13 +80,29 @@ class DB {
 
     }
 
-
-    static isEmailUnique(email) {
+    static sessionDestroy() {
         return new Promise((resolve, reject)=>{
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {
                 if(xml.readyState == 4 && xml.status == 200) {
                     resolve(xml.responseText);
+
+                }
+            };
+            xml.open('GET','backend/logout.php');
+            xml.send();
+        })
+    }
+
+
+    static isEmailUnique(email) {
+        return new Promise((resolve, reject)=>{
+
+            let xml = new XMLHttpRequest();
+            xml.onreadystatechange = () => {
+                if(xml.readyState == 4 && xml.status == 200) {
+                    resolve(xml.responseText);
+
                 }
             };
             xml.open('POST','backend/check_data.php');
