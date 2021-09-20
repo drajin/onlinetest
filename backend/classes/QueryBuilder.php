@@ -181,7 +181,86 @@ class QueryBuilder {
             echo $e->getMessage();
             return false;
         }
+
     }
+
+//    public function getAllQuestions() {
+//        $sql = "SELECT * FROM questions_2 INNER JOIN answers ON questions_2.id = answers.question_id";
+//        $stmt = $this->db->prepare($sql);
+//        $stmt->execute();
+//        return $stmt->fetchAll(PDO::FETCH_OBJ);
+//    }
+
+//    public function getAllQuestions() {
+//        $sql = 'SELECT answers.id, answers.text, answers.correct, questions_2_text FROM answers ';
+//        $sql .= ' INNER JOIN answers ON answers.question_id = questions_2.id;';
+//        $query = $this->db->prepare($sql);
+//        $query->execute();
+//        return $query->fetchAll(PDO::FETCH_OBJ);
+//
+//    }
+
+    public function getAllQuestions() {
+        $sql = 'SELECT answers.id, answers.answer_text, answers.correct, questions_2.q_id, questions_2.question_text  ';
+        $sql .= ' FROM answers INNER JOIN questions_2 ON answers.question_id = questions_2.q_id';
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return  $query->fetchAll(PDO::FETCH_ASSOC);
+//        $quiz = array();
+//        $array = [
+//            'first' => 1,
+//            'second' => 2,
+//            'third' => 1,
+//        ];
+  //    while($row =  $query->fetch(PDO::FETCH_ASSOC)){
+//            if (!isset($quiz[$row['q_id']])) {
+//                $quiz[$row['q_id']] = array(
+//                    'question' => $row['question_text']
+//                , 'answers' => array()
+//                );
+//            }
+//            $quiz[$row['q_id']]['answers'][] = $row['answer_text'];
+//
+//
+//
+//      }
+
+//                foreach($questions as $question) {
+//                   echo( gettype ($question));
+//                }
+//            while(array_key_exists($questions['q_id'], $questions) === $questions['q_id']) {
+//                echo 'dva puta';
+//            }
+                }
+
+
+        //return $quiz;
+    //    }
+
+
+
+        //$data = array();
+//        foreach ($result as $item) {
+//            $key = $item['q_id']; // or $item['info_id']
+//            if (!isset($data[$key])) {
+//                $data[$key] = array();
+//            }
+//
+//            $data[$key][] = $item;
+//        }
+//        return $data;
+//        while($row = $query->fetchAll(PDO::FETCH_ASSOC)){
+//            $data[$row["q_id"]]["name"] = $row["name"];
+//            $data[$row["q_id"]]["logs"][$row["details_no"]] = array(
+//                "log"=>$row["log"],
+//                "date"=>$row["date"],
+//            );
+//        }
+
+
+
+
 
 
 

@@ -1,3 +1,13 @@
+<pre>
+<?php //var_dump($new_questions); ?>
+</pre>
+
+<?php //foreach ($questions as $question) :?>
+<!--<ul>-->
+<!--    <li>--><?php //echo $question->question_text ?><!--</li>-->
+<!--</ul>-->
+<?php //endforeach; ?>
+
 
 <main class="container">
 

@@ -34,6 +34,21 @@ class DB {
 
     }
 
+    static getQuizQuestions() {
+        return new Promise((resolve, reject)=>{
+            let xml = new XMLHttpRequest();
+            xml.onreadystatechange = () => {
+                if(xml.readyState == 4 && xml.status == 200) {
+                    //xml.responseText
+                    //console.log(JSON.parse(xml.responseText));
+                    resolve(JSON.parse(xml.responseText));
+                }
+            };
+            xml.open('GET','backend/get_questions_answers.php', true);
+            xml.send();
+        })
+    }
+
     static getSession() {
         return new Promise((resolve, reject)=>{
             let xml = new XMLHttpRequest();
@@ -110,6 +125,8 @@ class DB {
             xml.send(JSON.stringify(email));
         })
     }
+
+
 
 
 }

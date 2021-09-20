@@ -40,9 +40,9 @@ body {
 /*#loginView,*/
 #welcomeView,
 #registerView,
-#rulesView,
-#quizView{
-
+#rulesView
+/*#quizView*/
+{
         display: none;
     }
 
