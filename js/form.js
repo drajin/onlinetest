@@ -29,6 +29,7 @@ function createQuestionsForm(dbQuestions) {
             </div>
             <div class="d-flex justify-content-end pt-2">`;
         let lastQuestion = dbQuestions[numQuestions - 1];
+
         if(dbQuestions[i] === lastQuestion) {
             text += `
             <button class="btn btn-primary" id="submit">Submit</button>
@@ -61,10 +62,9 @@ function createQuestionsForm(dbQuestions) {
                 nextBtn = document.querySelector('#next1').disabled = false;
             }
 
+        }
     }
 
-
-    }
 
     let questionIds = [];
     let buttonIds = [];
@@ -80,7 +80,7 @@ function createQuestionsForm(dbQuestions) {
 
 
 
-    //moving questions to left starting from question 2
+    //moving questions to left starting from question 2 starting from question 2
     function hideQuestions() {
         let removedElement = questionIds.shift();
         questionIds.forEach((questionIds)=>{
@@ -135,7 +135,6 @@ function createQuestionsForm(dbQuestions) {
 
     }
 
-    enableButtons();
 
 
     //makes answers array

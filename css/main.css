@@ -37,7 +37,7 @@ body {
     color: var(--white);
 }
 
-/*#loginView,*/
+#loginView,
 #welcomeView,
 #registerView,
 #rulesView
