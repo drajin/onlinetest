@@ -19,11 +19,16 @@ function ShowView() {
     };
 
     //show login view
-    this.login = function() {
-        this.registerView.style.display = 'none';
-        this.loginView.style.display = 'block';
-        this.rulesView.style.display = 'none';
-        this.quizView.style.display = 'none';
+    this.login = async() => {
+        if(await isLoggedIn()) {
+            this.rules()
+        } else {
+            this.registerView.style.display = 'none';
+            this.loginView.style.display = 'block';
+            this.rulesView.style.display = 'none';
+            this.quizView.style.display = 'none';
+        }
+
 
     };
 

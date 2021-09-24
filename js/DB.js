@@ -54,8 +54,8 @@ class DB {
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {
                 if(xml.readyState == 4 && xml.status == 200) {
+                    //console.log(xml.responseText);
                     resolve(xml.responseText);
-
                 }
             };
             xml.open('GET','backend/get_session.php');
@@ -101,6 +101,7 @@ class DB {
             xml.onreadystatechange = () => {
                 if(xml.readyState == 4 && xml.status == 200) {
                     resolve(xml.responseText);
+                    //console.log(xml.responseText);
 
                 }
             };

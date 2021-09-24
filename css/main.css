@@ -37,18 +37,14 @@ body {
     color: var(--white);
 }
 
-#loginView,
+/*#loginView,*/
 #welcomeView,
 #registerView,
-#rulesView
-/*#quizView*/
+#rulesView,
+#quizView
 {
         display: none;
     }
-
- {
-    display: none;
-}
 
 .alerts {
     height: 30px;

@@ -32,10 +32,6 @@ submitRegisterBtn.addEventListener('click', registerNewUser);
 submitLoginBtn.addEventListener('click', loginUser);
 startBtn.addEventListener('click', quizStart);
 
-let isLoggedInUser;
-
-
-
 
 
 // function ShowWelcomeView()  {
@@ -62,7 +58,6 @@ let validateForm = new ValidateForm();
 // register user
 function registerNewUser(e) {
     e.preventDefault();
-
     //set input values
     emailInput = document.querySelector('#emailRegister');
     passwordInput = document.querySelector('#passwordRegister');
@@ -83,6 +78,7 @@ function registerNewUser(e) {
                 password :passwordValue,
                 password_confirm : passwordConfirmValue,
             };
+            registerForm.reset();
             loginForm.reset();
             DB.register(newUser).then((response) => {
                 showView.login();
@@ -118,8 +114,8 @@ function loginUser(e) {
             email : emailInput.value,
             password :passwordInput.value,
         };
+        loginForm.reset();
         DB.login(loginData).then((response) => {
-            console.log(response);
             if(response) {
                 showView.rules();
                 showLogoutBtn();
@@ -274,6 +270,7 @@ function ValidateForm() {
 
 } //ValidateForm
 
+
 function quizStart() {
     showView.quiz();
 }
@@ -289,21 +286,13 @@ function showAlert(alertType, msg) {
     setTimeout(() => {
         alertPlaceholder.removeChild(alert);
     },6000);
-
-
 }
 
 
 
 async function isLoggedIn() {
     DB.getSession().then((response) => {
-        isLoggedInUser = response;
-        return isLoggedInUser;
-        // if(response == 'true') {   //TODO  true / false
-        //     return true;
-        // } else {
-        //     return false;
-        // }
+        return response;
     },(error)=>{
         console.log('error');
     })
@@ -341,6 +330,16 @@ function showLoader() {
 function hideLoader() {
     loader.innerHTML = '';
 }
+
+
+function redirect() {
+    if (isLoggedIn()) {
+        showView.rules();
+    }
+}
+
+//redirect()
+
 
 
 

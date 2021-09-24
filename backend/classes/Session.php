@@ -25,9 +25,12 @@ class Session {
     }
 
     public function  is_logged_in() {
+        //isset($this->user_id) ? true : false; TODO zasto ne radi
         if(isset($this->user_id)) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     public function logout() {
@@ -35,7 +38,7 @@ class Session {
         unset($_SESSION['email']);
         unset($this->user_id);
         unset($this->email);
-        return 'true';
+        return true;
     }
 
     private function check_stored_login() {
