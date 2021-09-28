@@ -45,9 +45,10 @@ class QueryBuilder {
         $time = null;
         $created_at = null;
         $updated_at = null;
+        $is_admin = false;
         $password_hash = password_hash($data->password, PASSWORD_DEFAULT);
 
-        $stmt = $this->db->prepare('INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt = $this->db->prepare('INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->bindParam(':first_date', $data->first_name);
         $stmt->bindParam(':last_name', $data->last_name);
         $stmt->bindParam(':email', $data->email);
@@ -57,7 +58,7 @@ class QueryBuilder {
         $stmt->bindParam(':created_at', $created_at);
         $stmt->bindParam(':updated_at', $updated_at);
 
-        $result = $stmt->execute([NULL, $data->first_name, $data->last_name, $data->email, $password_hash, NULL, NULL, NULL, NULL]);
+        $result = $stmt->execute([NULL, $data->first_name, $data->last_name, $data->email, $password_hash, $is_admin, NULL, NULL, NULL, NULL]);
             if($result) {
                 echo "success";
             } else {

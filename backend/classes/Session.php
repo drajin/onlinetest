@@ -27,9 +27,9 @@ class Session {
     public function  is_logged_in() {
         //isset($this->user_id) ? true : false; TODO zasto ne radi
         if(isset($this->user_id)) {
-            return true;
+            return 'true';
         } else {
-            return false;
+            return 'false';
         }
     }
 

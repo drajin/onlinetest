@@ -6,6 +6,20 @@
                 <hr>
                 <form method='post' action="" enctype="multipart/form-data">
                     <br><br>
+                    <h4>How would you like to display the answers?</h4>
+                    <select class="form-select" aria-label="Default select example">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="1">As Checkboxs (multiple correct answers)</option>
+                        <option value="2">Radio buttons</option>
+                        <option value="3">As drop-down list</option>
+                    </select>
+                    <br>
+                    <form class="form-inline">
+                        <label class="checkbox">
+                            <input type="checkbox" name="keywords" value="__option__">
+                        </label>
+                        <input type="text" name="keywords_other_option" value="" placeholder="Other">
+                    </form>
                     <div class="form-group">
                         <label for="question_text">Question</label>
                         <input name="question_text" id="question_text" class="form-control <?php echo (!empty($new_question['question_text_error'])) ? 'is-invalid' : '' ?>"
@@ -13,6 +27,10 @@
                         <div class="invalid-feedback"><?php echo $new_question['question_text_error']?></div>
                     </div>
                     <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">Correct</label>
+                        </div>
                         <label for="answer_1">Answer 1</label>
                         <input name="answer_1" id="answer_1" class="form-control <?php echo (!empty($new_question['answer_1_error'])) ? 'is-invalid' : '' ?>"
                                value="<?php echo (!empty($new_question['answer_1'])) ? $new_question['answer_1'] : '' ?>">
@@ -24,30 +42,7 @@
                                value="<?php echo (!empty($new_question['answer_2'])) ? $new_question['answer_2'] : '' ?>">
                         <div class="invalid-feedback"><?php echo $new_question['answer_2_error']?></div>
                     </div>
-                    <div class="form-group">
-                        <label for="answer_3">Answer 3</label>
-                        <input name="answer_3" id="answer_3" class="form-control <?php echo (!empty($new_question['answer_3_error'])) ? 'is-invalid' : '' ?>"
-                               value="<?php echo (!empty($new_question['answer_3'])) ? $new_question['answer_3'] : '' ?>">
-                        <div class="invalid-feedback"><?php echo $new_question['answer_3_error']?></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="answer_4">Answer 4</label>
-                        <input name="answer_4" id="answer_4" class="form-control <?php echo (!empty($new_question['answer_4_error'])) ? 'is-invalid' : '' ?>"
-                               value="<?php echo (!empty($new_question['answer_4'])) ? $new_question['answer_4'] : '' ?>">
-                        <div class="invalid-feedback"><?php echo $new_question['answer_4_error']?></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="correct_answer">Correct Answer</label>
-                        <input name="correct_answer" id="correct_answer" class="form-control <?php echo (!empty($new_question['correct_answer_error'])) ? 'is-invalid' : '' ?>"
-                               value="<?php echo (!empty($new_question['correct_answer'])) ? $new_question['correct_answer'] : '' ?>">
-                        <div class="invalid-feedback"><?php echo $new_question['correct_answer_error']?></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="points">Points</label>
-                        <input name="points" id="points" type="number" class="form-control <?php echo (!empty($new_question['points_error'])) ? 'is-invalid' : '' ?>"
-                               value="<?php echo (!empty($new_question['points'])) ? $new_question['points'] : '' ?>">
-                        <div class="invalid-feedback"><?php echo $new_question['points_error']?></div>
-                    </div>
+
 
                     <br>
                     <button id="submitLogin" class="btn btn-outline-secondary form-control mb-3" type="submit">Save</button>

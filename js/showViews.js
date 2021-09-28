@@ -19,17 +19,11 @@ function ShowView() {
     };
 
     //show login view
-    this.login = async() => {
-        if(await isLoggedIn()) {
-            this.rules()
-        } else {
+    this.login = () => {
             this.registerView.style.display = 'none';
             this.loginView.style.display = 'block';
             this.rulesView.style.display = 'none';
             this.quizView.style.display = 'none';
-        }
-
-
     };
 
     //show register view
@@ -42,33 +36,25 @@ function ShowView() {
 
     //rules view
     this.rules = function() {
-        if(isLoggedIn()) {
             this.registerView.style.display = 'none';
             this.loginView.style.display = 'none';
             this.rulesView.style.display = 'block';
             this.quizView.style.display = 'none';
-        } else {
-            this.login();
-        }
-
     };
 
     //quiz view
     this.quiz = function() {
-        if(isLoggedIn()) {
             this.registerView.style.display = 'none';
             this.loginView.style.display = 'none';
             this.rulesView.style.display = 'none';
             this.quizView.style.display = 'block';
-        } else {
-            this.login();
-        }
-
     };
 
-    //show welcome view TODO isLoggedIn
+
 }
 
 
 let showView = new ShowView();
+
 showView.init();
+isLoggedIn();

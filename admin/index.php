@@ -10,17 +10,17 @@ include(INCLUDES_PATH . '/header.php');
 include(INCLUDES_PATH . '/navbar.php');
 
 
-foreach($questions as $question) {
-    echo $question->question_text . '<br>';
-    echo ('<ul>');
-    foreach($answers as $answer) {
-        if($question->q_id === $answer->question_id) {
-            echo '<li>' . $answer->answer_text . '</li><br>';
-        }
-    }
-    echo ('</ul>');
-
-}
+//foreach($questions as $question) {
+//    echo $question->question_text . '<br>';
+//    echo ('<ul>');
+//    foreach($answers as $answer) {
+//        if($question->q_id === $answer->question_id) {
+//            echo '<li>' . $answer->answer_text . '</li><br>';
+//        }
+//    }
+//    echo ('</ul>');
+//
+//}
 
 //foreach($answers as $answer) {
 //    echo $answer->answer_text . '<br>';

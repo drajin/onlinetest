@@ -54,7 +54,6 @@ class DB {
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {
                 if(xml.readyState == 4 && xml.status == 200) {
-                    //console.log(xml.responseText);
                     resolve(xml.responseText);
                 }
             };
@@ -68,8 +67,8 @@ class DB {
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {
                 if(xml.readyState === 4 && xml.status === 200) {
-                    //console.log(xml.responseText); //konzoluje sta vraca php
-                    resolve(xml.responseText); //returns success or error
+                    //console.log(xml.responseText);
+                    resolve(xml.responseText);
                 }
             };
             xml.open('POST','backend/login_register.php');
@@ -84,7 +83,6 @@ class DB {
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {
                 if(xml.readyState === 4 && xml.status === 200) {
-                    //console.log(xml.responseText);
                     resolve(xml.responseText); //true success or false
                 }
             };

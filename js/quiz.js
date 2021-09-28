@@ -4,6 +4,8 @@
 
 function Quiz(response) {
 
+    //this.answers = [];
+
     //shuffle answers
     this.shuffle = function(sourceArray) {
         for (let i = 0; i < sourceArray.length - 1; i++) {
@@ -18,23 +20,28 @@ function Quiz(response) {
 
 
     this.text = ``;
+    this.userAnswers = [];
+
     this.questions = response.questions;
 
-
+    //comment out for question random questions
     //this.questions = this.shuffle(response.questions);
 
-
-    //shuffle answers
-    this.answers = this.shuffle(response.answers);
+    //questions wont be changed
     //this.answers = response.answers;
+
+    //comment out for question random questions
+    this.answers = this.shuffle(response.answers);
+
 
 
 
     this.numQuestions = this.questions.length;
     this.lastQuestion = this.numQuestions;
-
+    this.counter = 0;
 
     this.createQuizForm = function() {
+
         let questionsCounter = 0;
         this.text += ``;
         this.questions.forEach((question) => {
@@ -60,7 +67,8 @@ function Quiz(response) {
             if(answersCounter === 2) {
                 this.text += this.createSelectOption(ans);
             } else if (answersCounter === 3) {
-                this.text += this.createRadioBtns(ans);
+                this.counter++;
+                this.text += this.createRadioBtns(ans, this.counter);
             } else {
                 this.text += this.createCheckboxBtns(ans);
             }
@@ -104,39 +112,43 @@ function Quiz(response) {
         let removedElement = this.questionIds.shift();
         this.questionIds.forEach((questionId)=>{
             let question = document.getElementById(questionId);
-            console.log('ba')
         });
         this.questionIds.unshift(removedElement);
     }
 
+    // creating dropdown select option question
     this.createSelectOption = function(answer) {
         let text = ` <select class="form-select" >`;
             text += ` <option disabled selected value> -- select an option -- </option>`;
         for(i=0; i<answer.length; i++) {
-            text += `<option class="answer" value="${answer[i].id}">${answer[i].answer_text}</option>`;
+            text += `<option class="answer" value="${answer[i].answer_text}">${answer[i].answer_text}</option>`;
         }
         text += `</select>`;
+        text += `<br>`;
+
         return text;
     }
 
-    this.createRadioBtns = function(answer) {
+    // creating radio buttons question
+    this.createRadioBtns = function(answer, counter) {
         let text = '';
         for(i=0; i<answer.length; i++) {
             text += `                
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="${answer[i].id}" value="${answer[i].id}">
+                        <input class="form-check-input" type="radio" name="${counter}" value="${answer[i].answer_text}" id="${answer[i].id}">
                         <label class="form-check-label" for="${answer[i].id}">${answer[i].answer_text}</label>
                     </div>`;
         }
         return text;
     }
 
+    // creating checkbox buttons question
     this.createCheckboxBtns = function(answer) {
         let text = '';
         for(i=0; i<answer.length; i++) {
             text += `                
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="${answer[i].id}" id="${answer[i].id}">
+                  <input class="form-check-input" type="checkbox" value="${answer[i].answer_text}" id="${answer[i].id}">
                   <label class="form-check-label" for="${answer[i].id}">${answer[i].answer_text}</label>
                 </div> `;
         }
@@ -159,7 +171,7 @@ function Quiz(response) {
     this.disableBtns = () => {
         this.buttons = document.querySelectorAll('.next');
         this.submit = document.querySelector('#submit');
-        this.answers = document.querySelectorAll('.answer');
+        //this.answers = document.querySelectorAll('.answer'); TODO if this is necessary
         for(let i=0; i<this.buttons.length; i++) {
             this.buttons[i].disabled = true;
             this.submit.disabled = true;
@@ -172,9 +184,9 @@ function Quiz(response) {
 
 
 
-    let counter = 0;
-
+    //add event listener on buttons
     this.activateBtns = () => {
+        let counter = 0;
         let query = window.matchMedia("(max-width: 767px)");
         let questions = document.querySelectorAll('.q');
         if(query.matches) {
@@ -204,13 +216,8 @@ function Quiz(response) {
 
         //submit button functionality
         this.submit = document.getElementById('submit');
-        this.submit.addEventListener("click", function(){
-            // let selectedAnswers = document.querySelectorAll('input[name="radio"]:checked');
-            // let selectedAnswersArray = [];
-            // for(let i=0; i<selectedAnswers.length; i++) {
-            //     selectedAnswersArray.push(selectedAnswers[i].value);
-            // }
-            console.log('true, false array');
+        this.submit.addEventListener("click", () => {
+            this.getAnswers();
         });
     }
 
@@ -244,19 +251,53 @@ function Quiz(response) {
         }
     }
 
+    //getting all users answers from the from
+    this.getAnswers = () => {
+        this.selectOption = document.querySelectorAll('.form-select');
+        this.checkBoxes = document.querySelectorAll('.form-check-input:checked');
+
+        for(let i=0; i<this.checkBoxes.length; i++) {
+            this.userAnswers.push(this.checkBoxes[i].value);
+        }
+        for(let i=0; i<this.selectOption.length; i++) {
+            this.userAnswers.push(this.selectOption[i].value);
+        }
+
+
+        this.calculateScore()
+
+    }
+
+    //counts all existing correct answers
+    this.countAllCorrect = () => {
+        let counter = 0;
+        this.answers.forEach((answer) =>{
+            if(answer.correct == 1) {
+                counter++
+            }
+        });
+        return counter;
+    }
+
+    //looping trough user answers and comparing with existing answers
+    this.calculateScore = () => {
+        let correctAnswers= [];
+        this.userAnswers.forEach((userAnswer) => {
+            this.answers.forEach((answer) => {
+                if(userAnswer === answer.answer_text) {
+                    correctAnswers.push(answer.correct)
+                }
+            })
+
+        })
+
+        let point = 100/(this.countAllCorrect());
+        console.log(Math.round((correctAnswers.filter(correct => correct==1).length)* point));
+    }
 
 
 
-    // var shuffledQuestionArray = shuffle(yourQuestionArray);
-    // var shuffledTopicArray = shuffle(yourTopicArray);
-
-
-
-
-
-
-
-}  //class end
+}  //end of class
 
 
 

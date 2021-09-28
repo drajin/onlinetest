@@ -1,4 +1,5 @@
 //select inputs
+
 let firstNameInput = document.querySelector('[name="firstName"]');
 let lastNameInput = document.querySelector('[name="lastName"]');
 let emailInput = '';
@@ -58,6 +59,7 @@ let validateForm = new ValidateForm();
 // register user
 function registerNewUser(e) {
     e.preventDefault();
+    showLoader();
     //set input values
     emailInput = document.querySelector('#emailRegister');
     passwordInput = document.querySelector('#passwordRegister');
@@ -80,6 +82,7 @@ function registerNewUser(e) {
             };
             registerForm.reset();
             loginForm.reset();
+            hideLoader();
             DB.register(newUser).then((response) => {
                 showView.login();
                 showAlert('alert-success', 'You are now registered, please login.');
@@ -115,6 +118,7 @@ function loginUser(e) {
             password :passwordInput.value,
         };
         loginForm.reset();
+
         DB.login(loginData).then((response) => {
             if(response) {
                 showView.rules();
@@ -135,7 +139,6 @@ function loginUser(e) {
 
 
 function ValidateForm() {
-
     this.error = false;
 
     this.login = function() {
@@ -290,14 +293,21 @@ function showAlert(alertType, msg) {
 
 
 
-async function isLoggedIn() {
-    DB.getSession().then((response) => {
-        return response;
+function isLoggedIn() {
+  DB.getSession().then((response) => {
+      //TODO how to check true / false from php
+        if(response === 'true') {
+            showLogoutBtn();
+            showView.rules();
+        } else {
+            showView.login();
+        }
     },(error)=>{
         console.log('error');
     })
 
 }
+
 
 async function logOut() {
     DB.sessionDestroy().then((response) => {
@@ -332,13 +342,6 @@ function hideLoader() {
 }
 
 
-function redirect() {
-    if (isLoggedIn()) {
-        showView.rules();
-    }
-}
-
-//redirect()
 
 
 
