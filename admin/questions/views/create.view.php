@@ -6,42 +6,74 @@
                 <hr>
                 <form method='post' action="" enctype="multipart/form-data">
                     <br><br>
-                    <h4>How would you like to display the answers?</h4>
-                    <select class="form-select" aria-label="Default select example">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="1">As Checkboxs (multiple correct answers)</option>
-                        <option value="2">Radio buttons</option>
-                        <option value="3">As drop-down list</option>
-                    </select>
-                    <br>
-                    <form class="form-inline">
-                        <label class="checkbox">
-                            <input type="checkbox" name="keywords" value="__option__">
-                        </label>
-                        <input type="text" name="keywords_other_option" value="" placeholder="Other">
-                    </form>
-                    <div class="form-group">
-                        <label for="question_text">Question</label>
-                        <input name="question_text" id="question_text" class="form-control <?php echo (!empty($new_question['question_text_error'])) ? 'is-invalid' : '' ?>"
-                               value="<?php echo (!empty($new_question['question_text'])) ? $new_question['question_text'] : '' ?>">
-                        <div class="invalid-feedback"><?php echo $new_question['question_text_error']?></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">Correct</label>
+                    <div class="col-xs-10 col-sm-10 offset-2">
+                        <div class="form-group">
+                            <label class="fs-4 text-center mt-3" for="question_text">Add Question Text</label>
+                            <input name="question_text" id="question_text" class="form-control <?php echo (!empty($new_question['question_text_error'])) ? 'is-invalid' : '' ?>"
+                                   value="<?php echo (!empty($new_question['question_text'])) ? $new_question['question_text'] : '' ?>">
+                            <div class="invalid-feedback"><?php echo $new_question['question_text_error']?></div>
                         </div>
-                        <label for="answer_1">Answer 1</label>
-                        <input name="answer_1" id="answer_1" class="form-control <?php echo (!empty($new_question['answer_1_error'])) ? 'is-invalid' : '' ?>"
-                               value="<?php echo (!empty($new_question['answer_1'])) ? $new_question['answer_1'] : '' ?>">
-                        <div class="invalid-feedback"><?php echo $new_question['answer_1_error']?></div>
+                        <label class="fs-4 text-center mt-3" for="question_form">How would you like to display the answers?</label>
+                        <select id="question_form" class="form-select" aria-label="Default select example">
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="1">As Checkboxs (multiple correct answers)</option>
+                            <option value="2">As Radio buttons</option>
+                            <option value="3">As Drop-down List</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="answer_2">Answer 2</label>
-                        <input name="answer_2" id="answer_2" class="form-control <?php echo (!empty($new_question['answer_2_error'])) ? 'is-invalid' : '' ?>"
-                               value="<?php echo (!empty($new_question['answer_2'])) ? $new_question['answer_2'] : '' ?>">
-                        <div class="invalid-feedback"><?php echo $new_question['answer_2_error']?></div>
+                    <br>
+<!--                    <form class="form-inline">-->
+<!--                        <label class="checkbox">-->
+<!--                            <input type="checkbox" name="keywords" value="__option__">-->
+<!--                        </label>-->
+<!--                        <input type="text" name="keywords_other_option" value="" placeholder="Other">-->
+<!--                    </form>-->
+                    <p class="fs-4 text-center">Answers</p>
+                    <div class="row form-group answer">
+                        <div class="col-xs-2 col-sm-2 mb-5">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Correct</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-10 col-sm-10">
+                            <input name="answer_1" id="answer_1" placeholder="Answer" class="form-control<?php echo (!empty($new_question['answer_1_error'])) ? 'is-invalid' : '' ?>"
+                                   value="<?php echo (!empty($new_question['answer_1'])) ? $new_question['answer_1'] : '' ?>">
+                            <div class="invalid-feedback"><?php echo $new_question['answer_1_error']?></div>
+                        </div>
                     </div>
+
+                    <div class="row form-group answer">
+                        <div class="col-xs-2 col-sm-2 mb-5">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Correct</label>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-10 col-sm-10">
+                            <input name="answer_1" id="answer_1" placeholder="Answer" class="form-control <?php echo (!empty($new_question['answer_1_error'])) ? 'is-invalid' : '' ?>"
+                                   value="<?php echo (!empty($new_question['answer_1'])) ? $new_question['answer_1'] : '' ?>">
+                            <div class="invalid-feedback"><?php echo $new_question['answer_1_error']?></div>
+                        </div>
+                    </div>
+                    <div class="newAnswers"></div>
+
+
+
+<!--staro-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="answer_1">Answer 1</label>-->
+<!--                        <input name="answer_1" id="answer_1" class="form-control --><?php //echo (!empty($new_question['answer_1_error'])) ? 'is-invalid' : '' ?><!--"-->
+<!--                               value="--><?php //echo (!empty($new_question['answer_1'])) ? $new_question['answer_1'] : '' ?><!--">-->
+<!--                        <div class="invalid-feedback">--><?php //echo $new_question['answer_1_error']?><!--</div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="answer_2">Answer 2</label>-->
+<!--                        <input name="answer_2" id="answer_2" class="form-control --><?php //echo (!empty($new_question['answer_2_error'])) ? 'is-invalid' : '' ?><!--"-->
+<!--                               value="--><?php //echo (!empty($new_question['answer_2'])) ? $new_question['answer_2'] : '' ?><!--">-->
+<!--                        <div class="invalid-feedback">--><?php //echo $new_question['answer_2_error']?><!--</div>-->
+<!--                    </div>-->
 
 
                     <br>
@@ -50,7 +82,7 @@
             </div>
             <div class="col-md-4 text-dark">
                 <div class="card card-body bg-light">
-                    <a href="" class="btn btn-block disabled">Add Time</a>
+                    <a href="" class="btn btn-block addAnswer">Add Another Answer</a>
                     <!--                    TODO add more time option-->
                     <!--                        <form method="POST" action="/action_page.php">-->
                     <!--                            <label for="time">Add more Time:</label>-->
@@ -84,3 +116,9 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+
+
+    </script>
