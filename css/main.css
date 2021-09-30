@@ -49,6 +49,11 @@ body {
 .alerts {
     height: 30px;
     padding: 30px;
+
+}
+
+.alert-danger {
+    position: absolute;
 }
 
 .navbar {

@@ -1,6 +1,7 @@
 
 
-
+//TODO if no checkbox is selected
+//TODO option value must be selected
 
 function Quiz(response) {
 

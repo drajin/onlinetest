@@ -5,7 +5,6 @@
     class Admin
     {
         //TODO add private property for tables
-        //TODO make validate reusable
        // private string $table = 'users';
 
         public function validate_login_data() {
@@ -106,44 +105,49 @@
 
         public function validate_question() {
 
+
             $data = [
                 'question_text' => '',
                 'answer_1' => '',
                 'answer_2' => '',
-                'answer_3' => '',
-                'answer_4' => '',
-                'correct_answer' => '',
-                'points' => '',
+//                'answer_3' => '',
+//                'answer_4' => '',
                 'question_text_error' => '',
                 'answer_1_error' => '',
                 'answer_2_error' => '',
-                'answer_3_error' => '',
-                'answer_4_error' => '',
-                'correct_answer_error' => '',
-                'points_error' => '',
+//                'answer_3_error' => '',
+//                'answer_4_error' => '',
             ];
 
             //Check for post
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+
                 //Sanitize post data
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+
+
+
                 $data = [
                     'question_text' => trim($_POST['question_text']),
                     'answer_1' => trim($_POST['answer_1']),
                     'answer_2' => trim($_POST['answer_2']),
-                    'answer_3' => trim($_POST['answer_3']),
-                    'answer_4' => trim($_POST['answer_4']),
-                    'correct_answer' => trim($_POST['correct_answer']),
-                    'points' => trim($_POST['points']),
-                    'question_text_error' => '',
-                    'answer_1_error' => '',
-                    'answer_2_error' => '',
-                    'answer_3_error' => '',
-                    'answer_4_error' => '',
-                    'correct_answer_error' => '',
-                    'points_error' => '',
-                ];
+                    ];
+                   // $_POST['answer_3'] ?? 'answer_3' => trim($_POST['answer_3']),
+//                    if(isset($_POST['answer_3'])) {
+//                        array_push($data, trim($_POST['answer_3']));
+//                    }
+//                    'answer_3' => trim($_POST['answer_3']),
+//                    'answer_4' => trim($_POST['answer_4']),
+//                    'answer_5' => trim($_POST['answer_5']),
+//                    'answer_1_error' => '',
+//                    'answer_2_error' => '',
+//                    'answer_3_error' => '',
+//                    'answer_3_error' => '',
+//                    'answer_4_error' => '',
+//                    'answer_5_error' => '',
+
 
                 //Validate Question
                 if (empty($data['question_text'])) {

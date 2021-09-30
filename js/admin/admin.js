@@ -3,6 +3,7 @@
 let addAnswer = document.querySelector('.addAnswer');
 
 
+//add new answer
 addAnswer.addEventListener('click', (e)=> {
     e.preventDefault();
     let newAnswers= document.querySelectorAll('.newAnswers');
@@ -25,12 +26,32 @@ addAnswer.addEventListener('click', (e)=> {
             return res.text();
         })
         .then((data) => {
-            newAnswers.innerHTML = data;
+            //generate ids dynamically
+            numAnswers = numAnswers + 2;
+            let dynamicId = data.replaceAll("dynamic", "array_"+numAnswers.toString());
+            newAnswers.innerHTML = dynamicId;
             //removeBtns(newAnswers); TODO remove btn functionality
         })
         .catch(err => console.log(err));
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //remove btn functionality
 // removeBtns = (newAnswers) => {
 //     let removeBtn = document.querySelectorAll('.remove');
