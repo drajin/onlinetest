@@ -46,7 +46,6 @@ function Quiz(response) {
         let questionsCounter = 0;
         this.text += ``;
         this.questions.forEach((question) => {
-            let answersCounter = 0;
             questionsCounter++;
 
             let ans = [];
@@ -56,18 +55,17 @@ function Quiz(response) {
                     <div class="pt-4">
                     <form>
                     `;
+                //make array with answers sorted on question ids
             this.answers.forEach((answer) => {
                 if(question.q_id === answer.question_id) {
                     ans.push(answer);
-                    answersCounter++;
                 }
-
             });
 
             //choose what will be in which form
-            if(answersCounter === 2) {
+            if(question.display === 'option') {
                 this.text += this.createSelectOption(ans);
-            } else if (answersCounter === 3) {
+            } else if (question.display === 'radio') {
                 this.counter++;
                 this.text += this.createRadioBtns(ans, this.counter);
             } else {

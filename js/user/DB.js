@@ -119,7 +119,7 @@ class DB {
 
                 }
             };
-            xml.open('POST','backend/check_data.php');
+            xml.open('POST','backend/check_email.php');
             xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
             xml.send(JSON.stringify(email));
         })

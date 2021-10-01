@@ -70,7 +70,7 @@ function registerNewUser(e) {
     passwordConfirmValue = passwordConfirmInput.value.trim();
 
     validateForm.register();
-    if(validateForm.error === false) {
+    if(validateForm.NoError) {
         setTimeout(()=>{
             let newUser = {
                 first_name : firstNameValue,
@@ -100,6 +100,7 @@ function registerNewUser(e) {
 //Log in user
 function loginUser(e) {
     e.preventDefault();
+
     registerForm.reset();
 
     //select different email and password input
@@ -111,7 +112,7 @@ function loginUser(e) {
     passwordValue = passwordInput.value.trim();
 
     validateForm.login();
-    if(validateForm.error === false) {
+    if(validateForm.NoError) {
         let loginData = {
             email : emailInput.value,
             password :passwordInput.value,

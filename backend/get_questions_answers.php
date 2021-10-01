@@ -6,7 +6,7 @@ require 'init.php';
 
 
 $response = array(
-    'questions' => $query->select_all('questions_2'),
+    'questions' => $query->select_all('questions'),
     'answers'  => $query->select_all('answers')
 );
 

@@ -6,6 +6,7 @@ class QueryBuilder {
 
     private $db;
     private $session;
+    private $question_id;
 
     public function __construct($db, $session)
     {
@@ -138,27 +139,69 @@ class QueryBuilder {
 //            }
         }
 
-    public function create_question($question) {
+    public function create_question($data) {
 
-        if (gettype($question) === 'array') {
-            $question = (object)$question;
-        }
+        $question = $data->question;
+        //TODO display
+        $display = $data->display;
+        $correct = [];
+        $answers = [];
+
+        // inserts question in DB
         try {
-            $stmt = $this->db->prepare('INSERT INTO questions VALUES(?, ?, ?, ?, ?, ?, ?, ?)');
-            $stmt->bindParam(':question_text', $question->question_text);
-            $stmt->bindParam(':answer_1', $question->answer_1);
-            $stmt->bindParam(':answer_2', $question->answer_2);
-            $stmt->bindParam(':answer_3', $question->answer_3);
-            $stmt->bindParam(':answer_4', $question->answer_4);
-            $stmt->bindParam(':correct_answer', $question->correct_answer);
-            $stmt->bindParam(':points', $question->points);
-
-        return $stmt->execute([NULL, $question->question_text, $question->answer_1, $question->answer_2, $question->answer_3, $question->answer_4, $question->correct_answer, $question->points]);
-
+            $stmt = $this->db->prepare('INSERT INTO questions VALUES(?, ?, ?)');
+            $stmt->bindParam(':question_text', $question);
+            $stmt->bindParam(':display', $display);
+            //return $stmt->execute([NULL, $question]);
+            $stmt->execute([NULL, $question, $display]);
+            $this->question_id = $this->db->lastInsertId();
         } catch (PDOException $e) {
             echo $e->getMessage();
-            return false;
         }
+
+
+        //extracts checkbox values
+        foreach($data->correct as $key) {
+            $correct[] = $key;
+        }
+
+        //makes answers array with answers, question id and correct values
+        //adds answer text and question ids to array
+        foreach($data->answers as $key => $answer_text) {
+            $answers[] = [
+                "answer_text" => $answer_text,
+                "question_id" => $this->question_id,
+            ];
+            //adds correct answers values
+            foreach($correct as $value) {
+                if($key == $value) {
+                    $answers[$key]['correct'] = true;
+                }
+                // adds correct value on false
+                isset($answers[$key]['correct']) ? : $answers[$key]['correct'] = false;
+            }
+        }
+
+//
+        foreach($answers as $answer) {
+
+            try {
+                $stmt = $this->db->prepare('INSERT INTO answers VALUES(?, ?, ?, ?)');
+                $stmt->bindParam(':question_id', $answer['question_id']);
+                $stmt->bindParam(':answer_text', $answer['answer_text']);
+                $stmt->bindParam(':correct', $answer['correct']);
+                $stmt->execute([NULL, $answer['question_id'],$answer['answer_text'], $answer['correct'] ]);
+                $this->session->message('Question added successfully', 'success');
+                return 'true';
+
+
+
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+        }
+//        $this->session->message('Question added successfully', 'success');
+//        redirect_to(URLROOT .'/admin/questions/index.php');
     }
 
     public function update_question($question, $id)

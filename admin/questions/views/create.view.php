@@ -37,13 +37,13 @@
                     <div class="row form-group answer">
                         <div class="col-xs-2 col-sm-2 mb-5">
                             <div class="form-check">
-                                <input type="checkbox" name="checkbox[]" value="answer_1" class="form-check-input" id="answer_1">
-                                <label class="form-check-label" for="answer_1">Correct</label>
+                                <input type="checkbox" name="checkbox[]" value="0" class="form-check-input" id="0">
+                                <label class="form-check-label" for="0">Correct</label>
                             </div>
 
                         </div>
                         <div class="col-xs-10 col-sm-10">
-                            <input name="answer_1" id="answer_1" placeholder="Answer" class="form-control answerInput" value="">
+                            <input name="0" id="0" placeholder="Answer" class="form-control answerInput" value="">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -52,13 +52,13 @@
                     <div class="row form-group answer">
                         <div class="col-xs-2 col-sm-2 mb-5">
                             <div class="form-check">
-                                <input type="checkbox" name="checkbox[]" value="answer_2" class="form-check-input" id="answer_2">
-                                <label class="form-check-label" for="answer_2">Correct</label>
+                                <input type="checkbox" name="checkbox[]" value="1" class="form-check-input" id="1">
+                                <label class="form-check-label" for="1">Correct</label>
                             </div>
 
                         </div>
                         <div class="col-xs-10 col-sm-10">
-                            <input name="answer_2" id="answer_2" placeholder="Answer" class="form-control answerInput" value="">
+                            <input name="1" id="1" placeholder="Answer" class="form-control answerInput" value="">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -66,7 +66,9 @@
                     <div class="newAnswers"></div>
 
                     <br>
-                    <button id="submitLogin" class="btn btn-outline-secondary form-control mb-3" type="submit">Save</button>
+                    <div class="col-xs-10 col-sm-10 offset-2">
+                        <button id="submitLogin" class="btn btn-outline-secondary form-control mb-3" type="submit">Save</button>
+                    </div>
                 </form>
             </div>
             <!--                    aside-->

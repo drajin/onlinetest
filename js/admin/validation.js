@@ -1,21 +1,25 @@
 
-
+let submitBtn = document.querySelector('#submitLogin');
 
 function ValidateQuestionAnsw() {
     // this.questionInput = [];
     // this.checkboxesInput = [];
     // this.answersInput = [];
-    // this.displayQuestionValue = [];
 
-    this.selectElements = () => {
+
+    this.reselectElements = () => {
         this.questionInput = document.querySelector('[name="question_text"]');
+        this.displayQuestionValue = document.querySelector('[name="question_display"]').value;
+        this.checkboxesInput = document.querySelectorAll('[name="checkbox[]"]:checked');
         //this.checkboxesInput = document.querySelectorAll('[name="checkbox[]"]');
         this.answersInput = document.querySelectorAll('.answerInput');
     }
 
-    this.error = false;
+    this.noError = true;
 
     this.question = () => {
+        this.noError = true;
+        this.reselectElements();
         this.questionText();
         this.checkBoxes();
         this.answersText();
@@ -31,9 +35,9 @@ function ValidateQuestionAnsw() {
     };
 
     this.checkBoxes = () => {
-        if(!(this.checkboxesInput = document.querySelectorAll('[name="checkbox[]"]:checked').length)){
-            showAlert('alert-danger', 'At list one Answer must be correct');
-            this.error = true;
+        if(!(this.checkboxesInput.length)){
+            showAlert('alert-danger', 'At least one answer must be correct');
+            this.noError = false;
         }
 
     }
@@ -53,7 +57,7 @@ function ValidateQuestionAnsw() {
 
     //show error message
     this.setError = function (input, msg) {
-        this.error = true;
+        this.noError = false;
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         input.nextElementSibling.innerText = msg ;
@@ -68,13 +72,44 @@ function ValidateQuestionAnsw() {
 
 } //ValidateForm
 
-
 let validation = new ValidateQuestionAnsw();
 
-let submitBtn = document.querySelector('#submitLogin');
+submitQuestionAnswers = () => {
+    if(validation.noError) {
+       let questionAnswerData = {
+           question : validation.questionInput.value.trim(),
+           display : validation.displayQuestionValue,
+           correct : [],
+           answers : [],
+       };
+        validation.checkboxesInput.forEach((checkbox) =>{
+            questionAnswerData.correct.push(checkbox.id);
+            }
+        );
+        validation.answersInput.forEach((answer) =>{
+                questionAnswerData.answers.push(answer.value.trim());
+            }
+        );
+        //send to php
+        DB.postQuestionAnsw(questionAnswerData).then((response) => {
+            if(response === 'true') {
+                window.location.replace("http://localhost/onlinetest/admin/questions/index.php");
+
+            }
+        },(error)=>{
+            console.log(error);
+        });
+
+
+    } else {
+        console.log('error')
+    }
+};
+
+
 
 submitBtn.addEventListener('click',(e)=> {
     e.preventDefault();
-    validation.selectElements();
     validation.question();
+    submitQuestionAnswers();
 });

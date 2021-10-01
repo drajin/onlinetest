@@ -10,14 +10,16 @@ submit.addEventListener('click', validate);
 
 
 function ValidateForm() {
-    this.error = false;
+    this.NoError = true;
 
     this.login = function() {
+        this.NoError = true;
         this.checkEmailLogin();
         this.checkPassword();
     };
 
     this.register = function() {
+        this.NoError = true;
         this.checkFirstName();
         this.checkLastName();
         this.checkEmailReg();
@@ -129,7 +131,7 @@ function ValidateForm() {
 
     //show error message
     this.setError = function (input, msg) {
-        this.error = true;
+        this.NoError = false;
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
         input.nextElementSibling.innerText = msg ;
