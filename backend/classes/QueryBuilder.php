@@ -14,6 +14,15 @@ class QueryBuilder {
         $this->session = $session;
     }
 
+//    public function questions_answers()
+//    {
+//        $sql = "SELECT questions.q_id, questions.question_text, answers.answer_text, answers.correct FROM answers INNER JOIN questions ON answers.question_id = questions.q_id";
+//        $query = $this->db->prepare($sql);
+//        $query->execute();
+//        return $query->fetchAll(PDO::FETCH_OBJ);
+//
+//    }
+
     public function select_all($table)
     {
         $sql = "SELECT * FROM {$table}";
@@ -38,6 +47,22 @@ class QueryBuilder {
         $sql = "DELETE FROM {$table} WHERE id = ?";
         $query = $this->db->prepare($sql);
         $query->execute([$id]);
+    }
+    //TODO tri iste func
+    public function find_by_questions($id, $table)
+    {
+        $sql = "SELECT * FROM {$table} WHERE q_id = ?";
+        $query = $this->db->prepare($sql);
+        $query->execute([$id]);
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function find_by_question_id($id, $table)
+    {
+        $sql = "SELECT * FROM {$table} WHERE question_id = ?";
+        $query = $this->db->prepare($sql);
+        $query->execute([$id]);
+        return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function register($data)
@@ -181,10 +206,7 @@ class QueryBuilder {
                 isset($answers[$key]['correct']) ? : $answers[$key]['correct'] = false;
             }
         }
-
-//
         foreach($answers as $answer) {
-
             try {
                 $stmt = $this->db->prepare('INSERT INTO answers VALUES(?, ?, ?, ?)');
                 $stmt->bindParam(':question_id', $answer['question_id']);
@@ -192,16 +214,15 @@ class QueryBuilder {
                 $stmt->bindParam(':correct', $answer['correct']);
                 $stmt->execute([NULL, $answer['question_id'],$answer['answer_text'], $answer['correct'] ]);
                 $this->session->message('Question added successfully', 'success');
-                return 'true';
-
-
-
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
         }
-//        $this->session->message('Question added successfully', 'success');
+      $this->session->message('Question added successfully', 'success');
 //        redirect_to(URLROOT .'/admin/questions/index.php');
+
+
+        return 'true';
     }
 
     public function update_question($question, $id)

@@ -16,13 +16,8 @@
         <table class="table table-dark table-hover">
             <thead>
             <tr>
-                <th>Question text</th>
-                <th>Answer 1</th>
-                <th>Answer 2</th>
-                <th>Answer 3</th>
-                <th>Answer 4</th>
-                <th>Correct Answer</th>
-                <th>Points</th>
+                <th>Questions:</th>
+                <th>Will be displayed as:</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -32,24 +27,18 @@
             <?php foreach($questions as $question):  ?>
                 <tr>
                     <th><?php echo $question->question_text; ?></th>
-                    <td><?php echo $question->answer_1; ?></td>
-                    <td><?php echo $question->answer_2; ?></td>
-                    <td><?php echo $question->answer_3; ?></td>
-                    <td><?php echo $question->answer_4; ?></td>
-                    <td><?php echo $question->correct_answer; ?></td>
-                    <td><?php echo $question->points; ?></td>
-                    <td><a href="show.php?id=<?php echo $question->id; ?>" class="btn  btn-sm">View</a></td>
-                    <td><a href="edit.php?id=<?php echo $question->id; ?>" class="btn btn-sm">Edit</a></td>
+                    <td><?php echo $question->display; ?></td>
+                    <td><a href="show.php?id=<?php echo $question->q_id; ?>" class="btn  btn-sm">View Answers</a></td>
+                    <td><a href="edit.php?id=<?php echo $question->q_id; ?>" class="btn btn-sm">Edit</a></td>
                     <td>
-                        <form method="post" action="delete.php?id=<?php echo $question->id; ?>">
+                        <form method="post" action="delete.php?id=<?php echo $question->q_id; ?>">
                             <input type="hidden" name="_method" value="delete">
                             <div id="operations">
                                 <input type="submit" name="commit" class="btn btn-sm" value="Delete" />
                             </div>
                         </form>
                     </td>
-                </tr>
-            <?php  endforeach; ?>
+                </tr><?php  endforeach; ?>
             </tbody>
         </table>
         <small class="d-flex justify-content-between mt-3">

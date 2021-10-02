@@ -5,18 +5,15 @@
                 <br><br>
                 <h1><?php echo $question->question_text?></h1>
                 <ul class="fs-3">
-                    <li><?php echo $question->answer_1 ?></li>
-                    <li><?php echo $question->answer_2 ?></li>
-                    <li><?php echo $question->answer_3 ?></li>
-                    <li><?php echo $question->answer_4 ?></li>
+                    <?php foreach ($answers as $answer) : ?>
+                    <li><?php echo $answer->answer_text ?> - <span class="badge bg-secondary "><?php echo($answer->correct) ? 'correct' : 'false'; ?></span></li>
+                    <?php endforeach; ?>
                 </ul>
-
-                <p class="fs-3">Correct answer: <span class="badge bg-secondary "><?php echo $question->correct_answer ?></span></p>
             </div>
 
             <div class="col-md-4 text-dark">
                 <div class="card card-body bg-light">
-                        <p class="fs-4">Points worth: <span class="badge bg-secondary "><?php echo $question->points ?></span></p>
+                    <div></div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-6 mb-2">

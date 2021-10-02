@@ -9,7 +9,11 @@ if($session->is_logged_in() === 'false') {
 
 $id = $_GET['id'];
 
-$question = $query->find_by_id($id, 'questions');
+$question = $query->find_by_questions($id, 'questions');
+$answers = $query->find_by_question_id($id, 'answers');
+
+
+
 if($question === false) {
     $session->message('Something went wrong.', 'danger');
     redirect_to(URLROOT . '/admin/users/index.php');

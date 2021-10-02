@@ -20,7 +20,7 @@ class DB {
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {
                 if(xml.readyState === 4 && xml.status === 200) {
-                    //console.log(xml.responseText);
+                   // console.log(xml.responseText);
                     resolve(xml.responseText);
                 }
             };

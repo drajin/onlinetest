@@ -8,6 +8,8 @@ if($session->is_logged_in() === 'false') {
 
 $questions = $query->select_all('questions');
 
+
+
 include(INCLUDES_PATH . '/header.php');
 include(INCLUDES_PATH . '/navbar.php');
 
