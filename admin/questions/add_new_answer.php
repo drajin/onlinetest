@@ -16,8 +16,7 @@
                         <!--     <div class="col-sm-2">
                             <a href="" class="btn btn-block remove">Remove</a>
                         </div> -->
-                    </div>    
-                <div class="newAnswers"></div>';
+                    </div>';
 
 
 

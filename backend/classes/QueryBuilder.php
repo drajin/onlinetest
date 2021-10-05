@@ -16,7 +16,7 @@ class QueryBuilder {
 
 //    public function questions_answers()
 //    {
-//        $sql = "SELECT questions.q_id, questions.question_text, answers.answer_text, answers.correct FROM answers INNER JOIN questions ON answers.question_id = questions.q_id";
+//        $sql = "SELECT questions.id, questions.question_text, answers.answer_text, answers.correct FROM answers INNER JOIN questions ON answers.question_id = questions.id";
 //        $query = $this->db->prepare($sql);
 //        $query->execute();
 //        return $query->fetchAll(PDO::FETCH_OBJ);
@@ -51,7 +51,7 @@ class QueryBuilder {
     //TODO tri iste func
     public function find_by_questions($id, $table)
     {
-        $sql = "SELECT * FROM {$table} WHERE q_id = ?";
+        $sql = "SELECT * FROM {$table} WHERE id = ?";
         $query = $this->db->prepare($sql);
         $query->execute([$id]);
         return $query->fetch(PDO::FETCH_OBJ);
@@ -266,8 +266,8 @@ class QueryBuilder {
 //    }
 
     public function getAllQuestions() {
-        $sql = 'SELECT answers.id, answers.answer_text, answers.correct, questions_2.q_id, questions_2.question_text  ';
-        $sql .= ' FROM answers INNER JOIN questions_2 ON answers.question_id = questions_2.q_id';
+        $sql = 'SELECT answers.id, answers.answer_text, answers.correct, questions_2.id, questions_2.question_text  ';
+        $sql .= ' FROM answers INNER JOIN questions_2 ON answers.question_id = questions_2.id';
         $query = $this->db->prepare($sql);
         $query->execute();
 
@@ -279,13 +279,13 @@ class QueryBuilder {
 //            'third' => 1,
 //        ];
   //    while($row =  $query->fetch(PDO::FETCH_ASSOC)){
-//            if (!isset($quiz[$row['q_id']])) {
-//                $quiz[$row['q_id']] = array(
+//            if (!isset($quiz[$row['id']])) {
+//                $quiz[$row['id']] = array(
 //                    'question' => $row['question_text']
 //                , 'answers' => array()
 //                );
 //            }
-//            $quiz[$row['q_id']]['answers'][] = $row['answer_text'];
+//            $quiz[$row['id']]['answers'][] = $row['answer_text'];
 //
 //
 //
@@ -294,7 +294,7 @@ class QueryBuilder {
 //                foreach($questions as $question) {
 //                   echo( gettype ($question));
 //                }
-//            while(array_key_exists($questions['q_id'], $questions) === $questions['q_id']) {
+//            while(array_key_exists($questions['id'], $questions) === $questions['id']) {
 //                echo 'dva puta';
 //            }
                 }
@@ -307,7 +307,7 @@ class QueryBuilder {
 
         //$data = array();
 //        foreach ($result as $item) {
-//            $key = $item['q_id']; // or $item['info_id']
+//            $key = $item['id']; // or $item['info_id']
 //            if (!isset($data[$key])) {
 //                $data[$key] = array();
 //            }
@@ -316,8 +316,8 @@ class QueryBuilder {
 //        }
 //        return $data;
 //        while($row = $query->fetchAll(PDO::FETCH_ASSOC)){
-//            $data[$row["q_id"]]["name"] = $row["name"];
-//            $data[$row["q_id"]]["logs"][$row["details_no"]] = array(
+//            $data[$row["id"]]["name"] = $row["name"];
+//            $data[$row["id"]]["logs"][$row["details_no"]] = array(
 //                "log"=>$row["log"],
 //                "date"=>$row["date"],
 //            );

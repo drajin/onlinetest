@@ -14,7 +14,7 @@ include(INCLUDES_PATH . '/navbar.php');
 //    echo $question->question_text . '<br>';
 //    echo ('<ul>');
 //    foreach($answers as $answer) {
-//        if($question->q_id === $answer->question_id) {
+//        if($question->id === $answer->question_id) {
 //            echo '<li>' . $answer->answer_text . '</li><br>';
 //        }
 //    }

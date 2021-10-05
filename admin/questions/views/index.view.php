@@ -28,10 +28,10 @@
                 <tr>
                     <th><?php echo $question->question_text; ?></th>
                     <td><?php echo $question->display; ?></td>
-                    <td><a href="show.php?id=<?php echo $question->q_id; ?>" class="btn  btn-sm">View Answers</a></td>
-                    <td><a href="edit.php?id=<?php echo $question->q_id; ?>" class="btn btn-sm">Edit</a></td>
+                    <td><a href="show.php?id=<?php echo $question->id; ?>" class="btn  btn-sm">View Answers</a></td>
+                    <td><a href="edit.php?id=<?php echo $question->id; ?>" class="btn btn-sm">Edit</a></td>
                     <td>
-                        <form method="post" action="delete.php?id=<?php echo $question->q_id; ?>">
+                        <form method="post" action="delete.php?id=<?php echo $question->id; ?>">
                             <input type="hidden" name="_method" value="delete">
                             <div id="operations">
                                 <input type="submit" name="commit" class="btn btn-sm" value="Delete" />

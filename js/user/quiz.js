@@ -50,14 +50,14 @@ function Quiz(response) {
 
             let ans = [];
                 this.text += `
-                    <div class="wrap q" id="q${question.q_id}"> 
+                    <div class="wrap q" id="q${question.id}"> 
                     <div class="h4 font-weight-bold">${question.question_text}</div>
                     <div class="pt-4">
                     <form>
                     `;
                 //make array with answers sorted on question ids
             this.answers.forEach((answer) => {
-                if(question.q_id === answer.question_id) {
+                if(question.id === answer.question_id) {
                     ans.push(answer);
                 }
             });
@@ -80,7 +80,7 @@ function Quiz(response) {
                 </div>
                     `;
             } else {
-                this.text += `<button class="btn btn-primary next" id="next${question.q_id}">Next <span class="fas fa-arrow-right"></span> </button>
+                this.text += `<button class="btn btn-primary next" id="next${question.id}">Next <span class="fas fa-arrow-right"></span> </button>
             </div>
         </div>
         `;
@@ -93,13 +93,14 @@ function Quiz(response) {
         return this.text;
     }
 
+
     this.questionIds = [];
     this.buttonIds = [];
 
+
     //select all questions and button IDs
     for(let i=1; i<this.numQuestions+1; i++) {
-        this.questionIds.push('q'+i);
-        this.buttonIds.push('next'+i);
+        this.buttonIds.push('next');
     }
 
 
@@ -156,12 +157,17 @@ function Quiz(response) {
 
     // hide questions and answers to the left
     this.hideQuestions = function() {
-        let removedElement = this.questionIds.shift();
-        for (question in this.questionIds) {
-            let questionBox = document.getElementById(this.questionIds[question]);
+        let questionIds = [];
+        allquestions = document.querySelectorAll('.q');
+        allquestions.forEach(question=>{
+            questionIds.push(question.id);
+        });
+        let removedElement = questionIds.shift();
+        for (const question in questionIds) {
+            let questionBox = document.getElementById(questionIds[question]);
             questionBox.style.left = "650px";
         }
-        this.questionIds.unshift(removedElement);
+        questionIds.unshift(removedElement);
     }
 
 
@@ -303,6 +309,7 @@ function Quiz(response) {
 
 
 let quiz;
+
 
 
 DB.getQuizQuestions().then((response)=>{

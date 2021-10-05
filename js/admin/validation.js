@@ -76,14 +76,14 @@ let validation = new ValidateQuestionAnsw();
 
 submitQuestionAnswers = () => {
     if(validation.noError) {
-       let questionAnswerData = {
-           question : validation.questionInput.value.trim(),
-           display : validation.displayQuestionValue,
-           correct : [],
-           answers : [],
-       };
+        let questionAnswerData = {
+            question : validation.questionInput.value.trim(),
+            display : validation.displayQuestionValue,
+            correct : [],
+            answers : [],
+        };
         validation.checkboxesInput.forEach((checkbox) =>{
-            questionAnswerData.correct.push(checkbox.id);
+                questionAnswerData.correct.push(checkbox.id);
             }
         );
         validation.answersInput.forEach((answer) =>{

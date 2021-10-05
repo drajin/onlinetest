@@ -15,17 +15,17 @@
                 <form method='post' action="" enctype="multipart/form-data">
                     <br><br>
                     <div class="col-xs-10 col-sm-10 offset-2">
-            <!--                        question-->
+                        <!--                        question-->
                         <div class="form-group">
                             <label class="fs-4 text-center" for="question_text">Add Question Text</label>
                             <input name="question_text" id="question_text" class="form-control <?php echo (!empty($new_question['question_text_error'])) ? 'is-invalid' : '' ?>"
                                    value="<?php echo (!empty($new_question['question_text'])) ? $new_question['question_text'] : '' ?>">
                             <div class="invalid-feedback"><?php echo $new_question['question_text_error']?></div>
                         </div>
-<!--                        how to display question-->
+                        <!--                        how to display question-->
                         <label class="fs-4 text-center mt-3" for="question_display">How would you like to display the answers?</label>
                         <select id="question_display" name="question_display" class="form-select" aria-label="Default select example">
-<!--                            <option disabled selected value> -- select an option -- </option>-->
+                            <!--                            <option disabled selected value> -- select an option -- </option>-->
                             <option value="checkbox" selected="selected">As Checkboxs (multiple correct answers)</option>
                             <option value="radio">As Radio buttons</option>
                             <option value="option">As Drop-down List</option>
@@ -50,6 +50,7 @@
                     <!-- default answer 2-->
 
                     <div class="row form-group answer">
+                    <!--                        checkbox-->
                         <div class="col-xs-2 col-sm-2 mb-5">
                             <div class="form-check">
                                 <input type="checkbox" name="checkbox[]" value="1" class="form-check-input" id="1">
@@ -62,8 +63,9 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
-                    <!-- generated answers-->
-                    <div class="newAnswers"></div>
+                    <!-- generated answers placeholder-->
+                    <div class="generatedAnswers"></div>
+
 
                     <br>
                     <div class="col-xs-10 col-sm-10 offset-2">
