@@ -48,6 +48,7 @@ class QueryBuilder {
         $query = $this->db->prepare($sql);
         $query->execute([$id]);
     }
+
     //TODO tri iste func
     public function find_by_questions($id, $table)
     {
@@ -65,7 +66,17 @@ class QueryBuilder {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function register($data)
+
+    public function login_or_register($data) {
+        $count = count(get_object_vars($data)); //checks on number of properties
+        if($count > 2) {
+            return $this->register($data);
+        } else {
+            return $this->login($data, 'users');
+        }
+    }
+
+    private function register($data)
     {
         $total_score = null;
         $time = null;
@@ -92,17 +103,7 @@ class QueryBuilder {
             }
         }
 
-
-        public function findUserByEmail($email, $table) {
-
-            $stmt = $this->db->prepare("SELECT * FROM ".$table." WHERE email=?");
-            $stmt->bindParam(':email', $email);
-            $stmt->execute([$email]);
-            return $stmt->fetch(PDO::FETCH_OBJ);
-
-        }
-
-        public function login($data, $table)
+        private function login($data, $table)
         {
             //changes array in obj
             if(gettype($data) === 'array') {
@@ -125,14 +126,18 @@ class QueryBuilder {
 
         }
 
-        public function login_or_register($data) {
-            $count = count(get_object_vars($data)); //checks on number of properties
-            if($count > 2) {
-                return $this->register($data);
-            } else {
-                return $this->login($data, 'users');
-            }
+
+        public function findUserByEmail($email, $table) {
+
+            $stmt = $this->db->prepare("SELECT * FROM ".$table." WHERE email=?");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute([$email]);
+            return $stmt->fetch(PDO::FETCH_OBJ);
+
         }
+
+
+
 
 
         //TODO array or obj
@@ -164,10 +169,16 @@ class QueryBuilder {
 //            }
         }
 
-    public function create_question($data) {
+    public function create_or_update_question($data) {
+        if(!$data->question_id) {
+           return $this->create_question($data);
+        } else {
+            return $this->update_question($data);
+        };
+    }
 
+    private function create_question($data) {
         $question = $data->question;
-        //TODO display
         $display = $data->display;
         $correct = [];
         $answers = [];
@@ -190,6 +201,7 @@ class QueryBuilder {
             $correct[] = $key;
         }
 
+
         //makes answers array with answers, question id and correct values
         //adds answer text and question ids to array
         foreach($data->answers as $key => $answer_text) {
@@ -206,6 +218,7 @@ class QueryBuilder {
                 isset($answers[$key]['correct']) ? : $answers[$key]['correct'] = false;
             }
         }
+
         foreach($answers as $answer) {
             try {
                 $stmt = $this->db->prepare('INSERT INTO answers VALUES(?, ?, ?, ?)');
@@ -225,27 +238,74 @@ class QueryBuilder {
         return 'true';
     }
 
-    public function update_question($question, $id)
+    private function update_question($data)
     {
-        if (gettype($question) === 'array') {
-            $question = (object)$question;
-        }
+        $question_id = $data->question_id;
+        $question = $data->question;
+        $display = $data->display;
+        $correct = [];
+        $answers = [];
+
+        //update question
         try {
-            $stmt = $this->db->prepare("UPDATE questions SET question_text=:question_text, answer_1=:answer_1, answer_2=:answer_2, answer_3=:answer_3, answer_4=:answer_4, correct_answer=:correct_answer, points=:points WHERE id=:id");
-            $stmt->bindparam(":question_text", $question->question_text);
-            $stmt->bindparam(":answer_1", $question->answer_1);
-            $stmt->bindparam(":answer_2", $question->answer_2);
-            $stmt->bindparam(":answer_3", $question->answer_3);
-            $stmt->bindparam(":answer_4", $question->answer_4);
-            $stmt->bindparam(":correct_answer", $question->correct_answer);
-            $stmt->bindparam(":points", $question->points);
-            $stmt->bindparam(":id", $id);
+            $stmt = $this->db->prepare("UPDATE questions SET question_text=:question_text, display=:display WHERE id=:id");
+            $stmt->bindparam(":question_text", $question);
+            $stmt->bindparam(":display", $display);
+            $stmt->bindparam(":id", $question_id);
             $stmt->execute();
-            return true;
         } catch (PDOException $e) {
             echo $e->getMessage();
             return false;
         }
+
+
+        //extracts checkbox values
+        foreach($data->correct as $key) {
+            $correct[] = $key;
+        }
+
+      //  return $correct;
+
+        foreach($data->answers as $key => $answer) {
+            $answers[] = [
+                "id" => $answer->id,
+                "question_id" => $question_id,
+                "answer_text" => $answer->answer_text,
+                "key" => $key,
+            ];
+
+//        makes answers array with answers, question id and correct values
+//        adds answer text and question ids to array
+//
+//            adds correct answers values
+            foreach($correct as $value) {
+                if($key == $value) {
+                    $answers[$key]['correct'] = true;
+
+                }
+                // adds correct value on false
+                isset($answers[$key]['correct']) ? : $answers[$key]['correct'] = false;
+            }
+        }
+
+
+        foreach($answers as $answer) {
+            try {
+                $stmt = $this->db->prepare("UPDATE answers SET question_id=:question_id, answer_text=:answer_text, correct=:correct WHERE id=:id");
+                $stmt->bindparam(":question_id", $answer['question_id']);
+                $stmt->bindparam(":answer_text", $answer['answer_text']);
+                $stmt->bindparam(":correct", $answer['correct']);
+                $stmt->bindparam(":id", $answer['id']);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                return false;
+            }
+        }
+
+        $this->session->message('Question updated successfully', 'success');
+
+        return 'true';
 
     }
 

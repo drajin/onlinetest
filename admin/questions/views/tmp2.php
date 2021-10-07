@@ -8,7 +8,7 @@
     </div>
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <div class="row">
-            <h1 class="text-center">Add a new Question</h1>
+            <h1 class="text-center">Edit Question</h1>
             <hr>
             <div class="col-md-7 offset-1">
 
@@ -18,58 +18,46 @@
                         <!--                        question-->
                         <div class="form-group">
                             <label class="fs-4 text-center" for="question_text">Question Text</label>
-                            <input name="question_text" id="question_text" class="form-control <?php echo (!empty($new_question['question_text_error'])) ? 'is-invalid' : '' ?>"
-                                   value="<?php echo (!empty($new_question['question_text'])) ? $new_question['question_text'] : '' ?>">
+                            <input name="question_text" id="question_text" class="form-control"
+                                   value="<?php echo $question->question_text ?>">
                             <div class="invalid-feedback"><?php echo $new_question['question_text_error']?></div>
                         </div>
                         <!--                        how to display question-->
                         <label class="fs-4 text-center mt-3" for="question_display">How would you like to display the answers?</label>
                         <select id="question_display" name="question_display" class="form-select" aria-label="Default select example">
-                            <!--                            <option disabled selected value> -- select an option -- </option>-->
-                            <option value="checkbox" selected>As Checkboxs (multiple correct answers)</option>
-                            <option value="radio">As Radio buttons</option>
-                            <option value="option">As Drop-down List</option>
+                            <!--<option disabled selected value> -- select an option -- </option>-->
+                            <option value="checkbox" <?php if($question->display === 'checkbox') echo'selected'?>>As Checkboxs (multiple correct answers)</option>
+                            <option value="radio" <?php if($question->display === 'radio') echo'selected'?>>As Radio buttons</option>
+                            <option value="option" <?php if($question->display === 'option') echo'selected'?>>As Drop-down List</option>
                         </select>
                     </div>
                     <br>
                     <p class="fs-4 text-center">Answers</p>
                     <!-- default answer 1-->
-                    <div class="row form-group answer">
-                        <div class="col-xs-2 col-sm-2 mb-5">
-                            <div class="form-check">
-                                <input type="checkbox" name="checkbox[]" value="0" class="form-check-input" id="0">
-                                <label class="form-check-label" for="0">Correct</label>
-                            </div>
+                    <?php foreach($answers as $answer) : ?>
+                        <div class="row form-group answer">
+                            <div class="col-xs-2 col-sm-2 mb-5">
+                                <div class="form-check">
+                                    <input type="checkbox" name="checkbox[]" value="0" class="form-check-input" id="0" <?php echo ($answer->correct) ? 'checked' : '';?>>
+                                    <label class="form-check-label" for="0">Correct</label>
+                                </div>
 
+                            </div>
+                            <div class="col-xs-10 col-sm-10">
+                                <input name="0" id="0" placeholder="Answer" class="form-control answerInput" value="<?php echo $answer->answer_text?>">
+                                <div class="invalid-feedback"></div>
+                            </div>
                         </div>
-                        <div class="col-xs-10 col-sm-10">
-                            <input name="0" id="0" placeholder="Answer" class="form-control answerInput" value="">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                     <!-- default answer 2-->
 
-                    <div class="row form-group answer">
-                    <!--                        checkbox-->
-                        <div class="col-xs-2 col-sm-2 mb-5">
-                            <div class="form-check">
-                                <input type="checkbox" name="checkbox[]" value="1" class="form-check-input" id="1">
-                                <label class="form-check-label" for="1">Correct</label>
-                            </div>
-
-                        </div>
-                        <div class="col-xs-10 col-sm-10">
-                            <input name="1" id="1" placeholder="Answer" class="form-control answerInput" value="">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
                     <!-- generated answers placeholder-->
                     <div class="generatedAnswers"></div>
 
 
                     <br>
                     <div class="col-xs-10 col-sm-10 offset-2">
-                        <button id="newQuestionAnsw" class="btn btn-outline-secondary form-control mb-3" type="submit">Save</button>
+                        <button id="submitLogin" class="btn btn-outline-secondary form-control mb-3" type="submit">Save</button>
                     </div>
                 </form>
             </div>
@@ -111,20 +99,3 @@
             </div>
         </div>
     </div>
-
-    <script src="<?php echo URLROOT ?>/js/admin/DB.js"></script>
-    <script src="<?php echo URLROOT ?>/js/admin/add_new_answer.js"></script>
-    <script src="<?php echo URLROOT ?>/js/admin/validation.js"></script>
-    <script src="<?php echo URLROOT ?>/js/helperFunctions.js"></script>
-    <script>
-        // submitEdit.addEventListener('click',(e)=> {
-        //     e.preventDefault();
-        //     validation.question();
-        //     submitQuestionAnswers();
-        // });
-        submitNew.addEventListener('click',(e)=> {
-            e.preventDefault();
-            validation.question();
-            submitQuestionAnswers();
-        });
-    </script>

@@ -4,6 +4,7 @@
             <div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
                 <br><br>
                 <h1><?php echo $question->question_text?></h1>
+                <br>
                 <ul class="fs-3">
                     <?php foreach ($answers as $answer) : ?>
                     <li><?php echo $answer->answer_text ?> - <span class="badge bg-secondary "><?php echo($answer->correct) ? 'correct' : 'false'; ?></span></li>
@@ -28,7 +29,7 @@
                             </form>
                         </div>
                         <div class="col-sm-12">
-                            <a class="btn btn-block btn-h1-spacing" role="button"  href="<?php echo URLROOT ?>/admin/questions/index.php">Back to Index</a>
+                            <a class="btn btn-block btn-h1-spacing" role="button"  href="<?php echo URLROOT ?>/admin/questions/index.php">Return</a>
                         </div>
                     </div>
                 </div>

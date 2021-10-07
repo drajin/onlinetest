@@ -8,7 +8,7 @@ if($session->is_logged_in() === 'false') {
 }
 
 
-$new_question = $admin->validate_question();
+//$new_question = $admin->validate_question();
 //TODO check errors function if(!errors)
 //if (empty($new_question['question_text_error']) && empty($new_question['answer_1_error']) && empty($new_question['answer_2_error'])
 //    && empty($new_question['answer_3_error']) && empty($new_question['answer_4_error']) && empty($new_question['correct_answer_error']) && empty($new_question['points_error'])

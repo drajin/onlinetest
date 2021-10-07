@@ -52,7 +52,7 @@
                             </form>
                         </div>
                         <div class="col-sm-12">
-                            <a class="btn btn-block btn-h1-spacing" role="button"  href="<?php echo URLROOT ?>/admin/users/index.php">Back to Index</a>
+                            <a class="btn btn-block btn-h1-spacing" role="button"  href="<?php echo URLROOT ?>/admin/users/index.php">Return</a>
                         </div>
                     </div>
                 </div>

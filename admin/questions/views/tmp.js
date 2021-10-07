@@ -1,4 +1,4 @@
-
+//pre nego sto sjebem create ceo
 let submitNew = document.querySelector('#newQuestionAnsw');
 let submitEdit = document.querySelector('#editQuestionAnsw')
 
@@ -73,18 +73,14 @@ function ValidateQuestionAnsw() {
 
 } //ValidateForm
 
-
-// on crete is false on edit has value
+// on crete is false edit true
 let question_id = (document.querySelector('#question_id')) ? document.querySelector('#question_id').value : false;
-let answer_ids = (document.querySelectorAll('.answer_id').length === 0) ? false : document.querySelectorAll('.answer_id');
-
+let answer_ids = (document.querySelectorAll('.answer_id')) ? document.querySelectorAll('.answer_id') : false;
+//let answer_ids = document.querySelectorAll('.answer_id');
 let validation = new ValidateQuestionAnsw();
 
 
-
-
 submitQuestionAnswers = () => {
-    let answer_texts = validation.answersInput;
     if(validation.noError) {
         let questionAnswerData = {
             question_id : question_id,
@@ -92,31 +88,21 @@ submitQuestionAnswers = () => {
             display : validation.displayQuestionValue,
             correct : [],
             answers : [],
+            answer_id : [],
         };
-
         validation.checkboxesInput.forEach((checkbox) =>{
                 questionAnswerData.correct.push(checkbox.id);
             }
         );
-
         validation.answersInput.forEach((answer) =>{
                 questionAnswerData.answers.push(answer.value.trim());
             }
         );
-
-
-        //if question id it set and its update request
-        if(question_id) {
-            questionAnswerData.answers = [];
-            questionAnswerData.question_id = question_id;
-            for(let i=0; i<answer_texts.length; i++) {
-                questionAnswerData.answers[i] = {...questionAnswerData.answers[i], 'id' : answer_ids[i].value};
-                questionAnswerData.answers[i] = {...questionAnswerData.answers[i], 'answer_text' : answer_texts[i].value.trim()};
-
+        answer_ids.forEach((answer_id) =>{
+                questionAnswerData.answer_id.push(answer_id.value);
             }
-        }
-
-
+        );
+        console.log(questionAnswerData);
         //send to php
         DB.postQuestionAnsw(questionAnswerData).then((response) => {
             if(response === 'true') {
@@ -134,6 +120,15 @@ submitQuestionAnswers = () => {
 };
 
 
+//
+// submitNew.addEventListener('click',(e)=> {
+//     e.preventDefault();
+//     validation.question();
+//     submitQuestionAnswers();
+// });
 
-
-
+submitEdit.addEventListener('click',(e)=> {
+    e.preventDefault();
+    validation.question();
+    submitQuestionAnswers();
+});
