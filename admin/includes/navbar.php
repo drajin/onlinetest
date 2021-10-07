@@ -19,7 +19,7 @@
 <!--                       href="--><?php //echo URLROOT ?><!--/admin/results.php">Results</a>-->
                 </li>
             </ul>
-            <a href="<?php echo URLROOT ?>/admin/logout.php" class="btn" role="button" aria-pressed="true">Logout</a>
+            <a href="<?php echo URLROOT ?>/admin/logout.php" class="btn logoutBtn" role="button" aria-pressed="true">Logout</a>
         </div>
     </div>
 </nav>

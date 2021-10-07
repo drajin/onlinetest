@@ -29,6 +29,7 @@ let numberOfAnswers = 2;
 addAnswerBtn.addEventListener('click', (e)=> {
     e.preventDefault();
     createNewAnswer();
+    changeDefaultQuestionDisplay()
 });
 
 
@@ -74,4 +75,47 @@ removeAnswer = (removeBtn) => {
     numberOfAnswers--;
     checkNumberOfAnswers();
 };
+
+//TODO Refactor
+changeDefaultQuestionDisplay = () => {
+    let allCheckboxes = (document.querySelectorAll("input[type='checkbox']"));
+    allCheckboxes.forEach((checkbox) => {
+        checkbox.addEventListener( 'change', function() {
+            if(this.checked) {
+                setQuestionDisplay(document.querySelectorAll("input[type='checkbox']:checked").length);
+            } else {
+                setQuestionDisplay(document.querySelectorAll("input[type='checkbox']:checked").length);
+            }
+        });
+    })
+}
+
+changeDefaultQuestionDisplay()
+
+setQuestionDisplay = (checkedNumber) => {
+    let selectOption = document.querySelector('#question_display');
+    if(checkedNumber > 1) {
+        selectOption.selectedIndex = 'checkbox';
+        selectOption.disabled = true;
+        //show alert only once
+        let alerted = localStorage.getItem('alerted') || '';
+            if (alerted !== 'yes') {
+            showAlert('alert-warning', 'More then one correct answer will be displayed as checkboxes');
+            localStorage.setItem('alerted','yes');
+            }
+    } else {
+        selectOption.disabled = false;
+    }
+}
+
+
+clearLocalStorage = () => {
+    let logoutBtn = document.querySelector('.logoutBtn');
+    logoutBtn.addEventListener('click', ()=> {
+        localStorage.removeItem('alerted');
+    });
+}
+
+clearLocalStorage();
+
 

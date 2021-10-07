@@ -26,9 +26,9 @@
                         <label class="fs-4 text-center mt-3" for="question_display">How would you like to display the answers?</label>
                         <select id="question_display" name="question_display" class="form-select" aria-label="Default select example">
                             <!--                            <option disabled selected value> -- select an option -- </option>-->
-                            <option value="checkbox" selected>As Checkboxs (multiple correct answers)</option>
-                            <option value="radio">As Radio buttons</option>
-                            <option value="option">As Drop-down List</option>
+                            <option id="checkbox" value="checkbox" selected>As Checkboxs (multiple correct answers)</option>
+                            <option id="radio" value="radio">As Radio buttons</option>
+                            <option id="option" value="option">As Drop-down List</option>
                         </select>
                     </div>
                     <br>
