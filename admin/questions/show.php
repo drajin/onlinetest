@@ -9,9 +9,8 @@ if($session->is_logged_in() === 'false') {
 
 $id = $_GET['id'];
 
-$question = $query->find_by_questions($id, 'questions');
-$answers = $query->find_by_question_id($id, 'answers');
-
+$question = $query->find_by_id($id, 'questions');
+$answers = $query->find_all_by_id($id, 'answers', 'question_id');
 
 
 if($question === false) {

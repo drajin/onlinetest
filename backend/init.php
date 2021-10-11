@@ -14,15 +14,18 @@ $config = require('config/config.php');
 require 'classes/Connection.php';
 require 'classes/QueryBuilder.php';
 require 'classes/Admin.php';
+require 'classes/Result.php';
 
 $test = 'Ok';
 
 $db = Connection::connect($config['database']);
 $session = new Session();
-$query = new QueryBuilder($db, $session);
+
+QueryBuilder::set_db_session($db, $session);
+$query = new QueryBuilder();
+//$questions = new Question();
 $admin = new Admin();
-
-
+$result = new Result();
 
 require 'helpers.php';
 

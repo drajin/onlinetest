@@ -165,7 +165,8 @@ a:hover {
     transition: 0.6s
 }
 
-/*rules*/
+/*rules and results*/
+#resultsView ul,
 #rulesView ul{
     width: 70%;
     margin: 40px auto;
@@ -174,6 +175,47 @@ a:hover {
 #rulesView li{
     background-color: var(--red);
     font-weight: bold;
+}
+
+#resultsView .fas {
+    color: green;
+}
+/*#resultsView-average .far {*/
+/*    color: yellow;*/
+/*}*/
+/*#resultsView-failed .far {*/
+/*    color: red;*/
+/*}*/
+
+/*#resultsView-average .results{*/
+/*    background-color: #FFFF99;*/
+/*}*/
+
+/*#resultsView-failed .results{*/
+/*    background-color: var(--red);*/
+/*}*/
+
+.result {
+    width: 60%;
+    margin: auto;
+    background-color: var(--green);
+    color: black;
+    font-weight: bold;
+}
+
+.result li {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.totalScore {
+    font-size: 2rem;
+    height: 40vh;
+
+}
+
+.score {
+    font-size: 2rem;
 }
 
 .startBtn {

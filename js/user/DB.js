@@ -40,7 +40,7 @@ class DB {
             xml.onreadystatechange = () => {
                 if(xml.readyState == 4 && xml.status == 200) {
                     //xml.responseText
-                    //console.log(JSON.parse(xml.responseText));
+                    //console.log((xml.responseText));
                     resolve(JSON.parse(xml.responseText));
                 }
             };
@@ -122,6 +122,22 @@ class DB {
             xml.open('POST','backend/check_email.php');
             xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
             xml.send(JSON.stringify(email));
+        })
+    }
+
+    static sendResults(points) {
+        return new Promise((resolve, reject)=>{
+
+            let xml = new XMLHttpRequest();
+            xml.onreadystatechange = () => {
+                if(xml.readyState == 4 && xml.status == 200) {
+                    resolve(xml.responseText);
+
+                }
+            };
+            xml.open('POST','backend/get_results.php');
+            xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
+            xml.send(JSON.stringify(points));
         })
     }
 

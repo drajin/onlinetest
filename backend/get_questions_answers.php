@@ -10,5 +10,4 @@ $response = array(
     'answers'  => $query->select_all('answers')
 );
 
-
 echo(json_encode($response));

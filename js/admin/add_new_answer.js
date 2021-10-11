@@ -1,22 +1,22 @@
 
 
 
-let newAnswer =  `<div class="row form-group newAnswer" id="newAnswer-dynamic"> 
+let newAnswer =  `<div class="row form-group newAnswer" id="newAnswer-{{dynamic}}"> 
 <!--                        checkbox-->
                     <div class="col-sm-2 mb-5">
                         <div class="form-check">
-                            <input type="checkbox" name="checkbox[]" value="dynamic" class="form-check-input" id="dynamic">
-                            <label class="form-check-label" for="dynamic">Correct</label>
+                            <input type="checkbox" name="checkbox[]" value="{{dynamic}}" class="form-check-input" id="{{dynamic}}">
+                            <label class="form-check-label" for="{{dynamic}}">Correct</label>
                         </div>
                     </div>
 <!--                    answer input-->
                     <div class="col-sm-8">
-                        <input name="dynamic" id="dynamic" placeholder="Answer" class="form-control answerInput" value="">
+                        <input name="{{dynamic}}" id="{{dynamic}}" placeholder="Answer" class="form-control answerInput" value="">
                         <div class="invalid-feedback"></div>
                     </div>
                    <!--  remove btn functionality -->
                    <div class="col-sm-2 remove">
-                       <a href="#" id="removeBtn-dynamic" class="btn btn-block">Remove</a>
+                       <a href="#" id="removeBtn-{{dynamic}}" class="btn btn-block">Remove</a>
                     </div>
                 </div>`;
 
@@ -36,7 +36,7 @@ addAnswerBtn.addEventListener('click', (e)=> {
 createNewAnswer = () => {
     let generatedAnswers = document.querySelector('.generatedAnswers');
 
-    generatedAnswers.innerHTML += newAnswer.replaceAll("dynamic", numberOfAnswers.toString());
+    generatedAnswers.innerHTML += newAnswer.replaceAll("{{dynamic}}", numberOfAnswers.toString());
 
     let genAnswersId = [2, 3, 4];
 
@@ -100,7 +100,7 @@ setQuestionDisplay = (checkedNumber) => {
         //show alert only once
         let alerted = localStorage.getItem('alerted') || '';
             if (alerted !== 'yes') {
-            showAlert('alert-warning', 'More then one correct answer will be displayed as checkboxes');
+            showAlert('alert-warning', 'If there is more then one correct answer, it will be displayed as checkboxes');
             localStorage.setItem('alerted','yes');
             }
     } else {

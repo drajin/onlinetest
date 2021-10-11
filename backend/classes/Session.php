@@ -3,7 +3,8 @@
 
 class Session {
 
-    private string $user_id;
+  //  TODO make $user_id private (used by results as well)
+    public string $user_id;
     public string $email;
 
 

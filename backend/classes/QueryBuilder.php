@@ -1,17 +1,17 @@
 <?php
 
-include 'Session.php';
+include_once 'Session.php';
 
 class QueryBuilder {
 
-    private $db;
-    private $session;
-    private $question_id;
+    static protected $db;
+    static protected $session;
+    protected $question_id;
 
-    public function __construct($db, $session)
+    public static function set_db_session($db, $session)
     {
-        $this->db = $db;
-        $this->session = $session;
+        self::$db = $db;
+        self::$session = $session;
     }
 
 //    public function questions_answers()
@@ -23,50 +23,61 @@ class QueryBuilder {
 //
 //    }
 
+    //ostaje
     public function select_all($table)
     {
         $sql = "SELECT * FROM {$table}";
-        $query = $this->db->prepare($sql);
+        $query = self::$db->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
 
     }
 
+    //ostaje
     public function find_by_id($id, $table)
     {
         $sql = "SELECT * FROM {$table} WHERE id = ?";
-        $query = $this->db->prepare($sql);
-        $query->execute([$id]);
-        return $query->fetch(PDO::FETCH_OBJ);
-
-
-    }
-
-    public  function delete($id, $table)
-    {
-        $sql = "DELETE FROM {$table} WHERE id = ?";
-        $query = $this->db->prepare($sql);
-        $query->execute([$id]);
-    }
-
-    //TODO tri iste func
-    public function find_by_questions($id, $table)
-    {
-        $sql = "SELECT * FROM {$table} WHERE id = ?";
-        $query = $this->db->prepare($sql);
+        $query = self::$db->prepare($sql);
         $query->execute([$id]);
         return $query->fetch(PDO::FETCH_OBJ);
     }
 
-    public function find_by_question_id($id, $table)
+    //kandidat za question
+    public function find_all_by_id($id, $table, $row)
     {
-        $sql = "SELECT * FROM {$table} WHERE question_id = ?";
-        $query = $this->db->prepare($sql);
+        $sql = "SELECT * FROM {$table} WHERE {$row} = ?";
+        $query = self::$db->prepare($sql);
         $query->execute([$id]);
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
 
+    //ostaje
+    public  function delete($id, $table)
+    {
+        $sql = "DELETE FROM {$table} WHERE id = ?";
+        $query = self::$db->prepare($sql);
+        $query->execute([$id]);
+    }
+
+    public  function delete_answers($question_id, $table)
+    {
+        $sql = "DELETE FROM {$table} WHERE question_id = ?";
+        $query = self::$db->prepare($sql);
+        $query->execute([$question_id]);
+    }
+
+    //visak ne znam
+    //TODO find_by id function repeating
+    public function find_by_question_id($id, $table)
+    {
+        $sql = "SELECT * FROM {$table} WHERE question_id = ?";
+        $query = self::$db->prepare($sql);
+        $query->execute([$id]);
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    //ide u login
     public function login_or_register($data) {
         $count = count(get_object_vars($data)); //checks on number of properties
         if($count > 2) {
@@ -76,21 +87,22 @@ class QueryBuilder {
         }
     }
 
+    //ide u login
     private function register($data)
     {
-        $total_score = null;
+        $score = null;
         $time = null;
         $created_at = null;
         $updated_at = null;
         $is_admin = false;
         $password_hash = password_hash($data->password, PASSWORD_DEFAULT);
 
-        $stmt = $this->db->prepare('INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt = self::$db->prepare('INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->bindParam(':first_date', $data->first_name);
         $stmt->bindParam(':last_name', $data->last_name);
         $stmt->bindParam(':email', $data->email);
         $stmt->bindParam(':$password', $password_hash);
-        $stmt->bindParam(':total_score', $total_score);
+        $stmt->bindParam(':score', $score);
         $stmt->bindParam(':time', $time);
         $stmt->bindParam(':created_at', $created_at);
         $stmt->bindParam(':updated_at', $updated_at);
@@ -103,7 +115,8 @@ class QueryBuilder {
             }
         }
 
-        private function login($data, $table)
+        //ide u login
+        public function login($data, $table)
         {
             //changes array in obj
             if(gettype($data) === 'array') {
@@ -119,17 +132,17 @@ class QueryBuilder {
             $hashedPassword = $user->password;
             // checks if passwords are the same
             if(password_verify($data->password,$hashedPassword)){
-                return $this->session->login($user);
+                return self::$session->login($user);
             } else {
                 return false;
             }
 
         }
 
-
+        //probamo da napravimo abstract
         public function findUserByEmail($email, $table) {
 
-            $stmt = $this->db->prepare("SELECT * FROM ".$table." WHERE email=?");
+            $stmt = self::$db->prepare("SELECT * FROM ".$table." WHERE email=?");
             $stmt->bindParam(':email', $email);
             $stmt->execute([$email]);
             return $stmt->fetch(PDO::FETCH_OBJ);
@@ -139,7 +152,7 @@ class QueryBuilder {
 
 
 
-
+        //user
         //TODO array or obj
         public function update_user($user, $id) {
 
@@ -147,7 +160,7 @@ class QueryBuilder {
                 $user = (object)$user;
             }
             try {
-                $stmt = $this->db->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, updated_at=NOW() WHERE id=:id");
+                $stmt = self::$db->prepare("UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, updated_at=NOW() WHERE id=:id");
                 $stmt->bindparam(":first_name",$user->first_name);
                 $stmt->bindparam(":last_name",$user->last_name);
                 $stmt->bindparam(":email",$user->email);
@@ -159,7 +172,7 @@ class QueryBuilder {
             return false;
         }
 //            try {
-//                $stmt = $this->db->prepare("UPDATE users SET first_name=:?, last_name=:?, email=:?, updated_at=NOW() WHERE id=:id");
+//                $stmt = self::$db->prepare("UPDATE users SET first_name=:?, last_name=:?, email=:?, updated_at=NOW() WHERE id=:id");
 //                $stmt->bindParam( 'sssi',$user->first_name, $user->last_name, $user->email, $id);
 //                $stmt->execute();
 //                return true;
@@ -185,12 +198,12 @@ class QueryBuilder {
 
         // inserts question in DB
         try {
-            $stmt = $this->db->prepare('INSERT INTO questions VALUES(?, ?, ?)');
+            $stmt = self::$db->prepare('INSERT INTO questions VALUES(?, ?, ?)');
             $stmt->bindParam(':question_text', $question);
             $stmt->bindParam(':display', $display);
             //return $stmt->execute([NULL, $question]);
             $stmt->execute([NULL, $question, $display]);
-            $this->question_id = $this->db->lastInsertId();
+            $this->question_id = self::$db->lastInsertId();
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -221,17 +234,17 @@ class QueryBuilder {
 
         foreach($answers as $answer) {
             try {
-                $stmt = $this->db->prepare('INSERT INTO answers VALUES(?, ?, ?, ?)');
+                $stmt = self::$db->prepare('INSERT INTO answers VALUES(?, ?, ?, ?)');
                 $stmt->bindParam(':question_id', $answer['question_id']);
                 $stmt->bindParam(':answer_text', $answer['answer_text']);
                 $stmt->bindParam(':correct', $answer['correct']);
                 $stmt->execute([NULL, $answer['question_id'],$answer['answer_text'], $answer['correct'] ]);
-                $this->session->message('Question added successfully', 'success');
+                self::$session->message('Question added successfully', 'success');
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
         }
-      $this->session->message('Question added successfully', 'success');
+      self::$session->message('Question added successfully', 'success');
 //        redirect_to(URLROOT .'/admin/questions/index.php');
 
 
@@ -248,7 +261,7 @@ class QueryBuilder {
 
         //update question
         try {
-            $stmt = $this->db->prepare("UPDATE questions SET question_text=:question_text, display=:display WHERE id=:id");
+            $stmt = self::$db->prepare("UPDATE questions SET question_text=:question_text, display=:display WHERE id=:id");
             $stmt->bindparam(":question_text", $question);
             $stmt->bindparam(":display", $display);
             $stmt->bindparam(":id", $question_id);
@@ -291,7 +304,7 @@ class QueryBuilder {
 
         foreach($answers as $answer) {
             try {
-                $stmt = $this->db->prepare("UPDATE answers SET question_id=:question_id, answer_text=:answer_text, correct=:correct WHERE id=:id");
+                $stmt = self::$db->prepare("UPDATE answers SET question_id=:question_id, answer_text=:answer_text, correct=:correct WHERE id=:id");
                 $stmt->bindparam(":question_id", $answer['question_id']);
                 $stmt->bindparam(":answer_text", $answer['answer_text']);
                 $stmt->bindparam(":correct", $answer['correct']);
@@ -303,15 +316,17 @@ class QueryBuilder {
             }
         }
 
-        $this->session->message('Question updated successfully', 'success');
+        self::$session->message('Question updated successfully', 'success');
 
         return 'true';
 
     }
 
+
+
 //    public function getAllQuestions() {
 //        $sql = "SELECT * FROM questions_2 INNER JOIN answers ON questions_2.id = answers.question_id";
-//        $stmt = $this->db->prepare($sql);
+//        $stmt = self::$db->prepare($sql);
 //        $stmt->execute();
 //        return $stmt->fetchAll(PDO::FETCH_OBJ);
 //    }
@@ -319,19 +334,19 @@ class QueryBuilder {
 //    public function getAllQuestions() {
 //        $sql = 'SELECT answers.id, answers.text, answers.correct, questions_2_text FROM answers ';
 //        $sql .= ' INNER JOIN answers ON answers.question_id = questions_2.id;';
-//        $query = $this->db->prepare($sql);
+//        $query = self::$db->prepare($sql);
 //        $query->execute();
 //        return $query->fetchAll(PDO::FETCH_OBJ);
 //
 //    }
 
-    public function getAllQuestions() {
-        $sql = 'SELECT answers.id, answers.answer_text, answers.correct, questions_2.id, questions_2.question_text  ';
-        $sql .= ' FROM answers INNER JOIN questions_2 ON answers.question_id = questions_2.id';
-        $query = $this->db->prepare($sql);
-        $query->execute();
-
-        return  $query->fetchAll(PDO::FETCH_ASSOC);
+//    public function getAllQuestions() {
+//        $sql = 'SELECT answers.id, answers.answer_text, answers.correct, questions_2.id, questions_2.question_text  ';
+//        $sql .= ' FROM answers INNER JOIN questions_2 ON answers.question_id = questions_2.id';
+//        $query = self::$db->prepare($sql);
+//        $query->execute();
+//
+//        return  $query->fetchAll(PDO::FETCH_ASSOC);
 //        $quiz = array();
 //        $array = [
 //            'first' => 1,
@@ -357,7 +372,7 @@ class QueryBuilder {
 //            while(array_key_exists($questions['id'], $questions) === $questions['id']) {
 //                echo 'dva puta';
 //            }
-                }
+            //    }
 
 
         //return $quiz;

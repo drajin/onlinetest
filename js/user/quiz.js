@@ -22,7 +22,7 @@ function Quiz(response) {
 
     this.text = ``;
     this.userAnswers = [];
-
+    this.numCorrectAnswers = 0;
     this.questions = response.questions;
 
     //comment out for question random questions
@@ -273,16 +273,17 @@ function Quiz(response) {
 
     }
 
-    //counts all existing correct answers
-    this.countAllCorrect = () => {
+
+    //counts all quiz's existing correct answers
+
         let counter = 0;
         this.answers.forEach((answer) =>{
             if(answer.correct == 1) {
                 counter++
             }
         });
-        return counter;
-    }
+        this.numCorrectAnswers = counter;
+
 
     //looping trough user answers and comparing with existing answers
     this.calculateScore = () => {
@@ -296,8 +297,18 @@ function Quiz(response) {
 
         })
 
-        let point = 100/(this.countAllCorrect());
-        console.log(Math.round((correctAnswers.filter(correct => correct==1).length)* point));
+        //every correct answer multiplied by the worth of one correct answer    //how much is one correct answer worth in percent
+        let result = (correctAnswers.filter(correct => correct==1).length)* (100/(this.numCorrectAnswers));
+        console.log(result);
+        Result.save(result);
+
+        // DB.sendResults(result).then((response) => {
+        //     console.log(response)
+        //
+        // }),(error)=>{
+        //     console.log(error);
+        // }
+        //showView.results(result);
     }
 
 
