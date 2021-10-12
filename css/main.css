@@ -195,9 +195,12 @@ a:hover {
 /*    background-color: var(--red);*/
 /*}*/
 
+.resultBg {
+    width: 70%;
+    margin: 40px auto;
+}
+
 .result {
-    width: 60%;
-    margin: auto;
     background-color: var(--green);
     color: black;
     font-weight: bold;

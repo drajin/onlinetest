@@ -137,17 +137,9 @@ function loginUser(e) {
 }
 
 
-
-
-
-
-
 function quizStart() {
     showView.quiz();
 }
-
-
-
 
 
 function isLoggedIn() {
@@ -170,6 +162,7 @@ async function logOut() {
     DB.sessionDestroy().then((response) => {
         if(response) {
             showLoginBtn();
+            location.reload();
             showView.login();
         }
     },(error)=>{

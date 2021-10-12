@@ -40,6 +40,7 @@ function Quiz(response) {
     this.numQuestions = this.questions.length;
     this.lastQuestion = this.numQuestions;
     this.counter = 0;
+    this.userCorrectAnswCounter = 0;
 
     this.createQuizForm = function() {
 
@@ -158,8 +159,8 @@ function Quiz(response) {
     // hide questions and answers to the left
     this.hideQuestions = function() {
         let questionIds = [];
-        allquestions = document.querySelectorAll('.q');
-        allquestions.forEach(question=>{
+       let allQuestions = document.querySelectorAll('.q');
+        allQuestions.forEach(question=>{
             questionIds.push(question.id);
         });
         let removedElement = questionIds.shift();
@@ -291,15 +292,19 @@ function Quiz(response) {
         this.userAnswers.forEach((userAnswer) => {
             this.answers.forEach((answer) => {
                 if(userAnswer === answer.answer_text) {
-                    correctAnswers.push(answer.correct)
+                    correctAnswers.push(answer.correct);
                 }
             })
 
         })
 
+        this.userCorrectAnswCounter = correctAnswers.filter(correct => correct==1).length;
         //every correct answer multiplied by the worth of one correct answer    //how much is one correct answer worth in percent
-        let result = (correctAnswers.filter(correct => correct==1).length)* (100/(this.numCorrectAnswers));
-        console.log(result);
+        let result = {
+            'points' : this.userCorrectAnswCounter * (100/(this.numCorrectAnswers)).toFixed(2),
+            'number_of_correct_answ' : this.numCorrectAnswers,
+            'user_correct_answers' : this.userCorrectAnswCounter,
+        };
         Result.save(result);
 
         // DB.sendResults(result).then((response) => {
@@ -310,6 +315,7 @@ function Quiz(response) {
         // }
         //showView.results(result);
     }
+
 
 
 

@@ -141,6 +141,20 @@ class DB {
         })
     }
 
+    static getHistoryResults() {
+        return new Promise((resolve, reject)=>{
+            let xml = new XMLHttpRequest();
+            xml.onreadystatechange = () => {
+                if(xml.readyState == 4 && xml.status == 200) {
+                    resolve(JSON.parse(xml.responseText));
+                    //console.log(resolve);
+                }
+            };
+            xml.open('GET','backend/get_history_results.php');
+            xml.send();
+        })
+    }
+
 
 
 
