@@ -149,9 +149,9 @@
 //                    'answer_5_error' => '',
 
 
-                //Validate Question
+                //Validate Quiz
                 if (empty($data['question_text'])) {
-                    $data['question_text_error'] = 'Question can\'t be blank.';
+                    $data['question_text_error'] = 'Quiz can\'t be blank.';
                 }
 
                 //Validate Answers

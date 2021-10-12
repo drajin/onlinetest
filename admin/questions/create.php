@@ -15,7 +15,7 @@ if($session->is_logged_in() === 'false') {
 //    && !empty($new_question['question_text']) && !empty($new_question['answer_1']) && !empty($new_question['answer_2'])) {
 //
 //        if($query->create_question($new_question)) {
-//        $session->message('Question added successfully', 'success');
+//        $session->message('Quiz added successfully', 'success');
 //        redirect_to(URLROOT .'/admin/questions/index.php');
 //    } else {
 //        $session->message('Something went wrong.', 'danger');

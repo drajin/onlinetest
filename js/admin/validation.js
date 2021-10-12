@@ -29,7 +29,7 @@ function ValidateQuestionAnsw() {
 
     this.questionText = () => {
         if(this.questionInput.value === '') {
-            this.setError(this.questionInput, 'Question can\'t be blank');
+            this.setError(this.questionInput, 'Quiz can\'t be blank');
         } else {
             this.setSuccess(this.questionInput);
         }

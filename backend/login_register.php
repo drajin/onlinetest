@@ -5,7 +5,7 @@
     $json = file_get_contents('php://input');
     $data = json_decode($json);
 
-    echo($query->login_or_register($data));
+    echo($user->login_or_register($data));
 
 
    //echo $query->register($data);

@@ -21,7 +21,7 @@ if($question === false) {
 $query->delete($id, 'questions');
 
 foreach($answers as $answer) {
-    $query->delete_answers($answer->question_id, 'answers');
+    $quiz->delete_answers($answer->question_id, 'answers');
 }
 
 $session->message('Question deleted', 'success');

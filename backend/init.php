@@ -15,6 +15,8 @@ require 'classes/Connection.php';
 require 'classes/QueryBuilder.php';
 require 'classes/Admin.php';
 require 'classes/Result.php';
+require 'classes/User.php';
+require 'classes/Quiz.php';
 
 $test = 'Ok';
 
@@ -23,9 +25,11 @@ $session = new Session();
 
 QueryBuilder::set_db_session($db, $session);
 $query = new QueryBuilder();
-//$questions = new Question();
+//$questions = new Quiz();
+$user = new User();
 $admin = new Admin();
 $result = new Result();
+$quiz = new Quiz();
 
 require 'helpers.php';
 

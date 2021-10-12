@@ -6,7 +6,7 @@
     $data = json_decode($json);
 
 
-   if(is_object($query->findUserByEmail($data, 'users'))) {
+   if(is_object($query->findUserByEmail($data))) {
        echo 'false';
    } else {
        echo 'true';
