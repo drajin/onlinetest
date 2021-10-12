@@ -4,7 +4,7 @@ define('URLROOT', 'http://localhost/onlinetest');
 
 
 define("PRIVATE_PATH", dirname(__FILE__));
-define("INCLUDES_PATH", PRIVATE_PATH . '/../admin/includes');
+define("INCLUDES_PATH", PRIVATE_PATH . '/admin/includes');
 
 
 
@@ -15,7 +15,7 @@ require 'classes/Connection.php';
 require 'classes/QueryBuilder.php';
 require 'classes/Admin.php';
 require 'classes/Result.php';
-require 'classes/User.php';
+require 'classes/UserController.php';
 require 'classes/Quiz.php';
 
 $test = 'Ok';
@@ -26,7 +26,7 @@ $session = new Session();
 QueryBuilder::set_db_session($db, $session);
 $query = new QueryBuilder();
 //$questions = new Quiz();
-$user = new User();
+$user_controller = new UserController();
 $admin = new Admin();
 $result = new Result();
 $quiz = new Quiz();

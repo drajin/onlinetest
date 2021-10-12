@@ -2,7 +2,7 @@
 
 include_once 'Session.php';
 
-    class User extends QueryBuilder {
+    class UserController extends QueryBuilder {
 
         //ide u login
         public function login_or_register($data) {

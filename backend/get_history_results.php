@@ -1,6 +1,6 @@
 <?php
 
-require 'init.php';
+require '../init.php';
 
 $id = $session->user_id;
 

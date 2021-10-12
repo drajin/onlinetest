@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../backend/init.php';
+include_once '../../init.php';
 
 //checks if user is logged in
 if($session->is_logged_in() === 'false') {
@@ -22,7 +22,7 @@ $user_data = ($admin->validate_update_user());
 if (empty($user_data['first_name_error']) && empty($user_data['last_name_error']) && empty($user_data['email_error'])
     && !empty($user_data['first_name']) && !empty($user_data['last_name']) && !empty($user_data['email'])) {
 
-    if($query->update_user($user_data, $id)) {
+    if($user_controller->update_user($user_data, $id)) {
         $session->message('User updated successfully', 'success');
         redirect_to(URLROOT .'/admin/users/index.php');
     } else {

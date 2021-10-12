@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../backend/init.php';
+include_once '../../init.php';
 
 if($session->is_logged_in() === 'false') {
     redirect_to(URLROOT . '/admin/login.php');
