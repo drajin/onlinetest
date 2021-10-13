@@ -25,7 +25,7 @@
             <div class="d-flex justify-content-between">
                 <strong class="text-gray-dark">Users</strong>
             </div>
-            <span class="d-block">view, edit or delete users</span>
+            <span class="d-block">View, Edit or Delete the Users</span>
             </a>
         </div>
     </div>
@@ -37,7 +37,7 @@
                 <div class="d-flex justify-content-between">
                     <strong class="text-gray-dark">Quiz questions</strong>
                 </div>
-                <span class="d-block">view, edit or delete questions</span>
+                <span class="d-block">View, Edit or Delete the Questions</span>
             </a>
         </div>
     </div>
@@ -47,11 +47,11 @@
 
         <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
 <!--            <a href="--><?php //echo URLROOT ?><!--/admin/results/index.php">-->
-            <a href="#">
+            <a href="<?php echo URLROOT ?>/admin/questions/index.php">
                 <div class="d-flex justify-content-between">
                     <strong class="text-gray-dark">Results</strong>
                 </div>
-                <span class="d-block">View and download the Results</span>
+                <span class="d-block">View Edit or Delete the Results</span>
             </a>
         </div>
     </div>

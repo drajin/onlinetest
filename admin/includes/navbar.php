@@ -15,7 +15,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php if(isset($results)){ echo 'active';} ?>"
-                       href="#">Results</a>
+                       href="<?php echo URLROOT ?>/admin/results/index.php">Results</a>
 <!--                       href="--><?php //echo URLROOT ?><!--/admin/results.php">Results</a>-->
                 </li>
             </ul>

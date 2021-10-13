@@ -1,10 +1,14 @@
 <?php
 
-include_once 'Session.php';
+    namespace app\classes;
+    use PDO;
 
     class UserController extends QueryBuilder {
 
-        //ide u login
+        //TODO add protected property to all classes
+        //protected string $table_name = 'users';
+
+
         public function login_or_register($data) {
             $count = count(get_object_vars($data)); //checks on number of properties
             if($count > 2) {
@@ -14,7 +18,7 @@ include_once 'Session.php';
             }
         }
 
-        //ide u login
+
         private function register($data)
         {
             $score = null;
@@ -42,7 +46,7 @@ include_once 'Session.php';
                 }
             }
 
-            //ide u login
+
             public function login($data)
             {
                 //changes array in obj
@@ -66,9 +70,8 @@ include_once 'Session.php';
 
             }
 
-            //probamo da napravimo abstract
-            public function findUserByEmail($email) {
 
+            public function findUserByEmail($email) {
                 $stmt = self::$db->prepare("SELECT * FROM users WHERE email=?");
                 $stmt->bindParam(':email', $email);
                 $stmt->execute([$email]);

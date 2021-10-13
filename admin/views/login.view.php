@@ -1,17 +1,21 @@
 <main class="container">
+    <!--        alert-->
+    <section>
+        <div id="alerts">
+            <div class="row">
+                <div class="alerts d-flex justify-content-center">
+                    <?php echo ($session->display_session_message()); ?>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
 <div class="my-3 p-3 transparent rounded shadow-sm">
 
             <h1 class="display-4 text-center m-3 p-3">Online Test - Admin Area</h1>
             <h3 class="text-center mb-5">Please Log In</h3>
-
-<!--        alert-->
-        <section>
-            <div class="row">
-                <div class="col-6 offset-3">
-                    <?php echo ($session->display_session_message()); ?>
-                </div>
-            </div>
-        </section>
 
         <!--login form-->
         <div id="loginView">

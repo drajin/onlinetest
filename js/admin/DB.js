@@ -15,7 +15,6 @@ class DB {
         //         .catch(err => reject(err));
         // });
 
-
         return new Promise((resolve, reject)=>{
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {

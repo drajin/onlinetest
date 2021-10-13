@@ -2,6 +2,8 @@
 
     class Result {
 
+
+
         // saves result in DB
         static save = (result) => {
             DB.sendResults(result).then((response) => {

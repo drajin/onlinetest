@@ -7,10 +7,10 @@
 
 
    if(is_object($user_controller->findUserByEmail($data))) {
-       echo 'false';
-   } else {
        echo 'true';
+   } else {
+       echo 'false';
    }
 
-//var_dump($query->findUserByEmail($data, 'users'));
+   // var_dump(gettype($user_controller->findUserByEmail($data)));
 

@@ -5,7 +5,6 @@
             <br><br>
             <h1><?php echo $user->first_name .' '. $user->last_name; ?></h1>
             <p class="lead"><?php echo $user->email?></p>
-            <p class="fs-4">Score: <span class="badge bg-secondary "><?php echo $user->score ?></span></p>
         </div>
 
         <div class="col-md-4 text-dark">
@@ -36,6 +35,47 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <table class="table table-dark table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Score</th>
+                    <th>Quiz Correct Answers</th>
+                    <th>Users Correct Answers</th>
+                    <th>Taken at</th>
+                    <th>Updated at</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach($user_results as $result):  ?>
+                    <tr>
+                        <td><?php echo $result->id; ?></td>
+                        <td><span class="badge bg-secondary "><?php echo $result->points; ?></span></td>
+                        <td><?php echo $result->number_of_correct_answ; ?></td>
+                        <td><?php echo $result->user_correct_answers; ?></td>
+                        <td><?php display_time($result->taken_at); ?></td>
+                        <td><?php display_time($result->updated_at); ?></td>
+                        <td><a href="<?php echo URLROOT ?>/admin/results/edit.php?id=<?php echo $result->id; ?>" class="btn btn-sm">Edit</a></td>
+                        <td>
+                            <form method="post" action="<?php echo URLROOT ?>/admin/results/delete.php?id=<?php echo $result->id; ?>">
+                                <input type="hidden" name="_method" value="delete">
+                                <div id="operations">
+                                    <input type="submit" name="commit" class="btn btn-sm" value="Delete" />
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                <?php  endforeach; ?>
+                </tbody>
+            </table>
+            <small class="d-block text-end mt-3">
+                <a href="<?php echo URLROOT ?>" target="_blank">View front Page</a>
+            </small>
         </div>
 
 

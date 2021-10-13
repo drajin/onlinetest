@@ -1,0 +1,17 @@
+{
+    "name": "drajin/onlinetest",
+    "authors": [
+        {
+            "name": "drajin",
+            "email": "drajin@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\" : "./"
+        }
+    },
+    "require": {
+      "ext-pdo": "*"
+    }
+}

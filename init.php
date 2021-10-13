@@ -1,22 +1,29 @@
 <?php
 
 define('URLROOT', 'http://localhost/onlinetest');
-
-
 define("PRIVATE_PATH", dirname(__FILE__));
 define("INCLUDES_PATH", PRIVATE_PATH . '/admin/includes');
 
+require_once __DIR__ . '/vendor/autoload.php';
+
+use app\classes\Connection;
+use app\classes\QueryBuilder;
+use app\classes\Admin;
+use app\classes\Result;
+use app\classes\UserController;
+use app\classes\Quiz;
+use app\classes\Session;
 
 
 
 $config = require('config/config.php');
 
-require 'classes/Connection.php';
-require 'classes/QueryBuilder.php';
-require 'classes/Admin.php';
-require 'classes/Result.php';
-require 'classes/UserController.php';
-require 'classes/Quiz.php';
+//require 'classes/Connection.php';
+////require 'classes/QueryBuilder.php';
+//require 'classes/Admin.php';
+//require 'classes/Result.php';
+//require 'classes/UserController.php';
+//require 'classes/Quiz.php';
 
 $test = 'Ok';
 
@@ -25,7 +32,6 @@ $session = new Session();
 
 QueryBuilder::set_db_session($db, $session);
 $query = new QueryBuilder();
-//$questions = new Quiz();
 $user_controller = new UserController();
 $admin = new Admin();
 $result = new Result();

@@ -25,6 +25,7 @@ function ValidateForm() {
         this.checkEmailReg();
         this.checkPassword();
         this.checkPasswordConfirm();
+
     };
 
 
@@ -52,16 +53,17 @@ function ValidateForm() {
         }
         else if (!this.isEmail(emailValue)) {
             return this.setError(emailInput, 'This is not a valid email address.');
+        } else {
+                DB.isEmailUnique(emailValue).then((response) => {
+                    if(response === 'true') {
+                        this.setError(emailInput, 'Email address is already registered.');
+                        hideLoader();
+                    } else {
+                        this.setSuccess(emailInput);
+                    }
+                });
         }
-        this.emailUnique().then((response)=>{
-            if(response === 'true') {
-                this.setSuccess(emailInput);
-            } else {
-                this.setError(emailInput, 'Email in use.');
-            }
-        },(err)=>{
-            //
-        });
+
 
     };
 
@@ -79,19 +81,17 @@ function ValidateForm() {
     };
 
     this.emailUnique = function() {
-        return DB.isEmailUnique(emailValue);
-        // console.log('email Uniqe function', emailUniqueValue);
-        // setTimeout(()=>{
-        //     if (!emailUniqueValue) {
-        //         this.setError(emailInput, 'Email address is already registered.');
-        //     }
-        //     else {
-        //         this.setSuccess(emailInput);
-        //     }
-        //
-        //     hideLoader();
-        // },2000)
-
+        setTimeout(()=>{
+        DB.isEmailUnique(emailValue).then((response) => {
+            console.log(response);
+            if(response === 'true') {
+                this.setError(emailInput, 'Email address is already registered.');
+                hideLoader();
+            } else {
+                this.setSuccess(emailInput);
+            }
+        });
+        },3000)
     };
 
     this.checkPassword = function() {

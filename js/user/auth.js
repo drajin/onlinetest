@@ -70,8 +70,9 @@ function registerNewUser(e) {
     passwordConfirmValue = passwordConfirmInput.value.trim();
 
     validateForm.register();
+    setTimeout(()=>{
     if(validateForm.NoError) {
-        setTimeout(()=>{
+
             let newUser = {
                 first_name : firstNameValue,
                 last_name : lastNameValue,
@@ -88,10 +89,11 @@ function registerNewUser(e) {
             },(error)=>{
                 console.log(error);
             });
-        },3000);
+
     } else {
         hideLoader();
     }
+    },3000);
 
     validateForm.error = false;
 }

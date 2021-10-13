@@ -1,16 +1,10 @@
 <?php
 
+namespace app\classes;
+use PDO;
 
 class Quiz extends QueryBuilder
 {
-
-    // ide u question answers
-    public  function delete_answers($question_id, $table)
-    {
-        $sql = "DELETE FROM {$table} WHERE question_id = ?";
-        $query = self::$db->prepare($sql);
-        $query->execute([$question_id]);
-    }
 
     //ide u question answers
     //TODO find_by id function repeating

@@ -1,39 +1,6 @@
 
 class DB {
 
-
-    static getAll() {
-        return new Promise((resolve, reject)=>{
-            let xml = new XMLHttpRequest();
-            xml.onreadystatechange = () => {
-                if(xml.readyState == 4 && xml.status == 200) {
-                    //xml.responseText
-                    //resolve(JSON.parse(xml.responseText));
-                    //console.log(JSON.parse(xml.responseText));
-                }
-            };
-            xml.open('GET','backend/get_data.php');
-            xml.send();
-        })
-
-    }
-
-    static getAllQuestions() {
-        return new Promise((resolve, reject)=>{
-            let xml = new XMLHttpRequest();
-            xml.onreadystatechange = () => {
-                if(xml.readyState == 4 && xml.status == 200) {
-                    //xml.responseText
-                    //resolve(JSON.parse(xml.responseText));
-                    resolve(JSON.parse(xml.responseText));
-                }
-            };
-            xml.open('GET','backend/get_all_questions.php', true);
-            xml.send();
-        })
-
-    }
-
     static getQuizQuestions() {
         return new Promise((resolve, reject)=>{
             let xml = new XMLHttpRequest();
@@ -111,12 +78,11 @@ class DB {
 
     static isEmailUnique(email) {
         return new Promise((resolve, reject)=>{
-
             let xml = new XMLHttpRequest();
             xml.onreadystatechange = () => {
                 if(xml.readyState == 4 && xml.status == 200) {
-                    resolve(xml.responseText);
-
+                   resolve(xml.responseText);
+                   // console.log(xml.responseText);
                 }
             };
             xml.open('POST','backend/check_email.php');
@@ -135,7 +101,7 @@ class DB {
 
                 }
             };
-            xml.open('POST','backend/get_results.php');
+            xml.open('POST','backend/post_results.php');
             xml.setRequestHeader("Content-type", "application/json"); //inform xml that json is coming
             xml.send(JSON.stringify(points));
         })

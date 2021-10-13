@@ -1,12 +1,17 @@
 <?php
 
-include_once 'Session.php';
+//include_once 'Session.php';
+
+namespace app\classes;
+use PDO;
 
 class QueryBuilder {
 
-    static protected $db;
-    static protected $session;
-    protected $question_id;
+    static protected PDO $db;
+    static protected Session $session;
+    protected int $question_id;
+
+    //protected string $table_name = "";
 
     public static function set_db_session($db, $session)
     {
@@ -27,6 +32,7 @@ class QueryBuilder {
 
     public function find_by_id($id, $table)
     {
+        //$sql = "SELECT * FROM {$this->table_name} WHERE id = ?";
         $sql = "SELECT * FROM {$table} WHERE id = ?";
         $query = self::$db->prepare($sql);
         $query->execute([$id]);
@@ -34,9 +40,11 @@ class QueryBuilder {
     }
 
 
-    public function find_all_by_id($id, $table, $row)
+
+
+    public function find_all_by_id($id, $table, $column)
     {
-        $sql = "SELECT * FROM {$table} WHERE {$row} = ?";
+        $sql = "SELECT * FROM {$table} WHERE {$column} = ?";
         $query = self::$db->prepare($sql);
         $query->execute([$id]);
         return $query->fetchAll(PDO::FETCH_OBJ);
@@ -46,6 +54,14 @@ class QueryBuilder {
     public  function delete($id, $table)
     {
         $sql = "DELETE FROM {$table} WHERE id = ?";
+        $query = self::$db->prepare($sql);
+        $query->execute([$id]);
+    }
+
+    // ide u question answers
+    public  function delete_by_id($id, $table, $column)
+    {
+        $sql = "DELETE FROM {$table} WHERE {$column} = ?";
         $query = self::$db->prepare($sql);
         $query->execute([$id]);
     }

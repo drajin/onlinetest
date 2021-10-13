@@ -181,9 +181,9 @@ function createQuestionsForm(dbQuestions) {
 } //end create questions form
 
 
-
-DB.getAllQuestions().then((questions)=>{
-    createQuestionsForm(questions);
-},(err)=>{
-    console.log('err');
-});
+//TODO delete
+// DB.getAllQuestions().then((questions)=>{
+//     createQuestionsForm(questions);
+// },(err)=>{
+//     console.log('err');
+// });
