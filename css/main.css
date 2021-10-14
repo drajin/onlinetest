@@ -79,9 +79,9 @@ a {
 }
 
 
-/*TODO add transition*/
 a:hover {
     color: var(--secondaryColor);
+    transition: var(--transition);
 
 }
 

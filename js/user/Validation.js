@@ -1,15 +1,15 @@
+
+
 validate = (e) => {
     e.preventDefault();
 }
-
-
 
 
 submit = document.querySelector('#submitLogin');
 submit.addEventListener('click', validate);
 
 
-function ValidateForm() {
+function Validation() {
     this.NoError = true;
 
     this.login = function() {
@@ -57,7 +57,7 @@ function ValidateForm() {
                 DB.isEmailUnique(emailValue).then((response) => {
                     if(response === 'true') {
                         this.setError(emailInput, 'Email address is already registered.');
-                        hideLoader();
+                        user.hideLoader();
                     } else {
                         this.setSuccess(emailInput);
                     }

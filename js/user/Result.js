@@ -51,30 +51,9 @@
                     'badge' : 'bg-danger',
                 };
                 showView.result(outcome);
-                //this.retakeOrViewQuiz();
             }
 
         }
-
-        // retake or view score history btns
-        // static retakeOrViewQuiz = () => {
-        //     this.allResultsBtn = document.querySelector('.allResults');
-        //     this.retakeQuiz = document.querySelector('.retakeQuiz');
-        //     this.allResultsBtn.addEventListener('click', () => {
-        //         console.log('clikc');
-        //         this.showHistoryResults();
-        //     });
-        //     this.retakeQuiz.addEventListener('click', ()=> {
-        //         console.log('psst');
-        //         location.reload();
-        //     });
-        // }
-
-
-
-
-
-
 
 
     }

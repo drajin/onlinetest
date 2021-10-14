@@ -77,7 +77,7 @@
             <div class="col-md-4 text-dark mt-5">
                 <div class="card card-body bg-light">
                     <a href="" class="btn btn-block addAnswer">Add Another Answer</a>
-                    <!--                    TODO add more time option-->
+                    <!--                    TODO add TIME option-->
                     <!--                        <form method="POST" action="/action_page.php">-->
                     <!--                            <label for="time">Add more Time:</label>-->
                     <!--                            <select name="time" class="form-select" aria-label="Default select example">-->

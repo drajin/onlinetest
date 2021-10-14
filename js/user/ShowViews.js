@@ -180,7 +180,7 @@ function ShowView() {
 
         this.logOut = document.querySelector('.logOutBtn');
         this.retakeQuiz = document.querySelector('.retakeQuizBtn');
-        this.logOut.addEventListener('click', logOut);
+        this.logOut.addEventListener('click', user.logOut);
         this.retakeQuiz.addEventListener('click', ()=> {
             location.reload();
         });
@@ -195,4 +195,4 @@ function ShowView() {
 let showView = new ShowView();
 
 showView.init();
-isLoggedIn();
+user.isLoggedIn();
