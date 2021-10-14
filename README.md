@@ -5,7 +5,7 @@
 
 ## General info
 This project represents a quick quiz. On the user side it is single page application where the users are able to register and login, test their knowledge and check the results.
-On the Admin side, admins are able to login, and make CRUD operations on Users, Questions, Answers and Results.
+On the Admin side, admins are able to login, and make CRUD operations on Users, Questions, Answers and Results. It is made for learning purposes
 ## Featurs
 
 User side
