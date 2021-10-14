@@ -20,13 +20,13 @@ class Result extends QueryBuilder
         $stmt = self::$db->prepare('INSERT INTO results VALUES(?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->bindParam(':user_id', $user->id);
         $stmt->bindParam(':points', $result->points);
-        $stmt->bindParam(':number_of_correct_answ', $result->number_of_correct_answ);
-        $stmt->bindParam(':user_correct_answers', $result->user_correct_answers);
+        $stmt->bindParam(':correct_answ', $result->correct_answ);
+        $stmt->bindParam(':correct_answ_user', $result->correct_answ_user);
         $stmt->bindParam(':time', $time);
         $stmt->bindParam(':taken_at', $taken_at);
         $stmt->bindParam(':updated_at', $updated_at);
 
-        $result = $stmt->execute([NULL, $user->id, $result->points, $result->number_of_correct_answ, $result->user_correct_answers, NULL, NULL, NULL]);
+        $result = $stmt->execute([NULL, $user->id, $result->points, $result->correct_answ, $result->correct_answ_user, NULL, NULL, NULL]);
         if($result) {
             echo "success";
         } else {
@@ -35,7 +35,7 @@ class Result extends QueryBuilder
     }
 
     public function get_all_user_results() {
-        $sql = "SELECT results.id, results.points, results.taken_at, results.number_of_correct_answ, results.user_correct_answers, results.updated_at, users.first_name, users.last_name ";
+        $sql = "SELECT results.id, results.points, results.taken_at, results.correct_answ, results.correct_answ_user, results.updated_at, users.first_name, users.last_name ";
         $sql .= " FROM results INNER JOIN users ON users.id = results.user_id";
         $query = self::$db->prepare($sql);
         $query->execute();
@@ -54,11 +54,11 @@ class Result extends QueryBuilder
 
         $data = [
             'points' => '',
-            'number_of_correct_answ' => '',
-            'user_correct_answers' => '',
+            'correct_answ' => '',
+            'correct_answ_user' => '',
             'points_error' => '',
-            'number_of_correct_answ_error' => '',
-            'user_correct_answers_error' => '',
+            'correct_answ_error' => '',
+            'correct_answ_user_error' => '',
 
         ];
 
@@ -69,11 +69,11 @@ class Result extends QueryBuilder
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data = [
                 'points' => trim($_POST['points']),
-                'number_of_correct_answ' => trim($_POST['number_of_correct_answ']),
-                'user_correct_answers' => trim($_POST['user_correct_answers']),
+                'correct_answ' => trim($_POST['correct_answ']),
+                'correct_answ_user' => trim($_POST['correct_answ_user']),
                 'points_error' => '',
-                'number_of_correct_answ_error' => '',
-                'user_correct_answers_error' => '',
+                'correct_answ_error' => '',
+                'correct_answ_user_error' => '',
             ];
 
             //Validate Points
@@ -84,17 +84,17 @@ class Result extends QueryBuilder
             }
 
             //Validate given correct answers
-            if ($data['number_of_correct_answ'] === '') {
-                $data['number_of_correct_answ_error'] = 'Score can\'t be empty';
-            } elseif(!is_numeric($data['number_of_correct_answ'])) {
-                $data['number_of_correct_answ_error'] = 'Points have to be a number.';
+            if ($data['correct_answ'] === '') {
+                $data['correct_answ_error'] = 'Score can\'t be empty';
+            } elseif(!is_numeric($data['correct_answ'])) {
+                $data['correct_answ_error'] = 'Points have to be a number.';
             }
 
             //Validate  user correct answers
-            if ($data['user_correct_answers'] === '') {
-                $data['user_correct_answers_error'] = 'Score can\'t be empty';
-            } elseif(!is_numeric($data['user_correct_answers'])) {
-                $data['user_correct_answers_error'] = 'Points have to be a number.';
+            if ($data['correct_answ_user'] === '') {
+                $data['correct_answ_user_error'] = 'Score can\'t be empty';
+            } elseif(!is_numeric($data['correct_answ_user'])) {
+                $data['correct_answ_user_error'] = 'Points have to be a number.';
             }
 
 
@@ -102,11 +102,11 @@ class Result extends QueryBuilder
         } else {
             $data = [
                 'points' => '',
-                'number_of_correct_answ' => '',
-                'user_correct_answers' => '',
+                'correct_answ' => '',
+                'correct_answ_user' => '',
                 'password_error' => '',
-                'number_of_correct_answ_error' => '',
-                'user_correct_answers_error' => '',
+                'correct_answ_error' => '',
+                'correct_answ_user_error' => '',
             ];
         }
         return $data;
@@ -119,10 +119,10 @@ class Result extends QueryBuilder
         }
 
         try {
-            $stmt = self::$db->prepare("UPDATE results SET points=:points, number_of_correct_answ=:number_of_correct_answ, user_correct_answers=:user_correct_answers, updated_at=NOW() WHERE id=:id");
+            $stmt = self::$db->prepare("UPDATE results SET points=:points, correct_answ=:correct_answ, correct_answ_user=:correct_answ_user, updated_at=NOW() WHERE id=:id");
             $stmt->bindparam(":points",$result->points);
-            $stmt->bindparam(":number_of_correct_answ",$result->number_of_correct_answ);
-            $stmt->bindparam(":user_correct_answers",$result->user_correct_answers);
+            $stmt->bindparam(":correct_answ",$result->correct_answ);
+            $stmt->bindparam(":correct_answ_user",$result->correct_answ_user);
             $stmt->bindparam(":id",$id);
             $stmt->execute();
             return true;

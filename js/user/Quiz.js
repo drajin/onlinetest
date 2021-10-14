@@ -302,8 +302,8 @@ function Quiz(response) {
         //every correct answer multiplied by the worth of one correct answer    //how much is one correct answer worth in percent
         let result = {
             'points' : this.userCorrectAnswCounter * (100/(this.numCorrectAnswers)).toFixed(2),
-            'number_of_correct_answ' : this.numCorrectAnswers,
-            'user_correct_answers' : this.userCorrectAnswCounter,
+            'correct_answ' : this.numCorrectAnswers,
+            'correct_answ_user' : this.userCorrectAnswCounter,
         };
         Result.save(result);
 

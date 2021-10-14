@@ -1,4 +1,15 @@
 <main class="container">
+
+    <!--        alert-->
+    <section>
+        <div class="row">
+            <div class="col-6 offset-3 mt-3">
+                <?php echo $session->display_session_message() ?>
+            </div>
+        </div>
+    </section>
+
+
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <div class="row">
         <div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
@@ -56,8 +67,8 @@
                     <tr>
                         <td><?php echo $result->id; ?></td>
                         <td><span class="badge bg-secondary "><?php echo $result->points; ?></span></td>
-                        <td><?php echo $result->number_of_correct_answ; ?></td>
-                        <td><?php echo $result->user_correct_answers; ?></td>
+                        <td><?php echo $result->correct_answ; ?></td>
+                        <td><?php echo $result->correct_answ_user; ?></td>
                         <td><?php display_time($result->taken_at); ?></td>
                         <td><?php display_time($result->updated_at); ?></td>
                         <td><a href="<?php echo URLROOT ?>/admin/results/edit.php?id=<?php echo $result->id; ?>" class="btn btn-sm">Edit</a></td>

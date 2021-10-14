@@ -32,11 +32,11 @@
                     'badge' : 'bg-success',
                 };
                 showView.result(outcome);
-            } else if (result.points <90 && result >= 80 ) {
+            } else if (result.points < 90 && result.points >= 80 ) {
                 let outcome = {
                     'title' : '<i class="far fa-check-square"></i> Success You\'ve Passed!(barely)',
                     'message' : 'You barely passed... Your Knowledge is average, you can do better!',
-                    'result' : result,
+                    'result' : result.points,
                     'color' : "#FFFF99",
                     'badge' : 'bg-warning',
                 };

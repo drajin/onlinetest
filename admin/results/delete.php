@@ -3,9 +3,7 @@
 include_once '../../init.php';
 
 
-if($session->is_logged_in() === 'false') {
-    redirect_to(URLROOT . '/admin/login.php');
-}
+$session->require_admin_login();
 
 
 $id = $_GET['id'];
@@ -20,7 +18,8 @@ if($result === false) {
 $query->delete($id, 'results');
 
 $session->message('Result deleted', 'success');
-redirect_to(URLROOT . '/admin/results/index.php');
+header('Location: ' . $_SERVER['HTTP_REFERER']);
+
 
 
 

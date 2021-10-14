@@ -27,7 +27,7 @@ function ShowView() {
             <div class="col-md-6 d-flex align-items-start flex-column justify-content-center">
                 <ul>
                     <li id="numQuestions"></li>
-                    <li id="correctAnswers"></li>
+                    <li id="correctQuestions"></li>
                     <li>Passing score: 80%</li>
                 </ul>
             </div>
@@ -48,13 +48,13 @@ function ShowView() {
                 <h1 class="display-4 text-center m-3 p-3">{{name}}</h1>
                     <div class="resultBg">
                         <div class="table-responsive">
-                            <table class="table table-striped text-white">
+                            <table class="table table-striped text-white text-center"">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Score</th>
-                                    <th scope="col">Questions</th>
+                                    <th scope="col">Correct Answers</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -139,8 +139,8 @@ function ShowView() {
             document.querySelector('.far').style.color = outcome.color;
             document.querySelector('.badge').classList.add(outcome.badge);
             document.querySelector('.result').classList.add('blue');
-            document.getElementById('numQuestions').innerHTML ='Questions in total: '+ quiz.numQuestions;
-            document.getElementById('correctAnswers').innerHTML ='Correct answers: '+ quiz.userCorrectAnswCounter;
+            document.getElementById('numQuestions').innerHTML ='Questions in Total: '+ quiz.numQuestions;
+            document.getElementById('correctQuestions').innerHTML ='Correct Answers: '+quiz.userCorrectAnswCounter +'/'+quiz.numCorrectAnswers;
 
             this.allResultsBtn = document.querySelector('.allResults');
             this.retakeQuiz = document.querySelector('.retakeQuiz');
@@ -169,7 +169,7 @@ function ShowView() {
                     <th>${counter}</th>
                     <td>${results.taken_at}</td>
                     <td>${results.points}</td>
-                    <td>${results.user_correct_answers}/${results.number_of_correct_answ}</td>
+                    <td>${results.correct_answ_user}/${results.correct_answ}</td>
                 </tr>
                 `
             counter++

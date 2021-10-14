@@ -2,9 +2,8 @@
 //TODO .htaccess
 include_once '../init.php';
 
-if($session->is_logged_in() === 'false') {
-    redirect_to(URLROOT . '/admin/login.php');
-}
+$session->require_admin_login();
+
 
 include(INCLUDES_PATH . '/header.php');
 include(INCLUDES_PATH . '/navbar.php');

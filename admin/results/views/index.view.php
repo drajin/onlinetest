@@ -33,8 +33,8 @@
                     <td><?php echo $result->first_name; ?></td>
                     <td><?php echo $result->last_name; ?></td>
                     <td><?php echo $result->points; ?></td>
-                    <td><?php echo $result->number_of_correct_answ; ?></td>
-                    <td><?php echo $result->user_correct_answers; ?></td>
+                    <td><?php echo $result->correct_answ; ?></td>
+                    <td><?php echo $result->correct_answ_user; ?></td>
                     <td><?php display_time($result->taken_at); ?></td>
                     <td><?php display_time($result->updated_at); ?></td>
                     <td><a href="edit.php?id=<?php echo $result->id; ?>" class="btn btn-sm">Edit</a></td>

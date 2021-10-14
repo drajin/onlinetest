@@ -3,9 +3,7 @@
 include_once '../../init.php';
 
 //checks if user is logged in
-if($session->is_logged_in() === 'false') {
-    redirect_to(URLROOT . '/admin/login.php');
-}
+$session->require_admin_login();
 
 
 $id = $_GET['id'];
@@ -21,8 +19,8 @@ if($result_user === false) {
 $result_data = ($result->validate_update_result());
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (empty($result_data['points_error']) && empty($result_data['number_of_correct_answ_error']) && empty($result_data['user_correct_answers_error']) ){
-        //&& !empty($user_data['points']) && !empty($user_data['number_of_correct_answ']) && !empty($user_data['user_correct_answers'])) {
+    if (empty($result_data['points_error']) && empty($result_data['correct_answ_error']) && empty($result_data['correct_answ_user_error']) ){
+        //&& !empty($user_data['points']) && !empty($user_data['correct_answ']) && !empty($user_data['correct_answ_user'])) {
 
 
         if($result->update_result($id, $result_data)) {

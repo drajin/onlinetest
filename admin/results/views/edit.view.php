@@ -1,4 +1,15 @@
 <main class="container">
+
+    <!--        alert-->
+    <section>
+        <div class="row">
+            <div class="col-6 offset-3 mt-3">
+                <?php echo $session->display_session_message() ?>
+            </div>
+        </div>
+    </section>
+
+
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <div class="row">
             <div class="col-md-7 offset-1">
@@ -13,16 +24,16 @@
                         <div class="invalid-feedback"><?php echo $result_data['points_error']?></div>
                     </div>
                     <div class="form-group">
-                        <label for="number_of_correct_answ">Existing Correct Answers in Quiz</label>
-                        <input name="number_of_correct_answ" id="number_of_correct_answ" class="form-control <?php echo (!empty($result_data['number_of_correct_answ_error'])) ? 'is-invalid' : '' ?>"
-                               value="<?php echo $result_user->number_of_correct_answ; ?>">
-                            <div class="invalid-feedback"><?php echo $result_data['number_of_correct_answ_error']?></div>
+                        <label for="correct_answ">Existing Correct Answers in Quiz</label>
+                        <input name="correct_answ" id="correct_answ" class="form-control <?php echo (!empty($result_data['correct_answ_error'])) ? 'is-invalid' : '' ?>"
+                               value="<?php echo $result_user->correct_answ; ?>">
+                            <div class="invalid-feedback"><?php echo $result_data['correct_answ_error']?></div>
                     </div>
                     <div class="form-group">
-                        <label for="user_correct_answers">Users Given Correct Answers</label>
-                        <input name="user_correct_answers" id="user_correct_answers" class="form-control <?php echo (!empty($result_data['user_correct_answers_error'])) ? 'is-invalid' : '' ?>"
-                               value="<?php echo $result_user->user_correct_answers; ?>">
-                            <div class="invalid-feedback"><?php echo $result_data['user_correct_answers_error']?></div>
+                        <label for="correct_answ_user">Users Given Correct Answers</label>
+                        <input name="correct_answ_user" id="correct_answ_user" class="form-control <?php echo (!empty($result_data['correct_answ_user_error'])) ? 'is-invalid' : '' ?>"
+                               value="<?php echo $result_user->correct_answ_user; ?>">
+                            <div class="invalid-feedback"><?php echo $result_data['correct_answ_user_error']?></div>
                     </div>
                     <br>
                     <button id="submitLogin" class="btn btn-outline-secondary form-control mb-3" type="submit">Save</button>

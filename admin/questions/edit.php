@@ -3,10 +3,7 @@
 include_once '../../init.php';
 
 //checks if question is logged in
-if($session->is_logged_in() === 'false') {
-    redirect_to(URLROOT . '/admin/login.php');
-}
-
+$session->require_admin_login();
 
 $id = $_GET['id'];
 
