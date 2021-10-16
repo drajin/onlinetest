@@ -53,9 +53,11 @@ body {
 
 }
 
-.alert-danger {
+.overlap {
     position: absolute;
 }
+
+
 
 .navbar {
     background-color: var(--secondaryColor)

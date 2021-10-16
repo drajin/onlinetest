@@ -1,6 +1,7 @@
 <?php
 
 include_once '../../init.php';
+use app\classes\User;
 
 //checks if user is logged in
 $session->require_admin_login();
@@ -8,19 +9,19 @@ $session->require_admin_login();
 
 $id = $_GET['id'];
 
-$user = $query->find_by_id($id, 'users');
-if($user === false) {
+$user = User::find_by_id($id);
+if(!$user) {
     $session->message('Something went wrong.', 'danger');
     redirect_to(URLROOT . '/admin/users/index.php');
 }
 
-$user_data = ($user_controller->validate_update_user());
+$validated_user = ($user_controller->validate_update_user());
 
 
-if (empty($user_data['first_name_error']) && empty($user_data['last_name_error']) && empty($user_data['email_error'])
-    && !empty($user_data['first_name']) && !empty($user_data['last_name']) && !empty($user_data['email'])) {
+if (empty($validated_user->first_name_error) && empty($validated_user->last_name_error) && empty($validated_user->email_error)
+    && !empty($validated_user->first_name) && !empty($validated_user->last_name) && !empty($validated_user->email)) {
 
-    if($user_controller->update_user($user_data, $id)) {
+    if($user_controller->update_user($validated_user, $id)) {
         $session->message('User updated successfully', 'success');
         redirect_to(URLROOT .'/admin/users/index.php');
     } else {
@@ -28,7 +29,7 @@ if (empty($user_data['first_name_error']) && empty($user_data['last_name_error']
         redirect_to(URLROOT .'/admin/users/index.php');
     }
 } else {
-    $errors = $user_data;
+    $errors = $validated_user;
 }
 
 include(INCLUDES_PATH . '/header.php');

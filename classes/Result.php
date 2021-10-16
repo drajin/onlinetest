@@ -2,16 +2,17 @@
 
 namespace app\classes;
 use PDO;
+use app\classes\User;
 
 class Result extends QueryBuilder
 {
     public string $user = '';
 
-    //protected string $table_name = 'results';
+    protected static string $table_name = 'results';
 
-    public function post_results($result) {
+    public function create_result($result) {
 
-        $user = $this->find_by_id(static::$session->user_id, 'users');
+        $user = User::find_by_id(static::$session->user_id);
 
         $time = null;
         $taken_at = null;
@@ -52,7 +53,7 @@ class Result extends QueryBuilder
 
     public function validate_update_result() {
 
-        $data = [
+        $data = (object) [
             'points' => '',
             'correct_answ' => '',
             'correct_answ_user' => '',
@@ -67,7 +68,7 @@ class Result extends QueryBuilder
 
             //Sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data = [
+            $data = (object) [
                 'points' => trim($_POST['points']),
                 'correct_answ' => trim($_POST['correct_answ']),
                 'correct_answ_user' => trim($_POST['correct_answ_user']),
@@ -77,30 +78,30 @@ class Result extends QueryBuilder
             ];
 
             //Validate Points
-            if ($data['points'] === '') {
-                $data['points_error'] = 'Score can\'t be empty';
-            } elseif(!is_numeric($data['points'])) {
-                $data['points_error'] = 'Points have to be a number.';
+            if ($data->points === '') {
+                $data->points_error = 'Score can\'t be empty';
+            } elseif(!is_numeric($data->points)) {
+                $data->points_error = 'Points have to be a number.';
             }
 
             //Validate given correct answers
-            if ($data['correct_answ'] === '') {
-                $data['correct_answ_error'] = 'Score can\'t be empty';
-            } elseif(!is_numeric($data['correct_answ'])) {
-                $data['correct_answ_error'] = 'Points have to be a number.';
+            if ($data->correct_answ === '') {
+                $data->correct_answ_error = 'Score can\'t be empty';
+            } elseif(!is_numeric($data->correct_answ)) {
+                $data->correct_answ_error = 'Points have to be a number.';
             }
 
             //Validate  user correct answers
-            if ($data['correct_answ_user'] === '') {
-                $data['correct_answ_user_error'] = 'Score can\'t be empty';
-            } elseif(!is_numeric($data['correct_answ_user'])) {
-                $data['correct_answ_user_error'] = 'Points have to be a number.';
+            if ($data->correct_answ_user === '') {
+                $data->correct_answ_user_error = 'Score can\'t be empty';
+            } elseif(!is_numeric($data->correct_answ_user)) {
+                $data->correct_answ_user_error = 'Points have to be a number.';
             }
 
 
 
         } else {
-            $data = [
+            $data = (object) [
                 'points' => '',
                 'correct_answ' => '',
                 'correct_answ_user' => '',

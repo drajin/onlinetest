@@ -1,10 +1,11 @@
 <?php
 
 include_once '../../init.php';
+use app\classes\Question;
 
 $session->require_admin_login();
 
-$questions = $query->select_all('questions');
+$questions = Question::select_all('questions');
 
 
 

@@ -1,10 +1,11 @@
 <?php
 
 include_once '../../init.php';
+use app\classes\User;
 
 $session->require_admin_login();
 
-$users = $query->select_all('users');
+$users = User::select_all();
 
 include(INCLUDES_PATH . '/header.php');
 include(INCLUDES_PATH . '/navbar.php');

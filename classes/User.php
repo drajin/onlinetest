@@ -3,12 +3,10 @@
 namespace app\classes;
 use PDO;
 
-class UserController extends QueryBuilder {
+class User extends QueryBuilder {
 
-    //TODO add protected property to all classes
-    //protected string $table_name = 'users';
+    protected static string $table_name = 'users';
 
-    //brisi
     public function login_or_register($data) {
         $count = count(get_object_vars($data)); //checks on number of properties
         if($count > 2) {
@@ -50,10 +48,6 @@ class UserController extends QueryBuilder {
     public function login($data)
     {
 
-        //changes array in obj
-        if(gettype($data) === 'array') {
-            $data = (object)$data;
-        }
 
         // checks if user or admin exists
         $user = $this->findUserByEmail($data->email);
@@ -74,11 +68,6 @@ class UserController extends QueryBuilder {
 
     public function login_admin($data)
     {
-        //TODO refactor
-        //changes array in obj
-        if(gettype($data) === 'array') {
-            $data = (object)$data;
-        }
 
         // checks if user or admin exists
         $user = $this->findUserByEmail($data->email);
@@ -101,7 +90,7 @@ class UserController extends QueryBuilder {
     }
 
     public function validate_login_admin() {
-        $data = [
+        $data = (object)[
             'email' => '',
             'password' => '',
             'email_error' => '',
@@ -112,26 +101,26 @@ class UserController extends QueryBuilder {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             //Sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data = [
+            $data = (object)[
                 'email' => trim($_POST['email']),
                 'password' => trim($_POST['password']),
                 'email_error' => '',
                 'password_error' => '',
             ];
             //Validate email
-            if (empty($data['email'])) {
-                $data['email_error'] = 'Please enter an email.';
-            } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-                $data['email_error'] = 'Please enter a valid email address.';
+            if (empty($data->email)) {
+                $data->email_error = 'Please enter an email.';
+            } elseif (!filter_var($data->email, FILTER_VALIDATE_EMAIL)) {
+                $data->email_error = 'Please enter a valid email address.';
             }
 
             //Validate password
-            if (empty($data['password'])) {
-                $data['password_error'] = 'Please enter a password.';
+            if (empty($data->password)) {
+                $data->password_error = 'Please enter a password.';
             }
 
         } else {
-            $data = [
+            $data = (object) [
                 'email' => '',
                 'password' => '',
                 'email_error' => '',
@@ -142,7 +131,7 @@ class UserController extends QueryBuilder {
     }
 
     public function validate_update_user() {
-        $data = [
+        $data = (object) [
             'first_name' => '',
             'last_name' => '',
             'email' => '',
@@ -156,7 +145,7 @@ class UserController extends QueryBuilder {
 
             //Sanitize post data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data = [
+            $data = (object) [
                 'first_name' => trim($_POST['first_name']),
                 'last_name' => trim($_POST['last_name']),
                 'email' => trim($_POST['email']),
@@ -166,26 +155,26 @@ class UserController extends QueryBuilder {
             ];
 
             //Validate first name
-            if (empty($data['first_name'])) {
-                $data['first_name_error'] = 'First Name can\'t be blank.';
+            if (empty($data->first_name)) {
+                $data->first_name_error = 'First Name can\'t be blank.';
             }
 
             //Validate last name
-            if (empty($data['last_name'])) {
-                $data['last_name_error'] = 'Last Name can\'t be blank.';
+            if (empty($data->last_name)) {
+                $data->last_name_error = 'Last Name can\'t be blank.';
             }
 
             //Validate email
-            if (empty($data['email'])) {
-                $data['email_error'] = 'Email can\'t be blank.';
-            } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-                $data['email_error'] = 'Please enter a valid email address.';
+            if (empty($data->email)) {
+                $data->email_error = 'Email can\'t be blank.';
+            } elseif (!filter_var($data->email, FILTER_VALIDATE_EMAIL)) {
+                $data->email_error = 'Please enter a valid email address.';
             }
 
 
 
         } else {
-            $data = [
+            $data = (object) [
                 'email' => '',
                 'password' => '',
                 'email_error' => '',

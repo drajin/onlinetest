@@ -2,19 +2,15 @@
 let submitNew = document.querySelector('#newQuestionAnsw');
 let submitEdit = document.querySelector('#editQuestionAnsw')
 
-function ValidateQuestionAnsw() {
-    // this.questionInput = [];
-    // this.checkboxesInput = [];
-    // this.answersInput = [];
+function Validation() {
 
 
     this.reselectElements = () => {
         this.questionInput = document.querySelector('[name="question_text"]');
         this.displayQuestionValue = document.querySelector('[name="question_display"]').value;
         this.checkboxesInput = document.querySelectorAll('[name="checkbox[]"]:checked');
-        //this.checkboxesInput = document.querySelectorAll('[name="checkbox[]"]');
         this.answersInput = document.querySelectorAll('.answerInput');
-    }
+    };
 
     this.noError = true;
 
@@ -29,7 +25,7 @@ function ValidateQuestionAnsw() {
 
     this.questionText = () => {
         if(this.questionInput.value === '') {
-            this.setError(this.questionInput, 'Quiz can\'t be blank');
+            this.setError(this.questionInput, 'Question can\'t be blank');
         } else {
             this.setSuccess(this.questionInput);
         }
@@ -41,7 +37,7 @@ function ValidateQuestionAnsw() {
             this.noError = false;
         }
 
-    }
+    };
 
     this.answersText = () => {
         this.answersInput.forEach((answer) => {
@@ -78,7 +74,7 @@ function ValidateQuestionAnsw() {
 let question_id = (document.querySelector('#question_id')) ? document.querySelector('#question_id').value : false;
 let answer_ids = (document.querySelectorAll('.answer_id').length === 0) ? false : document.querySelectorAll('.answer_id');
 
-let validation = new ValidateQuestionAnsw();
+let validation = new Validation();
 
 
 

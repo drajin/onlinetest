@@ -1,7 +1,8 @@
 <?php
 
 include_once '../../init.php';
-
+use app\classes\User;
+use app\classes\Result;
 
 $session->require_admin_login();
 
@@ -9,16 +10,17 @@ $session->require_admin_login();
 $id = $_GET['id'];
 
 //checks if id exists
-$user = $query->find_by_id($id, 'users');
-$results = $query->find_all_by_id($id, 'results', 'user_id');
+$user = User::find_by_id($id);
+$results = Result::find_all_by_id($id, 'user_id');
 
-if($user === false) {
+if(!$user) {
     redirect_to(URLROOT . '/admin/login.php');
 }
 
-$query->delete($id, 'users');
+User::delete($id);
+
 foreach($results as $result) {
-    $quiz->delete_by_id($result->user_id, 'results', 'user_id');
+    Result::delete_by_id($result->user_id, 'user_id');
 }
 
 

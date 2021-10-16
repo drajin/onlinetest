@@ -9,8 +9,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 use app\classes\Connection;
 use app\classes\QueryBuilder;
 use app\classes\Result;
-use app\classes\UserController;
-use app\classes\Quiz;
+use app\classes\User;
+use app\classes\Question;
 use app\classes\Session;
 
 
@@ -22,9 +22,9 @@ $session = new Session();
 
 QueryBuilder::set_db_session($db, $session);
 $query = new QueryBuilder();
-$user_controller = new UserController();
+$user_controller = new User();
 $result = new Result();
-$quiz = new Quiz();
+$quiz = new Question();
 
 require 'helpers.php';
 

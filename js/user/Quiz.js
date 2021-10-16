@@ -17,7 +17,7 @@ function Quiz(response) {
             sourceArray[i] = temp;
         }
         return sourceArray;
-    }
+    };
 
 
     this.text = ``;
@@ -92,7 +92,7 @@ function Quiz(response) {
         // this.text += `  <button type="submit" class="btn btn-primary">Submit</button></form>`;
 
         return this.text;
-    }
+    };
 
 
     this.questionIds = [];
@@ -115,7 +115,7 @@ function Quiz(response) {
             let question = document.getElementById(questionId);
         });
         this.questionIds.unshift(removedElement);
-    }
+    };
 
     // creating dropdown select option question
     this.createSelectOption = function(answer) {
@@ -128,7 +128,7 @@ function Quiz(response) {
         text += `<br>`;
 
         return text;
-    }
+    };
 
     // creating radio buttons question
     this.createRadioBtns = function(answer, counter) {
@@ -141,7 +141,7 @@ function Quiz(response) {
                     </div>`;
         }
         return text;
-    }
+    };
 
     // creating checkbox buttons question
     this.createCheckboxBtns = function(answer) {
@@ -154,7 +154,7 @@ function Quiz(response) {
                 </div> `;
         }
         return text;
-    }
+    };
 
     // hide questions and answers to the left
     this.hideQuestions = function() {
@@ -169,7 +169,7 @@ function Quiz(response) {
             questionBox.style.left = "650px";
         }
         questionIds.unshift(removedElement);
-    }
+    };
 
 
 
@@ -185,7 +185,7 @@ function Quiz(response) {
         }
         this.validateForm(this.buttons, this.submit);
 
-    }
+    };
 
 
 
@@ -225,7 +225,7 @@ function Quiz(response) {
         this.submit.addEventListener("click", () => {
             this.getAnswers();
         });
-    }
+    };
 
     //validate forms
     this.validateForm = function(buttons, submit) {
@@ -247,7 +247,7 @@ function Quiz(response) {
                 this.enableBtns(buttons, submit);
             })
         });
-    }
+    };
 
     // if answer is selected enable next and submit btn
     this.enableBtns = (buttons, submit) => {
@@ -255,7 +255,7 @@ function Quiz(response) {
             buttons[i].disabled = false;
             submit.disabled = false;
         }
-    }
+    };
 
     //getting all users answers from the from
     this.getAnswers = () => {
@@ -272,7 +272,7 @@ function Quiz(response) {
 
         this.calculateScore()
 
-    }
+    };
 
 
     //counts all quiz's existing correct answers
@@ -296,7 +296,7 @@ function Quiz(response) {
                 }
             })
 
-        })
+        });
 
         this.userCorrectAnswCounter = correctAnswers.filter(correct => correct==1).length;
         //every correct answer multiplied by the worth of one correct answer    //how much is one correct answer worth in percent

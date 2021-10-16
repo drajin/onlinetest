@@ -8,7 +8,7 @@ class Session {
   //  TODO make $user_id private (used by results as well)
     public string $user_id;
     public string $email;
-    public bool $is_admin = false; //za sta ce ovde
+    public bool $is_admin = false;
     //private string $last_login;
 
 
@@ -37,7 +37,7 @@ class Session {
     }
 
     public function  is_logged_in() {
-        //isset($this->user_id) ? true : false; TODO zasto ne radi
+        //isset($this->user_id) ? true : false; TODO ??
         if(isset($this->user_id)) {
             return 'true';
         } else {
@@ -98,12 +98,26 @@ class Session {
     }
 
 
+//    public function message($msg='', $type='') {
+//        $div_alert = '<div class="alert alert-'.$type.' text-center" role="alert">';
+//        $div_alert .= $msg;
+//        $div_alert .= '</div>';
+//        if(!empty($msg)){
+//            $_SESSION['message'] = $div_alert;
+//            return true;
+//        } else {
+//            // this is a get message
+//            return $_SESSION['message'] ?? '';
+//        }
+//    }
+
     public function message($msg='', $type='') {
-        $div_alert = '<div class="alert alert-'.$type.' text-center" role="alert">';
-        $div_alert .= $msg;
-        $div_alert .= '</div>';
+        $alert = '<section><div class="row"><div class="col-6 offset-3 mt-3">';
+        $alert .= '<div class="alert alert-'.$type.' text-center" role="alert">';
+        $alert .= $msg;
+        $alert .= '</div></div></div></section>';
         if(!empty($msg)){
-            $_SESSION['message'] = $div_alert;
+            $_SESSION['message'] = $alert;
             return true;
         } else {
             // this is a get message

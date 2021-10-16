@@ -11,7 +11,7 @@
             }), (error) => {
                 console.log(error);
             }
-        }
+        };
 
         static showHistoryResults = () => {
             DB.getHistoryResults().then((response) => {
@@ -19,7 +19,7 @@
             }), (error) => {
                 console.log(error);
             }
-        }
+        };
 
         //shows results
         static showResult = (result) => {

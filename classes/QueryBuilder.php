@@ -1,6 +1,5 @@
 <?php
 
-//include_once 'Session.php';
 
 namespace app\classes;
 use PDO;
@@ -11,7 +10,7 @@ class QueryBuilder {
     static protected Session $session;
     protected int $question_id;
 
-    //protected string $table_name = "";
+    protected static string $table_name = "";
 
     public static function set_db_session($db, $session)
     {
@@ -19,21 +18,18 @@ class QueryBuilder {
         self::$session = $session;
     }
 
-
-    public function select_all($table)
+    public static function select_all()
     {
-        $sql = "SELECT * FROM {$table}";
+        $sql = "SELECT * FROM ".static::$table_name. "";
         $query = self::$db->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
 
     }
 
-
-    public function find_by_id($id, $table)
+    public static function find_by_id($id)
     {
-        //$sql = "SELECT * FROM {$this->table_name} WHERE id = ?";
-        $sql = "SELECT * FROM {$table} WHERE id = ?";
+        $sql = "SELECT * FROM ".static::$table_name." WHERE id = ?";
         $query = self::$db->prepare($sql);
         $query->execute([$id]);
         return $query->fetch(PDO::FETCH_OBJ);
@@ -42,31 +38,30 @@ class QueryBuilder {
 
 
 
-    public function find_all_by_id($id, $table, $column)
+    public static function find_all_by_id($id, $column)
     {
-        $sql = "SELECT * FROM {$table} WHERE {$column} = ?";
+        $sql = "SELECT * FROM ".static::$table_name." WHERE {$column} = ?";
         $query = self::$db->prepare($sql);
         $query->execute([$id]);
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
 
-    public  function delete($id, $table)
+    public static function delete($id)
     {
-        $sql = "DELETE FROM {$table} WHERE id = ?";
+        $sql = "DELETE FROM ".static::$table_name." WHERE id = ?";
         $query = self::$db->prepare($sql);
         $query->execute([$id]);
     }
 
-    // ide u question answers
-    public  function delete_by_id($id, $table, $column)
+    public static function delete_by_id($id, $column)
     {
-        $sql = "DELETE FROM {$table} WHERE {$column} = ?";
+        $sql = "DELETE FROM ".static::$table_name." WHERE {$column} = ?";
         $query = self::$db->prepare($sql);
         $query->execute([$id]);
     }
 
-} // query builder
+}
 
 
 

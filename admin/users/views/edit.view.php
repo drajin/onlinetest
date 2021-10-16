@@ -8,21 +8,21 @@
                     <br><br>
                     <div class="form-group">
                         <label for="first_name">First Name</label>
-                        <input name="first_name" id="first_name" class="form-control <?php echo (!empty($user_data['first_name_error'])) ? 'is-invalid' : '' ?>"
+                        <input name="first_name" id="first_name" class="form-control <?php echo (!empty($validated_user->first_name_error)) ? 'is-invalid' : '' ?>"
                                value="<?php echo $user->first_name; ?>">
-                            <div class="invalid-feedback"><?php echo $user_data['first_name_error']?></div>
+                            <div class="invalid-feedback"><?php echo $validated_user->first_name_error?></div>
                     </div>
                     <div class="form-group">
                         <label for="last_name">Last Name</label>
-                        <input name="last_name" id="last_name" class="form-control <?php echo (!empty($user_data['last_name_error'])) ? 'is-invalid' : '' ?>"
+                        <input name="last_name" id="last_name" class="form-control <?php echo (!empty($validated_user->last_name_error)) ? 'is-invalid' : '' ?>"
                                value="<?php echo $user->last_name; ?>">
-                            <div class="invalid-feedback"><?php echo $user_data['last_name_error']?></div>
+                            <div class="invalid-feedback"><?php echo $validated_user->last_name_error?></div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input name="email" id="email" class="form-control <?php echo (!empty($user_data['email_error'])) ? 'is-invalid' : '' ?>"
+                        <input name="email" id="email" class="form-control <?php echo (!empty($validated_user->email_error)) ? 'is-invalid' : '' ?>"
                                value="<?php echo $user->email; ?>">
-                            <div class="invalid-feedback"><?php echo $user_data['email_error']?></div>
+                            <div class="invalid-feedback"><?php echo $validated_user->email_error?></div>
                     </div>
                     <br>
                     <button id="submitLogin" class="btn btn-outline-secondary form-control mb-3" type="submit">Save</button>

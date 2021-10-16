@@ -12,5 +12,4 @@
        echo 'false';
    }
 
-   // var_dump(gettype($user_controller->findUserByEmail($data)));
 

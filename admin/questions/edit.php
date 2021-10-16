@@ -1,15 +1,16 @@
 <?php
 
 include_once '../../init.php';
+use app\classes\Question;
 
 //checks if question is logged in
 $session->require_admin_login();
 
 $id = $_GET['id'];
 
-$question = $query->find_by_id($id, 'questions');
+$question = Question::find_by_id($id);
 
-if($question === false) {
+if(!$question) {
     $session->message('Something went wrong.', 'danger');
     redirect_to(URLROOT . '/admin/questions/index.php');
 }

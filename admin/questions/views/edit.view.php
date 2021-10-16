@@ -23,7 +23,7 @@
                             <label class="fs-4 text-center" for="question_text">Question Text</label>
                             <input name="question_text" id="question_text" class="form-control"
                                    value="<?php echo $question->question_text ?>">
-                            <div class="invalid-feedback"><?php echo $new_question['question_text_error']?></div>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <!--                        how to display question-->
                         <label class="fs-4 text-center mt-3" for="question_display">How would you like to display the answers?</label>
@@ -36,7 +36,7 @@
                     </div>
                     <br>
                     <p class="fs-4 text-center">Answers</p>
-                    <!-- default answer 1-->
+                    <!-- default answer -->
                     <?php foreach($answers as $key => $answer) : ?>
                     <div class="row form-group answer">
                         <div class="form-row">

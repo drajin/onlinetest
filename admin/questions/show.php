@@ -1,17 +1,19 @@
 <?php
 
 include_once '../../init.php';
+use app\classes\Question;
+use app\classes\Answer;
 
 $session->require_admin_login();
 
 
 $id = $_GET['id'];
 
-$question = $query->find_by_id($id, 'questions');
-$answers = $query->find_all_by_id($id, 'answers', 'question_id');
+$question = Question::find_by_id($id);
+$answers = Answer::find_all_by_id($id, 'question_id');
 
 
-if($question === false) {
+if(!$question) {
     $session->message('Something went wrong.', 'danger');
     redirect_to(URLROOT . '/admin/users/index.php');
 }

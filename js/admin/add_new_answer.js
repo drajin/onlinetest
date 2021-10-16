@@ -1,26 +1,4 @@
 
-
-
-let newAnswer =  `<div class="row form-group newAnswer" id="newAnswer-{{dynamic}}"> 
-<!--                        checkbox-->
-                    <div class="col-sm-2 mb-5">
-                        <div class="form-check">
-                            <input type="checkbox" name="checkbox[]" value="{{dynamic}}" class="form-check-input" id="{{dynamic}}">
-                            <label class="form-check-label" for="{{dynamic}}">Correct</label>
-                        </div>
-                    </div>
-<!--                    answer input-->
-                    <div class="col-sm-8">
-                        <input name="{{dynamic}}" id="{{dynamic}}" placeholder="Answer" class="form-control answerInput" value="">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                   <!--  remove btn functionality -->
-                   <div class="col-sm-2 remove">
-                       <a href="#" id="removeBtn-{{dynamic}}" class="btn btn-block">Remove</a>
-                    </div>
-                </div>`;
-
-
 //select add answer button
 let addAnswerBtn = document.querySelector('.addAnswer');
 let numberOfAnswers = 2;
@@ -32,6 +10,25 @@ addAnswerBtn.addEventListener('click', (e)=> {
     changeDefaultQuestionDisplay()
 });
 
+
+// createNewAnswer = () => {
+//     let generatedAnswers = document.querySelector('.generatedAnswers');
+//     //makes outer div to prevent content to be serialized
+//     let dvi = document.createElement('div', );
+//     dvi.innerHTML += newAnswer.replaceAll("{{dynamic}}", numberOfAnswers.toString());
+//     generatedAnswers.appendChild(dvi);
+//
+//     let genAnswersId = [2, 3, 4];
+//
+//     genAnswersId.forEach((answerID) => {
+//         if(document.querySelector('#removeBtn-'+answerID)) {
+//             removeBtnFun(document.querySelector('#removeBtn-'+answerID));
+//         }
+//     });
+//     numberOfAnswers++;
+//     checkNumberOfAnswers();
+//
+// };
 
 createNewAnswer = () => {
     let generatedAnswers = document.querySelector('.generatedAnswers');
@@ -50,6 +47,7 @@ createNewAnswer = () => {
 
 };
 
+//disables add new button if there is more then 5 answers
 checkNumberOfAnswers = () => {
     if(numberOfAnswers > 4) {
         addAnswerBtn.classList.add('disabled');
@@ -59,8 +57,10 @@ checkNumberOfAnswers = () => {
 };
 
 removeBtnFun = (removeBtn) => {
+    console.log(removeBtn)
     if(removeBtn.getAttribute('listener') !== 'true') {
         removeBtn.addEventListener('click', (e) => {
+            console.log(removeBtn)
             e.preventDefault();
             removeBtn.setAttribute('listener', 'true');
             removeAnswer(removeBtn.id);
@@ -88,9 +88,9 @@ changeDefaultQuestionDisplay = () => {
             }
         });
     })
-}
+};
 
-changeDefaultQuestionDisplay()
+changeDefaultQuestionDisplay();
 
 setQuestionDisplay = (checkedNumber) => {
     let selectOption = document.querySelector('#question_display');
@@ -106,7 +106,7 @@ setQuestionDisplay = (checkedNumber) => {
     } else {
         selectOption.disabled = false;
     }
-}
+};
 
 
 clearLocalStorage = () => {
@@ -114,7 +114,7 @@ clearLocalStorage = () => {
     logoutBtn.addEventListener('click', ()=> {
         localStorage.removeItem('alerted');
     });
-}
+};
 
 clearLocalStorage();
 

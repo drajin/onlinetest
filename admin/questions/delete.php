@@ -1,6 +1,8 @@
 <?php
 
 include_once '../../init.php';
+use app\classes\Question;
+use app\classes\Answer;
 
 
 $session->require_admin_login();
@@ -9,17 +11,17 @@ $session->require_admin_login();
 $id = $_GET['id'];
 
 //checks if id exists
-$question = $query->find_by_id($id, 'questions');
-$answers = $query->find_all_by_id($id, 'answers', 'question_id');
+$question = Question::find_by_id($id);
+$answers = Answer::find_all_by_id($id, 'question_id');
 
-if($question === false) {
+if(!$question) {
     redirect_to(URLROOT . '/admin/login.php');
 }
 
-$query->delete($id, 'questions');
+Question::delete($id);
 
 foreach($answers as $answer) {
-    $quiz->delete_by_id($answer->question_id, 'answers', 'question_id');
+    Answer::delete_by_id($answer->question_id, 'question_id');
 }
 
 $session->message('Question deleted', 'success');

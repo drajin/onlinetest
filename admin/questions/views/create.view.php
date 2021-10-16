@@ -18,9 +18,9 @@
                         <!--                        question-->
                         <div class="form-group">
                             <label class="fs-4 text-center" for="question_text">Question Text</label>
-                            <input name="question_text" id="question_text" class="form-control <?php echo (!empty($new_question['question_text_error'])) ? 'is-invalid' : '' ?>"
+                            <input name="question_text" id="question_text" class="form-control"
                                    value="<?php echo (!empty($new_question['question_text'])) ? $new_question['question_text'] : '' ?>">
-                            <div class="invalid-feedback"><?php echo $new_question['question_text_error']?></div>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <!--                        how to display question-->
                         <label class="fs-4 text-center mt-3" for="question_display">How would you like to display the answers?</label>
@@ -113,6 +113,7 @@
     </div>
 
     <script src="<?php echo URLROOT ?>/js/admin/DB.js"></script>
+    <script src="<?php echo URLROOT ?>/js/templates.js"></script>
     <script src="<?php echo URLROOT ?>/js/admin/add_new_answer.js"></script>
     <script src="<?php echo URLROOT ?>/js/admin/validation.js"></script>
     <script src="<?php echo URLROOT ?>/js/helperFunctions.js"></script>

@@ -2,13 +2,8 @@
 
 
     <!--        alert-->
-    <section>
-        <div class="row">
-            <div class="col-6 offset-3 mt-3">
-                <?php echo $session->display_session_message() ?>
-            </div>
-        </div>
-    </section>
+    <?php echo $session->display_session_message(); ?>
+
 
 
     <div class="my-3 p-3 bg-body rounded shadow-sm">

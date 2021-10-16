@@ -2,13 +2,7 @@
 
 
     <!--        alert-->
-    <section>
-        <div class="row">
-            <div class="col-6 offset-3 mt-3">
-                <?php echo $session->display_session_message() ?>
-            </div>
-        </div>
-    </section>
+    <?php echo $session->display_session_message(); ?>
 
 
     <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -39,7 +33,7 @@
                     <td><?php display_time($result->updated_at); ?></td>
                     <td><a href="edit.php?id=<?php echo $result->id; ?>" class="btn btn-sm">Edit</a></td>
                     <td>
-                        <form method="post" action="delete.php?id=<?php echo $result->id; ?>">
+                        <form method="post" action="<?php echo URLROOT . '/admin/results/delete.php?id='. $result->id; ?>">
                             <input type="hidden" name="_method" value="delete">
                             <div id="operations">
                                 <input type="submit" name="commit" class="btn btn-sm" value="Delete" />

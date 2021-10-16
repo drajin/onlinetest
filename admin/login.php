@@ -10,15 +10,15 @@ include(INCLUDES_PATH . '/header.php');
 
 $errors = [];
 
-$admin_data = ($user_controller->validate_login_admin());
+$admin = ($user_controller->validate_login_admin());
 
 //TODO if(empty($errors))
-if (empty($admin_data['email_error']) && empty($admin_data['password_error'])
-    && !empty($admin_data['email']) && !empty($admin_data['password'])) {
+if (empty($admin->email_error) && empty($admin->password_error)
+    && !empty($admin->email) && !empty($admin->password)) {
 
 
 
-    if($user_controller->login_admin($admin_data)) {
+    if($user_controller->login_admin($admin)) {
         redirect_to(URLROOT . '/admin/index.php');
         } else {
         $session->message('Username/Password combination is wrong', 'danger');
@@ -26,7 +26,7 @@ if (empty($admin_data['email_error']) && empty($admin_data['password_error'])
 
 
 } else {
-    $errors = $admin_data;
+    $errors = $admin;
 }
 
 
