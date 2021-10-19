@@ -5,9 +5,9 @@
     <?php echo $session->display_session_message(); ?>
 
 
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="my-3 p-3 transparent rounded shadow-sm">
         <h6 class="border-bottom pb-2 mb-0 text-white">All Results</h6>
-        <table class="table table-dark table-hover">
+        <table class="table transparent text-white table-hover">
             <thead>
             <tr>
                 <th>First Name</th>

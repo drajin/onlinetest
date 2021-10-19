@@ -1,14 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ephesis&family=Josefin+Sans&family=Poppins:wght@200;400&display=swap');
 
+/*font-family: 'Ephesis', cursive;*/
+/*font-family: 'Josefin Sans', sans-serif;*/
+/*font-family: 'Poppins', sans-serif;*/
 
 
 
 :root {
     --fontFamily: 'Poppins', sans-serif;
-    --backgroundColor: #f0eed2;
+    --fontLogo: 'Josefin Sans', sans-serif;
+    /*--backgroundColor: #f0eed2;*/
     --secondaryColor: #9dadbc;
-    --red: rgba(224, 155, 124, 0.8);
-    --green: #a1c690;
+    --ShadowLightBlue: rgba(238, 251, 251, 0.8);
+    --DarkBlue: #12232E;
+    --LightestBlue: #4DA8DA;
+    --ShadowDarkBlue: #203647;
+    --LighterBlue: #007CC7;
     --btnDisabled: #dadbc;
     --yellowGreen: #b3b679;
     --black: #000000;
@@ -31,7 +38,7 @@ body {
     font-size: var(--fontSize);
     /*background-color: var(--backgroundColor);*/
     /*background-image: linear-gradient(rgba(30, 30, 30, .8), rgba(30, 30, 30, 8)), url(../img/bg.jpg) ;*/
-    background-image: url(../img/bg.jpg) ;
+    background-image: url(../img/bg.jpg);
     background-size: cover;
     background-position: center top;
     color: var(--white);
@@ -85,6 +92,21 @@ a:hover {
     color: var(--secondaryColor);
     transition: var(--transition);
 
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    color: var(--LightestBlue);
+}
+
+#logo {
+    font-family: var(--fontLogo);
+    font-size: 1.5rem;
+
+}
+
+.fa-user-graduate {
+    color: var(--LightestBlue);
+    font-size: 2rem;
 }
 
 /*admin area*/
@@ -143,8 +165,8 @@ a:hover {
     color: #343a40;
 }
 
-.bg-green {
-    background-color: var(--green);
+.bgColor {
+        background-color: var(--LightestBlue);
 }
 
 
@@ -155,7 +177,7 @@ a:hover {
     margin: 80px auto 50px;
     padding: 30px;
     border-radius: 20px;
-    background: var(--red);
+    background: rgba(32, 54, 71, .8);
     position: relative;
     min-height: 400px;
     overflow: hidden;
@@ -176,12 +198,11 @@ a:hover {
 }
 
 #rulesView li{
-    background-color: var(--red);
-    font-weight: bold;
+    background-color: var(--ShadowLightBlue);
 }
 
 #resultsView .fas {
-    color: green;
+    color: rgba(148, 254, 134, 0.8);
 }
 /*#resultsView-average .far {*/
 /*    color: yellow;*/
@@ -204,7 +225,7 @@ a:hover {
 }
 
 .result {
-    background-color: var(--green);
+    background-color: var(--LighterBlue);
     color: black;
     font-weight: bold;
 }
@@ -225,7 +246,7 @@ a:hover {
 }
 
 .startBtn {
-    background-color: var(--red) !important;
+    background-color: var(--DarkBlue) !important;
     margin: 0 auto !important;
 }
 
@@ -299,14 +320,15 @@ a:hover {
 }
 
 .btn.btn-primary {
-    background-color: var(--green);
+    background-color: var(--LighterBlue);
     border: 1px solid var(--black);
 }
 
 .btn {
-    background-color: var(--green);
+    background-color: var(--LighterBlue);
     border: 1px solid var(--black);
-    border-radius: 5px
+    border-radius: 5px;
+    color: white!important;
 }
 
 .btn:focus {
@@ -314,7 +336,7 @@ a:hover {
 }
 
 .btn:hover {
-    background-color: var(--red);
+    background-color: var(--DarkBlue);
     color: #fff
 }
 

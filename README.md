@@ -1,6 +1,8 @@
+![Imgur](https://i.imgur.com/rJxuYQu.jpg)
+
 ## Table of contents
 * [General info](#general-info)
-* [Featurs](#Featurs)
+* [Features](#features)
 * [Technologies](#technologies)
 * [Sources](#Sources)
 * [Setup](#setup)
@@ -9,7 +11,7 @@
 This Application represents a quick quiz. On the user side it is single page application where the users are able to register and login, test their knowledge and check the results.
 On the Admin side, admins are able to login, and make CRUD operations on Users, Questions, Answers and Results. It was made for the learning purposes and out of enjoyment.
 
-## Featurs
+## Features
 User side:
 * SPA application
 * Login and Register
@@ -17,7 +19,7 @@ User side:
 * Questions with one or more possible correct answers
 * Questions are being displayed on various ways
 * Each question is displayed one at the time and single
-* Alert messages
+* Session Flash messages
 * Random generated order of Answers
 * Outcome View
 * History of Results View
@@ -31,7 +33,11 @@ Admin side:
 * Change the layout of the question
 * Change the number of correct answers
 * Change the results from different views
-* Alert messages
+* Flash messages
+
+### Screenshots
+![Imgur](https://i.imgur.com/Lp4VgbA.jpg) | ![Imgur](https://i.imgur.com/2z3m5JM.jpg) | ![Imgur](https://i.imgur.com/9xZulY5.jpg) | ![Imgur](https://i.imgur.com/GKyvhWs.jpg) |
+|-|-|-|-|
 
 ## Technologies
 Application is created with:

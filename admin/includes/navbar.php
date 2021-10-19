@@ -1,6 +1,5 @@
 
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main navigation">
+<nav class="navbar navbar-expand-lg navbar-dark transparent " aria-label="Main navigation">
     <div class="container-fluid">
         <a class="navbar-brand" href="<?php echo URLROOT ?>/admin">Home</a>
         <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">

@@ -11,29 +11,12 @@ addAnswerBtn.addEventListener('click', (e)=> {
 });
 
 
-// createNewAnswer = () => {
-//     let generatedAnswers = document.querySelector('.generatedAnswers');
-//     //makes outer div to prevent content to be serialized
-//     let dvi = document.createElement('div', );
-//     dvi.innerHTML += newAnswer.replaceAll("{{dynamic}}", numberOfAnswers.toString());
-//     generatedAnswers.appendChild(dvi);
-//
-//     let genAnswersId = [2, 3, 4];
-//
-//     genAnswersId.forEach((answerID) => {
-//         if(document.querySelector('#removeBtn-'+answerID)) {
-//             removeBtnFun(document.querySelector('#removeBtn-'+answerID));
-//         }
-//     });
-//     numberOfAnswers++;
-//     checkNumberOfAnswers();
-//
-// };
-
 createNewAnswer = () => {
     let generatedAnswers = document.querySelector('.generatedAnswers');
-
-    generatedAnswers.innerHTML += newAnswer.replaceAll("{{dynamic}}", numberOfAnswers.toString());
+    //makes outer div to prevent content to be serialized
+    let dvi = document.createElement('div', );
+    dvi.innerHTML += newAnswer.replaceAll("{{dynamic}}", numberOfAnswers.toString());
+    generatedAnswers.appendChild(dvi);
 
     let genAnswersId = [2, 3, 4];
 
@@ -46,6 +29,23 @@ createNewAnswer = () => {
     checkNumberOfAnswers();
 
 };
+
+// createNewAnswer = () => {
+//     let generatedAnswers = document.querySelector('.generatedAnswers');
+//
+//     generatedAnswers.innerHTML += newAnswer.replaceAll("{{dynamic}}", numberOfAnswers.toString());
+//
+//     let genAnswersId = [2, 3, 4];
+//
+//     genAnswersId.forEach((answerID) => {
+//         if(document.querySelector('#removeBtn-'+answerID)) {
+//             removeBtnFun(document.querySelector('#removeBtn-'+answerID));
+//         }
+//     });
+//     numberOfAnswers++;
+//     checkNumberOfAnswers();
+//
+// };
 
 //disables add new button if there is more then 5 answers
 checkNumberOfAnswers = () => {

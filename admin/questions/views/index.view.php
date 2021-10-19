@@ -6,9 +6,9 @@
 
 
 
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="my-3 p-3 transparent rounded shadow-sm">
         <h6 class="border-bottom pb-2 mb-0 text-white">Available questions</h6>
-        <table class="table table-dark table-hover">
+        <table class="table transparent text-white table-hover">
             <thead>
             <tr>
                 <th>Questions:</th>
@@ -21,7 +21,7 @@
             <tbody>
             <?php foreach($questions as $question):  ?>
                 <tr>
-                    <th><?php echo $question->question_text; ?></th>
+                    <td><?php echo $question->question_text; ?></td>
                     <td><?php echo $question->display; ?></td>
                     <td><a href="show.php?id=<?php echo $question->id; ?>" class="btn  btn-sm">View Answers</a></td>
                     <td><a href="edit.php?id=<?php echo $question->id; ?>" class="btn btn-sm">Edit</a></td>

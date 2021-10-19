@@ -1,5 +1,5 @@
 <main class="container">
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="my-3 p-3 transparent rounded shadow-sm">
         <div class="row">
             <div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
                 <br><br>

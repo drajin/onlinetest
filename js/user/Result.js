@@ -28,7 +28,7 @@
                     'title' : '<i class="far fa-check-circle"></i>  Success You\'ve Passed!',
                     'message' : 'Excellent work! Your Knowledge is outstanding!',
                     'result' : result.points,
-                    'color' : "var(--green)",
+                    'color' : "rgba(148, 254, 134, 0.8)",
                     'badge' : 'bg-success',
                 };
                 showView.result(outcome);
@@ -37,7 +37,7 @@
                     'title' : '<i class="far fa-check-square"></i> Success You\'ve Passed!(barely)',
                     'message' : 'You barely passed... Your Knowledge is average, you can do better!',
                     'result' : result.points,
-                    'color' : "#FFFF99",
+                    'color' : "rgba(246, 255, 127, 0.8)",
                     'badge' : 'bg-warning',
                 };
                 showView.result(outcome);
@@ -47,7 +47,7 @@
                     'title' : '<i class="far fa-times-circle"></i> FAILED!',
                     'message' : 'You Have Failed Miserably! Do something about it!',
                     'result' : result.points,
-                    'color' : "var(--red)",
+                    'color' : "rgba(224, 155, 124, 0.8)",
                     'badge' : 'bg-danger',
                 };
                 showView.result(outcome);

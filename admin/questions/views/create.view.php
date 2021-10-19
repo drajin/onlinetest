@@ -6,7 +6,7 @@
             </div>
         </div>
     </div>
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="my-3 p-3 transparent rounded shadow-sm">
         <div class="row">
             <h1 class="text-center">Add a new Question</h1>
             <hr>

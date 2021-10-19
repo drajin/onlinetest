@@ -4,7 +4,7 @@
     <?php echo $session->display_session_message(); ?>
 
 
-<div class="my-3 p-3 bg-body rounded shadow-sm">
+<div class="my-3 p-3 transparent rounded shadow-sm">
     <div class="row">
         <div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
             <br><br>
@@ -42,8 +42,8 @@
             </div>
         </div>
 
-        <div class="my-3 p-3 bg-body rounded shadow-sm">
-            <table class="table table-dark table-hover">
+        <div class="my-3 p-3 transparent rounded shadow-sm">
+            <table class="table transparent text-white table-hover">
                 <thead>
                 <tr>
                     <th>Id</th>
