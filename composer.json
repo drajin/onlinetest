@@ -1,5 +1,8 @@
 {
     "name": "drajin/onlinetest",
+    "description": "The Application represents small SPA quiz, with user and admin side",
+    "type": "project",
+    "license": "MIT",
     "authors": [
         {
             "name": "drajin",
@@ -8,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "app\\" : "./"
+            "onlinetest\\" : "./"
         }
     },
     "require": {

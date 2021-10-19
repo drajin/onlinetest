@@ -1,4 +1,4 @@
-![Imgur](https://i.imgur.com/rJxuYQu.jpg)
+![Imgur](https://i.imgur.com/2YgPXyM.jpg)
 
 ## Table of contents
 * [General info](#general-info)
@@ -35,8 +35,51 @@ Admin side:
 * Change the results from different views
 * Flash messages
 
+<!-- GETTING STARTED -->
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
+### Installation
+
+1. Git clone or download [github.com/drajin](https://github.com/drajin/onlinetest)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Enter your API in `config.js`
+   ```js
+   const API_KEY = 'ENTER YOUR API';
+   ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+To access admin side of the application use `admin@onlinetest.com` as username and `admin` as password.
+
+Go to the `onlinetest/admin` and login.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Screenshots
-![Imgur](https://i.imgur.com/Lp4VgbA.jpg) | ![Imgur](https://i.imgur.com/2z3m5JM.jpg) | ![Imgur](https://i.imgur.com/9xZulY5.jpg) | ![Imgur](https://i.imgur.com/GKyvhWs.jpg) |
+![Imgur](https://i.imgur.com/BAuff6j.jpg) | ![Imgur](https://i.imgur.com/wIT288s.jpg) | ![Imgur](https://i.imgur.com/Sp3jwEd.jpg) | ![Imgur](https://i.imgur.com/8Bx4r72.jpg) |
 |-|-|-|-|
 
 ## Technologies
@@ -55,7 +98,7 @@ https://bbbootstrap.com/snippets/bootstrap-4-simple-mcq-step-form-dark-mode-7803
 
 Installation:
 
-    * git clone https://github.com/drajin/onlinetest
+    * git clone or downlaod https://github.com/drajin/onlinetest
     * cd onlinetest/
     * Start xampp or wamp server
     * Open localhost/phpmyadmin and create database onlinetest

@@ -1,7 +1,7 @@
 <?php
 
-use app\classes\Result;
-use app\classes\User;
+use onlinetest\classes\Result;
+use onlinetest\classes\User;
 
 include_once '../../init.php';
 

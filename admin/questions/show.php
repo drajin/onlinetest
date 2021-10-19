@@ -1,8 +1,8 @@
 <?php
 
 include_once '../../init.php';
-use app\classes\Question;
-use app\classes\Answer;
+use onlinetest\classes\Question;
+use onlinetest\classes\Answer;
 
 $session->require_admin_login();
 

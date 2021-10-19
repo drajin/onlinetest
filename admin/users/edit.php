@@ -1,7 +1,7 @@
 <?php
 
 include_once '../../init.php';
-use app\classes\User;
+use onlinetest\classes\User;
 
 //checks if user is logged in
 $session->require_admin_login();

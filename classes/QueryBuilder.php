@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\classes;
+namespace onlinetest\classes;
 use PDO;
 
 class QueryBuilder {

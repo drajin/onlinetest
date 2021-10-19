@@ -1,8 +1,8 @@
 <?php
 
-namespace app\classes;
+namespace onlinetest\classes;
 use PDO;
-use app\classes\User;
+use onlinetest\classes\User;
 
 class Result extends QueryBuilder
 {

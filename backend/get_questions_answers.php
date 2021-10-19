@@ -1,8 +1,8 @@
 <?php
 
 require '../init.php';
-use app\classes\Question;
-use app\classes\Answer;
+use onlinetest\classes\Question;
+use onlinetest\classes\Answer;
 
 
 

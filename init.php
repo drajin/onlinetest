@@ -6,12 +6,12 @@ define("INCLUDES_PATH", PRIVATE_PATH . '/admin/includes');
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use app\classes\Connection;
-use app\classes\QueryBuilder;
-use app\classes\Result;
-use app\classes\User;
-use app\classes\Question;
-use app\classes\Session;
+use onlinetest\classes\Connection;
+use onlinetest\classes\QueryBuilder;
+use onlinetest\classes\Result;
+use onlinetest\classes\User;
+use onlinetest\classes\Question;
+use onlinetest\classes\Session;
 
 
 

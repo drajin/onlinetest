@@ -1,6 +1,6 @@
 <?php
 
-namespace app\classes;
+namespace onlinetest\classes;
 
 
 class Session {

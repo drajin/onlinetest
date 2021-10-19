@@ -1,8 +1,8 @@
 <?php
 
 require '../init.php';
-use app\classes\User;
-use app\classes\Result;
+use onlinetest\classes\User;
+use onlinetest\classes\Result;
 
 $id = $session->user_id;
 
