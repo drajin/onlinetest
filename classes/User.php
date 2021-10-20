@@ -68,6 +68,10 @@ class User extends QueryBuilder {
 
     public function login_admin($data)
     {
+        //logout other user
+        if(static::$session->is_logged_in()) {
+            static::$session->logout();
+        }
 
         // checks if user or admin exists
         $user = $this->findUserByEmail($data->email);
