@@ -70,6 +70,6 @@ or install through composer: `composer create-project drajin/onlinetest`
 ### Usage
 To access admin side of the application visit  [http://127.0.0.1:8080/admin](http://127.0.0.1:8080/admin)
 
-Use `admin@onlinetest.com` as username and `admin` as password to login.
+Use `admin@onlinetest.com` as a username and `admin` as a password to login.
 
     
